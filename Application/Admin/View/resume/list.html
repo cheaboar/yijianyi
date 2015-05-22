@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+  <meta charset="UTF-8">
+  <title>一家依</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="format-detection" content="telephone=no">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-siteapp"/>
+  <script src="http://ttsstatic.qiniudn.com/jquery/jquery-2.1.1.min.js"></script>
+  
+  <script type="text/javascript" src="__STATIC__/js/jquery.masonry.min.js"></script>
+  <link rel="alternate icon" type="image/png" href="__STATIC__/img/logo.png">
+  <link rel="stylesheet" href="__STATIC__/css/amazeui.min.css"/>
+  <link rel="stylesheet" href="__STATIC__/css/common.css"/>
+  
+</head>
+<body>
+<div data-am-widget="list_news" class="am-list-news am-list-news-default">
+  <!--列表标题-->
+  <div class="am-list-news-hd am-cf">
+    <!--带更多链接-->
+    <a href="" class="">
+      <h2>我的简历</h2>
+    </a>
+  </div>
+  <?php 
+    dump($data);
+    echo "</br>"; 
+
+
+echo "</br>"; 
+
+  ?>
+
+  <?php
+$arr=array();
+$count1=0;
+$count = 0;
+$return = array();
+while ($count < 10) 
+ {
+  $return[] = mt_rand(1, 10);
+  $return = array_flip(array_flip($return));
+  $count = count($return);
+ } //www.jb51.net
+foreach($return as $value)
+ {
+  echo $value." ";
+ }
+echo "<br/>";
+$arr=array_values($return);// 获得数组的值 
+foreach($arr as $key)
+echo $key." ";
+?>
+  <div class="am-list-news-bd">
+    <ul class="am-list">      
+      <volist name="data" id="vo">
+        <blockquote>
+          <li class="am-g">
+            <div class="am-avg-sm">
+              <div class="am-u-sm-3">简历</div>
+              <div class="am-u-sm-9">{$vo.territory}</div>
+            </div>
+            <div class="am-avg-sm">
+              <div class="am-u-sm-3">领域:</div>
+              <div class="am-u-sm-3">{$vo.job}</div>
+              <div class="am-u-sm-3">招聘人数:</div>
+              <div class="am-u-sm-3">{$vo.number}</div>
+            </div>
+            <div class="am-avg-sm">
+              <div class="am-u-sm-3">发布时间：</div>
+              <div class="am-u-sm-9">{$vo.time}</div>
+            </div>
+            <div class="am-avg-sm">
+              <div class="am-u-sm-3">职位描述：</div>
+              <div class="am-u-sm-9">{$vo.describe}</div>
+            </div>
+            <a href="/admin/job/introduction/pid/{$vo.id}" class="am-list-item-hd " >
+             查看详情
+            </a><hr />
+          </li>
+        </blockquote>      
+      </volist>
+
+    </ul>
+  </div>
+  <!--更多在底部-->
+  <div class="am-list-news-ft">
+    <a class="am-list-news-more am-btn am-btn-default " href="###">查看更多 &raquo;</a>
+  </div>
+</div>
+<include file="public/footer"/>
