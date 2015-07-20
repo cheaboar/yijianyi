@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>知识库</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <script src="http://ttsstatic.qiniudn.com/jquery/jquery-2.1.1.min.js"></script>    
+    <script src="http://cdn.bootcss.com/jquery/2.1.3/jquery.min.js"/></script>
+    <script src="http://cdn.amazeui.org/amazeui/2.2.1/js/amazeui.min.js"/></script>
+    <script type="text/javascript" src="__STATIC_JS__jquery.masonry.min.js"/></script>
+    <link rel="alternate icon" type="image/png" href="__STATIC_IMG__logo.png">
+    <link rel="stylesheet" href="__STATIC_CSS__amazeui.min.css"/>
+    <link rel="stylesheet" href="__STATIC_CSS__style.css"/>
+    <link rel="stylesheet" href="__STATIC_CSS__health.css"/>
+</head>
+<body>
+    <div class="type-header"><span></span>知识库</div>
+    <div class="admin-content">
+        <div class="am-tabs am-margin" data-am-tabs>
+            <ul class="am-tabs-nav am-nav am-nav-tabs">
+                <li class="am-active"><a href="#tab1">{$content.info_title}</a></li>
+                
+                </ul>
+            <div class="am-tabs-bd">
+                <div class="am-tab-panel am-fade am-in am-active" id="tab1">
+                    <div class="am-g am-margin-top">
+                        <div class="am-u-sm-12">
+                            <div class="am-btn-group" data-am-button>
+                                <div class="choose_title font_hidden"><pre>{$content.info_detail}</pre></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

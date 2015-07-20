@@ -1,0 +1,45 @@
+<include file="Public/header"/>
+
+<body>
+<!--导航栏-->
+<include file="Public/knowledge_nav"/>
+<!--end-->
+<!--管理内容-->
+<div class="info message">添加知识库类目</div>
+<!--添加类目-->
+<div class="ui form segment" id="knowledge_a">
+    <div class="ui teal buttons">
+        <div class="ui button">选择级别标题</div>
+        <div class="ui teal floating dropdown icon button">
+            <i class="dropdown icon"></i>
+            <div class="menu">
+                <div class="item"><i class="edit icon" value="0" id="test"></i>我是顶级目录</div>
+                <volist name="type_list" id="data">
+                    <div class="item" value="{$data.cat_id}"><i class="hide icon"></i>{$data.cat_name}</div>
+                </volist>
+            </div>
+        </div>
+    </div>
+    <div class="two fields">
+        <div class="field">
+            <label>输入目录名称</label>
+            <input placeholder="一级目录" name="first-name" type="text">
+        </div>
+    </div>
+    <div class="ui blue submit button">提交</div>
+    <div class="ui error message"></div>
+</div>
+</body>
+<script>
+
+    $(document).ready(function(){
+        $('.ui.dropdown').dropdown();
+    });
+    $(document).ready(function(){
+        alert($('#test').attr('value'))
+        alert('cheng');
+    })
+    $('.your.element').dropdown('behavior name', argumentOne, argumentTwo);
+</script>
+
+<include file="Public/footer"/>

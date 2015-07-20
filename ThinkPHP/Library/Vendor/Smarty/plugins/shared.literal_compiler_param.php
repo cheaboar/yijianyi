@@ -22,7 +22,7 @@ function smarty_literal_compiler_param($params, $index, $default=null)
     if (!isset($params[$index])) {
         return $default;
     }
-    // test if param is a literal
+    // Lore if param is a literal
     if (!preg_match('/^([\'"]?)[a-zA-Z0-9]+(\\1)$/', $params[$index])) {
         throw new SmartyException('$param[' . $index . '] is not a literal and is thus not evaluatable at compile time');
     }

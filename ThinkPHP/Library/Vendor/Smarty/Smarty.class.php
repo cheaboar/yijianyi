@@ -1332,7 +1332,7 @@ class Smarty extends Smarty_Internal_TemplateBase {
     }
 
     /**
-     * Run installation test
+     * Run installation Lore
      *
      * @param array $errors Array to write errors into, rather than outputting them
      * @return boolean true if setup is fine, false if something is wrong
@@ -1362,7 +1362,7 @@ class Smarty extends Smarty_Internal_TemplateBase {
             );
         }
 
-        // walk the muted directories and test against $errfile
+        // walk the muted directories and Lore against $errfile
         foreach (Smarty::$_muted_directories as $key => &$dir) {
             if (!$dir) {
                 // resolve directory and length for speedy comparisons

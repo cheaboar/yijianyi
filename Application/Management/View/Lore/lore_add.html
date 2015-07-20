@@ -1,0 +1,50 @@
+<include file="Public/header"/>
+<body>
+<!--导航栏-->
+<include file="Public/knowledge_nav"/>
+<!--end-->
+
+<!--管理内容-->
+<div class="info message">添加新知识</div>
+<!--添加信息-->
+<div class="ui teal buttons">
+    <div class="ui button">选择一级标题</div>
+    <div class="ui teal floating dropdown icon button">
+        <i class="dropdown icon"></i>
+        <div class="menu">
+            <div class="item"><i class="edit icon"></i>编辑文章</div>
+            <div class="item"><i class="delete icon"></i>删除文章</div>
+            <div class="item"><i class="hide icon"></i>隐藏文章</div>
+        </div>
+    </div>
+</div>
+<div class="ui form segment" id="knowledge_a">
+    <p>add news knowldege</p>
+    <div class="two fields">
+        <div class="field">
+            <label>一级目录</label>
+            <input placeholder="一级目录" name="first-name" type="text">
+        </div>
+        <div class="field">
+            <label>二级目录</label>
+            <input placeholder="二级目录" name="last-name" type="text">
+        </div>
+    </div>
+    <div class="ui form">
+        <div class="field">
+            <label>输入小标题</label>
+            <input type="text">
+        </div>
+    </div>
+    <div class="field">
+        <label>信息的内容</label>
+        <textarea placeholder="请输入内容，字数在1000以内" name="username" type="text"/></textarea>
+    </div>
+    <div class="ui blue submit button">提交</div>
+    <div class="ui error message"></div>
+</div>
+</body>
+<script>
+    $('.ui.dropdown').dropdown();
+</script>
+<include file="Public/footer"/>

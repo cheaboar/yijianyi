@@ -288,7 +288,7 @@ class Smarty_Internal_Utility {
      *
      * If $errors is secified, the diagnostic report will be appended to the array, rather than being output.
      *
-     * @param Smarty $smarty  Smarty instance to test
+     * @param Smarty $smarty  Smarty instance to Lore
      * @param array  $errors array to push results into rather than outputting them
      * @return bool status, true if everything is fine, false else
      */
@@ -298,11 +298,11 @@ class Smarty_Internal_Utility {
 
         if ($errors === null) {
             echo "<PRE>\n";
-            echo "Smarty Installation test...\n";
+            echo "Smarty Installation Lore...\n";
             echo "Testing template directory...\n";
         }
 
-        // test if all registered template_dir are accessible
+        // Lore if all registered template_dir are accessible
         foreach($smarty->getTemplateDir() as $template_dir) {
             $_template_dir = $template_dir;
             $template_dir = realpath($template_dir);
@@ -368,7 +368,7 @@ class Smarty_Internal_Utility {
             echo "Testing compile directory...\n";
         }
 
-        // test if registered compile_dir is accessible
+        // Lore if registered compile_dir is accessible
         $__compile_dir = $smarty->getCompileDir();
         $_compile_dir = realpath($__compile_dir);
         if (!$_compile_dir) {
@@ -414,7 +414,7 @@ class Smarty_Internal_Utility {
             echo "Testing plugins directory...\n";
         }
 
-        // test if all registered plugins_dir are accessible
+        // Lore if all registered plugins_dir are accessible
         // and if core plugins directory is still registered
         $_core_plugins_dir = realpath(dirname(__FILE__) .'/../plugins');
         $_core_plugins_available = false;
@@ -497,7 +497,7 @@ class Smarty_Internal_Utility {
         }
 
 
-        // test if all registered cache_dir is accessible
+        // Lore if all registered cache_dir is accessible
         $__cache_dir = $smarty->getCacheDir();
         $_cache_dir = realpath($__cache_dir);
         if (!$_cache_dir) {
@@ -543,7 +543,7 @@ class Smarty_Internal_Utility {
             echo "Testing configs directory...\n";
         }
 
-        // test if all registered config_dir are accessible
+        // Lore if all registered config_dir are accessible
         foreach($smarty->getConfigDir() as $config_dir) {
             $_config_dir = $config_dir;
             $config_dir = realpath($config_dir);
@@ -608,7 +608,7 @@ class Smarty_Internal_Utility {
         if ($errors === null) {
             echo "Testing sysplugin files...\n";
         }
-        // test if sysplugins are available
+        // Lore if sysplugins are available
         $source = SMARTY_SYSPLUGINS_DIR;
         if (is_dir($source)) {
             $expected = array(
@@ -715,7 +715,7 @@ class Smarty_Internal_Utility {
         if ($errors === null) {
             echo "Testing plugin files...\n";
         }
-        // test if core plugins are available
+        // Lore if core plugins are available
         $source = SMARTY_PLUGINS_DIR;
         if (is_dir($source)) {
             $expected = array(

@@ -1,0 +1,378 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component name="dataSourceStorage">
+  <data-source name="MySQL - yijiayi@yijianyi.mysql.rds.aliyuncs.com" uuid="758ca610-a59c-49aa-b3ae-cd552b92cc83">
+    <database-info product="MySQL" version="5.5.18.1-log" jdbc-version="4.0" driver-name="MySQL Connector Java" driver-version="mysql-connector-java-5.1.34 ( Revision: jess.balint@oracle.com-20141014163213-wqbwpf1ok2kvo1om )">
+      <extra-name-characters>#@</extra-name-characters>
+      <identifier-quote-string>`</identifier-quote-string>
+    </database-info>
+    <case-sensitivity plain-identifiers="lower" quoted-identifiers="lower"/>
+    <schema name="" catalog="yijiayi"/>
+    <table name="application" schema="" catalog="yijiayi" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="owner_id" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="resume_id" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="position_id" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="date_of_process" sqlType="DATE" precision="10" scale="0" nullable="true" jdbcType="91"/>
+      <column name="date_of_work" sqlType="DATE" precision="10" scale="0" nullable="true" jdbcType="91"/>
+      <column name="date_of_create" sqlType="DATE" precision="10" scale="0" nullable="true" jdbcType="91"/>
+      <column name="status" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4" def="MA=="/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <foreign-key name="fk_Application" columns="owner_id" ref-table="user" ref-schema="" ref-catalog="yijiayi" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="fk_Application_1" columns="position_id" ref-table="position" ref-schema="" ref-catalog="yijiayi" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <exported-key name="fk_Commission_1" table="commission" schema="" catalog="yijiayi" columns="application_id"/>
+      <index name="fk_Application" unique="false" columns="owner_id"/>
+      <index name="fk_Application_1" unique="false" columns="position_id"/>
+    </table>
+    <table name="commission" schema="" catalog="yijiayi" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="owner_id" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="application_id" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="fee" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="date_to_pay" sqlType="DATE" precision="10" scale="0" nullable="true" jdbcType="91"/>
+      <column name="status" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="type" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <foreign-key name="fk_Commission" columns="owner_id" ref-table="user" ref-schema="" ref-catalog="yijiayi" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="fk_Commission_1" columns="application_id" ref-table="application" ref-schema="" ref-catalog="yijiayi" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <index name="fk_Commission" unique="false" columns="owner_id"/>
+      <index name="fk_Commission_1" unique="false" columns="application_id"/>
+    </table>
+    <table name="oa_address" schema="" catalog="yijiayi" type="TABLE">
+      <column name="address_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" remarks="5Zyw5Z2AaWQ=" autoIncrement="true"/>
+      <column name="user_id" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4" remarks="55So5oi3aWQ="/>
+      <column name="is_default" sqlType="TINYINT" precision="3" scale="0" nullable="true" jdbcType="-6" remarks="Mem7mOiupDDpnZ7pu5jorqQ="/>
+      <column name="province" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4" remarks="55yB"/>
+      <column name="city" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4" remarks="5biC"/>
+      <column name="area" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4" remarks="5Yy6"/>
+      <column name="address" sqlType="VARCHAR" precision="512" scale="0" nullable="true" jdbcType="12" remarks="5Zyw5Z2A"/>
+      <primary-key name="PRIMARY" columns="address_id"/>
+    </table>
+    <table name="oa_admin" schema="" catalog="yijiayi" type="TABLE">
+      <column name="admin_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" remarks="aWQ=" autoIncrement="true"/>
+      <column name="admin_no" sqlType="VARCHAR" precision="32" scale="0" nullable="true" jdbcType="12" remarks="5bel5Y+3"/>
+      <column name="admin_name" sqlType="VARCHAR" precision="10" scale="0" nullable="true" jdbcType="12" remarks="55So5oi35ZCN"/>
+      <column name="admin_phone" sqlType="VARCHAR" precision="11" scale="0" nullable="true" jdbcType="12" remarks="5omL5py6"/>
+      <column name="admin_account" sqlType="VARCHAR" precision="16" scale="0" nullable="true" jdbcType="12" remarks="5biQ5Y+3"/>
+      <column name="admin_password" sqlType="VARCHAR" precision="32" scale="0" nullable="true" jdbcType="12" remarks="5a+G56CB"/>
+      <column name="reg_time" sqlType="VARCHAR" precision="10" scale="0" nullable="true" jdbcType="12" remarks="5rOo5YaM5pe26Ze0"/>
+      <column name="admin_department" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4" remarks="6YOo6Zeo"/>
+      <column name="admin_role" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4" remarks="6KeS6Imy"/>
+      <primary-key name="PRIMARY" columns="admin_id"/>
+      <index name="account" unique="true" columns="admin_account"/>
+    </table>
+    <table name="oa_advice" schema="" catalog="yijiayi" type="TABLE">
+      <column name="advice_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="user_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="advice" sqlType="VARCHAR" precision="512" scale="0" nullable="false" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="advice_id"/>
+    </table>
+    <table name="oa_areas" schema="" catalog="yijiayi" type="TABLE">
+      <column name="area_id" sqlType="INT UNSIGNED" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="parent_id" sqlType="INT UNSIGNED" precision="10" scale="0" nullable="false" jdbcType="4" remarks="5LiK5LiA57qn55qEaWTlgLw="/>
+      <column name="area_name" sqlType="VARCHAR" precision="50" scale="0" nullable="false" jdbcType="12" remarks="5Zyw5Yy65ZCN56ew"/>
+      <column name="sort" sqlType="INT UNSIGNED" precision="10" scale="0" nullable="false" jdbcType="4" def="OTk=" remarks="5o6S5bqP"/>
+      <primary-key name="PRIMARY" columns="area_id"/>
+      <index name="parent_id" unique="false" columns="parent_id"/>
+      <index name="sort" unique="false" columns="sort"/>
+    </table>
+    <table name="oa_coupon" schema="" catalog="yijiayi" type="TABLE">
+      <column name="coupon_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" remarks="57qi5YyFaWQ=" autoIncrement="true"/>
+      <column name="user_id" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4" remarks="55So5oi3aWQ="/>
+      <column name="coupon_amount" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4" remarks="57qi5YyF6YeR6aKd"/>
+      <column name="coupon_condition" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4" remarks="5L2/55So5p2h5Lu277yMMOS4uuaXoOmZkOWItg=="/>
+      <column name="coupon_expire" sqlType="VARCHAR" precision="10" scale="0" nullable="true" jdbcType="12" remarks="6L+H5pyf5pe26Ze0"/>
+      <column name="has_used" sqlType="TINYINT" precision="3" scale="0" nullable="true" jdbcType="-6" remarks="MOacquS9v+eUqDHlt7Lkvb/nlKg="/>
+      <primary-key name="PRIMARY" columns="coupon_id"/>
+    </table>
+    <table name="oa_customer" schema="" catalog="yijiayi" type="TABLE">
+      <column name="customer_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" remarks="5a6i5oi3aWQ=" autoIncrement="true"/>
+      <column name="customer_name" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12" remarks="5a6i5oi35aeT5ZCN"/>
+      <column name="customer_sex" sqlType="TINYINT" precision="3" scale="0" nullable="true" jdbcType="-6" remarks="5a6i5oi35oCn5Yir77yMMeeUtzLlpbM="/>
+      <column name="customer_age" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4" remarks="5a6i5oi35bm06b6E"/>
+      <column name="customer_card" sqlType="VARCHAR" precision="18" scale="0" nullable="true" jdbcType="12" remarks="5a6i5oi36Lqr5Lu96K+B"/>
+      <column name="customer_language" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12" remarks="5a6i5oi36K+t6KiA"/>
+      <column name="customer_type" sqlType="TINYINT" precision="3" scale="0" nullable="true" jdbcType="-6" remarks="5a6i5oi357G75Yir"/>
+      <column name="customer_service_type" sqlType="TINYINT" precision="3" scale="0" nullable="true" jdbcType="-6" remarks="5a6i5oi35pyN5Yqh57G75Yir"/>
+      <column name="customer_address" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12" remarks="5a6i5oi35L2P5Z2A"/>
+      <column name="customer_hospital" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4" remarks="5a6i5oi35Yy76Zmi"/>
+      <column name="customer_hospital_department" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4" remarks="5a6i5oi35Yy76Zmi56eR5a6k"/>
+      <column name="customer_bed_no" sqlType="VARCHAR" precision="16" scale="0" nullable="true" jdbcType="12" remarks="5a6i5oi35bqK5L2N"/>
+      <column name="customer_illness" sqlType="VARCHAR" precision="512" scale="0" nullable="true" jdbcType="12" remarks="5a6i5oi355eF5oOF"/>
+      <column name="customer_allergy" sqlType="VARCHAR" precision="512" scale="0" nullable="true" jdbcType="12" remarks="5a6i5oi36L+H5pWP6aOf5ZOB6I2v5ZOB"/>
+      <column name="customer_hobby" sqlType="VARCHAR" precision="512" scale="0" nullable="true" jdbcType="12" remarks="5a6i5oi35Zec5aW9"/>
+      <column name="customer_genetic" sqlType="VARCHAR" precision="512" scale="0" nullable="true" jdbcType="12" remarks="5a6i5oi36YGX5Lyg55eF5Y+y"/>
+      <column name="customer_defecate_piss" sqlType="VARCHAR" precision="512" scale="0" nullable="true" jdbcType="12" remarks="5a6i5oi35aSn5bCP5L6/5oOF5Ya1"/>
+      <column name="customer_state" sqlType="VARCHAR" precision="512" scale="0" nullable="true" jdbcType="12" remarks="5a6i5oi35oSP6K+G54q25oCB"/>
+      <column name="customer_selfcare_ability" sqlType="VARCHAR" precision="512" scale="0" nullable="true" jdbcType="12" remarks="5a6i5oi36Ieq55CG6IO95Yqb"/>
+      <column name="customer_risk_xnxg" sqlType="VARCHAR" precision="512" scale="0" nullable="true" jdbcType="12" remarks="5a6i5oi35b+D6ISR6KGA566h6aOO6Zmp"/>
+      <column name="customer_risk_hxxt" sqlType="VARCHAR" precision="512" scale="0" nullable="true" jdbcType="12" remarks="5a6i5oi35ZG85ZC457O757uf6aOO6Zmp"/>
+      <column name="customer_risk_xhxt" sqlType="VARCHAR" precision="512" scale="0" nullable="true" jdbcType="12" remarks="5a6i5oi35raI5YyW57O757uf6aOO6Zmp"/>
+      <column name="customer_risk_sjxt" sqlType="VARCHAR" precision="512" scale="0" nullable="true" jdbcType="12" remarks="5a6i5oi356We57uP57O757uf6aOO6Zmp"/>
+      <column name="customer_risk_other" sqlType="VARCHAR" precision="512" scale="0" nullable="true" jdbcType="12" remarks="5a6i5oi35YW25LuW6aOO6Zmp"/>
+      <column name="customer_pregnant_week" sqlType="TINYINT" precision="3" scale="0" nullable="true" jdbcType="-6" remarks="5a6i5oi35oCA5a2V5ZGo5pWw"/>
+      <column name="customer_delivery_mode" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12" remarks="5a6i5oi35YiG5aip5pa55byP"/>
+      <column name="customer_service_level" sqlType="TINYINT" precision="3" scale="0" nullable="true" jdbcType="-6" remarks="5a6i5oi35pyN5Yqh57qn5Yir"/>
+      <primary-key name="PRIMARY" columns="customer_id"/>
+    </table>
+    <table name="oa_department" schema="" catalog="yijiayi" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" remarks="aWQ=" autoIncrement="true"/>
+      <column name="pid" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4" remarks="54i26YOo6ZeoaWTvvIww5Li66aG257qn"/>
+      <column name="department_name" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12" remarks="6YOo6Zeo5ZCN56ew"/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
+    <table name="oa_evaluate" schema="" catalog="yijiayi" type="TABLE">
+      <column name="evaluate_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" remarks="6K+E5Lu3aWQ=" autoIncrement="true"/>
+      <column name="order_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" remarks="6K6i5Y2VaWQ="/>
+      <column name="user_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" remarks="55So5oi3aWQ="/>
+      <column name="worker_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" remarks="5oqk5belaWQ="/>
+      <column name="evaluate_rank" sqlType="TINYINT" precision="3" scale="0" nullable="false" jdbcType="-6" remarks="6K+E5YiG77yIMS015YiG77yJ"/>
+      <column name="evaluate_text" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12" remarks="6K+E5Lu3"/>
+      <column name="evaluate_time" sqlType="DATETIME" precision="19" scale="0" nullable="false" jdbcType="93" remarks="6K+E5Lu35pe26Ze0"/>
+      <primary-key name="PRIMARY" columns="evaluate_id"/>
+    </table>
+    <table name="oa_follow" schema="" catalog="yijiayi" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" remarks="aWQ=" autoIncrement="true"/>
+      <column name="user_id" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4" remarks="55So5oi3aWQ="/>
+      <column name="customer_id" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4" remarks="5a6i5oi3aWQ="/>
+      <column name="relationship" sqlType="VARCHAR" precision="12" scale="0" nullable="true" jdbcType="12" remarks="5YWz57O7"/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
+    <table name="oa_hospital" schema="" catalog="yijiayi" type="TABLE">
+      <column name="wb_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" remarks="6am754K5aWQ=" autoIncrement="true"/>
+      <column name="stationary_name" sqlType="VARCHAR" precision="50" scale="0" nullable="false" jdbcType="12" def="Jyc=" remarks="6am754K55ZCN5a2X"/>
+      <column name="parent_id" sqlType="TINYINT" precision="3" scale="0" nullable="false" jdbcType="-6" def="MA==" remarks="54i257qnaWQ="/>
+      <primary-key name="PRIMARY" columns="wb_id"/>
+      <index name="stationary_name" unique="true" columns="stationary_name,parent_id"/>
+      <index name="stationary_name_2" unique="true" columns="stationary_name,parent_id"/>
+    </table>
+    <table name="oa_order" schema="" catalog="yijiayi" type="TABLE">
+      <column name="order_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" remarks="6K6i5Y2VaWQ=" autoIncrement="true"/>
+      <column name="order_no" sqlType="VARCHAR" precision="13" scale="0" nullable="true" jdbcType="12" remarks="6K6i5Y2V5Y+3"/>
+      <column name="user_id" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4" remarks="55So5oi3aWQ="/>
+      <column name="customer_id" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4" remarks="5a6i5oi3aWQ="/>
+      <column name="service_type" sqlType="TINYINT" precision="3" scale="0" nullable="true" jdbcType="-6" remarks="5pyN5Yqh57G75Z6L"/>
+      <column name="service_mode" sqlType="TINYINT" precision="3" scale="0" nullable="true" jdbcType="-6" remarks="5pyN5Yqh5qih5byP"/>
+      <column name="order_fee" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4" remarks="5pS26LS55qCH5YeG"/>
+      <column name="order_fee_unit" sqlType="TINYINT" precision="3" scale="0" nullable="true" jdbcType="-6" remarks="5pS26LS55Y2V5L2N"/>
+      <column name="order_start_time" sqlType="VARCHAR" precision="10" scale="0" nullable="true" jdbcType="12" remarks="6K6i5Y2V5byA5aeL5pe26Ze0"/>
+      <column name="order_end_time" sqlType="VARCHAR" precision="10" scale="0" nullable="true" jdbcType="12" remarks="6K6i5Y2V5oiq5q2i5pe26Ze0"/>
+      <column name="order_advance_payment" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4" remarks="6K6i5Y2V6aKE5LuY5qy+"/>
+      <column name="order_total_cost" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4" remarks="6K6i5Y2V6LS555So5oC76aKd"/>
+      <column name="order_status" sqlType="TINYINT" precision="3" scale="0" nullable="true" jdbcType="-6" remarks="6K6i5Y2V54q25oCB"/>
+      <column name="admin_id" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4" remarks="5pON5L2c5Lq6SUQ="/>
+      <column name="add_time" sqlType="VARCHAR" precision="10" scale="0" nullable="true" jdbcType="12" remarks="5paw5bu65pe26Ze0"/>
+      <column name="update_time" sqlType="VARCHAR" precision="10" scale="0" nullable="true" jdbcType="12" remarks="5pu05paw5pe26Ze0"/>
+      <primary-key name="PRIMARY" columns="order_id"/>
+    </table>
+    <table name="oa_order_history" schema="" catalog="yijiayi" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" remarks="6KGoSUQ=" autoIncrement="true"/>
+      <column name="order_id" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4" remarks="6K6i5Y2VSUQ="/>
+      <column name="order_pre_info" sqlType="VARCHAR" precision="512" scale="0" nullable="true" jdbcType="12" remarks="6K6i5Y2V5Y6f5L+h5oGv"/>
+      <column name="order_cur_info" sqlType="VARCHAR" precision="512" scale="0" nullable="true" jdbcType="12" remarks="6K6i5Y2V5b2T5YmN5L+h5oGv"/>
+      <column name="admin_id" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4" remarks="5pON5L2c5Lq6SUQ="/>
+      <column name="add_time" sqlType="VARCHAR" precision="10" scale="0" nullable="true" jdbcType="12" remarks="5pON5L2c5pe26Ze0"/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
+    <table name="oa_role" schema="" catalog="yijiayi" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" remarks="5p2D6ZmQaWQ=" autoIncrement="true"/>
+      <column name="role_name" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12" remarks="5p2D6ZmQ5ZCN"/>
+      <column name="role_rights" sqlType="TEXT" precision="65535" scale="0" nullable="true" jdbcType="-1" remarks="5p2D6ZmQ"/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
+    <table name="oa_user" schema="" catalog="yijiayi" type="TABLE">
+      <column name="user_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" remarks="55So5oi3aWQ=" autoIncrement="true"/>
+      <column name="user_name" sqlType="VARCHAR" precision="10" scale="0" nullable="true" jdbcType="12" remarks="55So5oi35aeT5ZCN"/>
+      <column name="user_icon" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12" remarks="55So5oi35aS05YOP"/>
+      <column name="user_nickname" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12" remarks="55So5oi35pi156ew"/>
+      <column name="user_weixin" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12" remarks="55So5oi35b6u5L+h"/>
+      <column name="user_phone" sqlType="VARCHAR" precision="11" scale="0" nullable="true" jdbcType="12" remarks="55So5oi35omL5py6"/>
+      <column name="user_sex" sqlType="TINYINT" precision="3" scale="0" nullable="true" jdbcType="-6" remarks="5oCn5Yir77yMMeeUtzLlpbM="/>
+      <column name="user_province" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4" remarks="55So5oi355yB5Lu9"/>
+      <column name="user_city" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4" remarks="55So5oi35biC5Yy6"/>
+      <column name="user_last_visit_time" sqlType="VARCHAR" precision="10" scale="0" nullable="true" jdbcType="12" remarks="5pyA6L+R6K6/6Zeu5pe26Ze0"/>
+      <column name="password" sqlType="VARCHAR" precision="128" scale="0" nullable="false" jdbcType="12"/>
+      <column name="email" sqlType="VARCHAR" precision="128" scale="0" nullable="false" jdbcType="12"/>
+      <column name="wechat_name" sqlType="VARCHAR" precision="128" scale="0" nullable="true" jdbcType="12"/>
+      <column name="wechat_openid" sqlType="VARCHAR" precision="128" scale="0" nullable="true" jdbcType="12"/>
+      <column name="wechat_head_image" sqlType="VARCHAR" precision="128" scale="0" nullable="true" jdbcType="12"/>
+      <column name="head_image" sqlType="VARCHAR" precision="128" scale="0" nullable="true" jdbcType="12"/>
+      <column name="wechat_privilege" sqlType="VARCHAR" precision="128" scale="0" nullable="true" jdbcType="12"/>
+      <column name="wechat_unionid" sqlType="VARCHAR" precision="256" scale="0" nullable="true" jdbcType="12"/>
+      <column name="user_country" sqlType="VARCHAR" precision="128" scale="0" nullable="true" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="user_id"/>
+    </table>
+    <table name="oa_worker" schema="" catalog="yijiayi" type="TABLE">
+      <column name="worker_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="worker_no" sqlType="VARCHAR" precision="20" scale="0" nullable="false" jdbcType="12" def="Jyc=" remarks="5ZGY5bel57yW5Y+3"/>
+      <column name="worker_icon" sqlType="VARCHAR" precision="100" scale="0" nullable="false" jdbcType="12" def="Jyc=" remarks="5ZGY5bel5aS05YOP"/>
+      <column name="worker_name" sqlType="VARCHAR" precision="10" scale="0" nullable="false" jdbcType="12" def="Jyc=" remarks="5aeT5ZCN"/>
+      <column name="worker_sex" sqlType="TINYINT" precision="3" scale="0" nullable="false" jdbcType="-6" remarks="5oCn5Yir"/>
+      <column name="worker_birthday" sqlType="DATE" precision="10" scale="0" nullable="false" jdbcType="91" remarks="55Sf5pel"/>
+      <column name="worker_phone" sqlType="VARCHAR" precision="30" scale="0" nullable="false" jdbcType="12" def="Jyc=" remarks="55S16K+d"/>
+      <column name="worker_marriage" sqlType="TINYINT" precision="3" scale="0" nullable="false" jdbcType="-6" remarks="5bey5ama5pyq5ama"/>
+      <column name="worker_age" sqlType="TINYINT" precision="3" scale="0" nullable="false" jdbcType="-6" remarks="5bm06b6E"/>
+      <column name="worker_experience" sqlType="VARCHAR" precision="30" scale="0" nullable="false" jdbcType="12" def="Jyc=" remarks="5bel5L2c57uP6aqM"/>
+      <column name="worker_education" sqlType="VARCHAR" precision="30" scale="0" nullable="false" jdbcType="12" def="Jyc=" remarks="5paH5YyW56iL5bqm"/>
+      <column name="worker_idnumber" sqlType="VARCHAR" precision="20" scale="0" nullable="false" jdbcType="12" def="Jyc=" remarks="55yB5Lu96K+B5Y+3"/>
+      <column name="worker_domicile_province" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" remarks="5oi357GN5omA5Zyo55yB"/>
+      <column name="worker_domicile_city" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" remarks="5oi357GN5omA5Zyo5biC"/>
+      <column name="worker_domicile_district" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" remarks="5oi357GN5omA5Zyo5Yy6"/>
+      <column name="worker_domicile_address" sqlType="VARCHAR" precision="100" scale="0" nullable="false" jdbcType="12" def="Jyc=" remarks="5oi357GN6K+m57uG5Zyw5Z2A"/>
+      <column name="worker_characteristic" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12" def="Jyc=" remarks="5ZGY5bel54m554K5"/>
+      <column name="worker_service" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12" remarks="5o+Q5L6b5pyN5Yqh"/>
+      <column name="worker_hospital" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" remarks="5oqk5bel5b2S5bGe5Yy76Zmi"/>
+      <column name="worker_stationary" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" remarks="5omA5Zyo56eR5a6k"/>
+      <column name="worker_title" sqlType="TINYINT" precision="3" scale="0" nullable="false" jdbcType="-6" remarks="5oqk5bel5aS06KGU"/>
+      <column name="worker_status" sqlType="TINYINT" precision="3" scale="0" nullable="false" jdbcType="-6" remarks="5pyN5Yqh54q25oCB"/>
+      <primary-key name="PRIMARY" columns="worker_id"/>
+    </table>
+    <table name="oa_worker_order" schema="" catalog="yijiayi" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" remarks="6KGoSUQ=" autoIncrement="true"/>
+      <column name="order_id" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4" remarks="6K6i5Y2VSUQ="/>
+      <column name="worker_id" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4" remarks="5oqk5belSUQ="/>
+      <column name="start_time" sqlType="VARCHAR" precision="10" scale="0" nullable="true" jdbcType="12" remarks="5pyN5Yqh5byA5aeL5pe26Ze0"/>
+      <column name="end_time" sqlType="VARCHAR" precision="10" scale="0" nullable="true" jdbcType="12" remarks="5pyN5Yqh57uT5p2f5pe26Ze0"/>
+      <column name="salary" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4" remarks="5bel6LWE"/>
+      <column name="status" sqlType="TINYINT" precision="3" scale="0" nullable="true" jdbcType="-6" remarks="54q25oCB77yMMeacjeWKoeS4re+8jDDnu5PmnZ8="/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
+    <table name="phone_code" schema="" catalog="yijiayi" type="TABLE">
+      <column name="phone" sqlType="VARCHAR" precision="24" scale="0" nullable="false" jdbcType="12" def="JzAn"/>
+      <column name="time" sqlType="VARCHAR" precision="14" scale="0" nullable="true" jdbcType="12"/>
+      <column name="code" sqlType="VARCHAR" precision="16" scale="0" nullable="true" jdbcType="12"/>
+      <column name="number" sqlType="VARCHAR" precision="12" scale="0" nullable="true" jdbcType="12" remarks="5qyh5pWw"/>
+      <primary-key name="PRIMARY" columns="phone"/>
+    </table>
+    <table name="position" schema="" catalog="yijiayi" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="describe" sqlType="VARCHAR" precision="500" scale="0" nullable="true" jdbcType="12" remarks="566A5LuL"/>
+      <column name="need" sqlType="VARCHAR" precision="500" scale="0" nullable="true" jdbcType="12" remarks="6ZyA5rGC"/>
+      <column name="salary" sqlType="VARCHAR" precision="12" scale="0" nullable="true" jdbcType="12" remarks="5bel6LWE"/>
+      <column name="job" sqlType="VARCHAR" precision="64" scale="0" nullable="true" jdbcType="12" remarks="6IGM5L2N"/>
+      <column name="degree" sqlType="VARCHAR" precision="64" scale="0" nullable="true" jdbcType="12" remarks="5a2m5Y6G"/>
+      <column name="work_place" sqlType="VARCHAR" precision="64" scale="0" nullable="true" jdbcType="12" remarks="5bel5L2c5Yy65Z+f"/>
+      <column name="number" sqlType="VARCHAR" precision="12" scale="0" nullable="true" jdbcType="12" remarks="6ZyA5rGC5Lq65pWw"/>
+      <column name="experience" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12" remarks="5bel5L2c57uP6aqM"/>
+      <column name="time" sqlType="VARCHAR" precision="32" scale="0" nullable="true" jdbcType="12" remarks="5pe26Ze0"/>
+      <column name="territory" sqlType="VARCHAR" precision="32" scale="0" nullable="true" jdbcType="12" remarks="6aKG5Z+f"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <exported-key name="fk_Application_1" table="application" schema="" catalog="yijiayi" columns="position_id"/>
+    </table>
+    <table name="resume" schema="" catalog="yijiayi" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="user_id" sqlType="VARCHAR" precision="12" scale="0" nullable="true" jdbcType="12"/>
+      <column name="phone" sqlType="VARCHAR" precision="24" scale="0" nullable="true" jdbcType="12"/>
+      <column name="name" sqlType="VARCHAR" precision="24" scale="0" nullable="true" jdbcType="12"/>
+      <column name="email" sqlType="VARCHAR" precision="64" scale="0" nullable="true" jdbcType="12"/>
+      <column name="age" sqlType="VARCHAR" precision="12" scale="0" nullable="true" jdbcType="12"/>
+      <column name="degree" sqlType="VARCHAR" precision="24" scale="0" nullable="true" jdbcType="12"/>
+      <column name="about" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12" remarks="566A5LuL"/>
+      <column name="position_id" sqlType="VARCHAR" precision="12" scale="0" nullable="true" jdbcType="12"/>
+      <column name="sex" sqlType="VARCHAR" precision="12" scale="0" nullable="true" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
+    <table name="user" schema="" catalog="yijiayi" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="user_name" sqlType="LONGTEXT" precision="2147483647" scale="0" nullable="false" jdbcType="-1"/>
+      <column name="password" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12" def="JzAn"/>
+      <column name="authority_level" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4" def="MA==" remarks="5qCH5b+X55So5oi36Lqr5Lu9IDDkuLrmma7pgJrnlKjmiLc="/>
+      <column name="telephone" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="parent_id" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4" def="MQ=="/>
+      <column name="certification_id" sqlType="VARCHAR" precision="45" scale="0" nullable="true" jdbcType="12"/>
+      <column name="last_date_start_work" sqlType="DATE" precision="10" scale="0" nullable="true" jdbcType="91"/>
+      <column name="date_out_of_work" sqlType="DATE" precision="10" scale="0" nullable="true" jdbcType="91"/>
+      <column name="bank" sqlType="VARCHAR" precision="45" scale="0" nullable="true" jdbcType="12"/>
+      <column name="bank_card_id" sqlType="VARCHAR" precision="45" scale="0" nullable="true" jdbcType="12"/>
+      <column name="email" sqlType="VARCHAR" precision="45" scale="0" nullable="true" jdbcType="12"/>
+      <column name="type" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4" def="MA=="/>
+      <column name="status" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4" def="MA==" remarks="55So5oi355qE54q25oCB77yMMOS4uuW3sue7j+azqOWGjO+8jDHkuLrooqvmjqjojZDogIU="/>
+      <column name="recommend_date" sqlType="DATE" precision="10" scale="0" nullable="true" jdbcType="91"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <exported-key name="fk_Application" table="application" schema="" catalog="yijiayi" columns="owner_id"/>
+      <exported-key name="fk_Commission" table="commission" schema="" catalog="yijiayi" columns="owner_id"/>
+    </table>
+    <table name="yjy_knowledge_cat" schema="" catalog="yijiayi" type="TABLE">
+      <column name="cat_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="cat_pid" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4" def="MA=="/>
+      <column name="cat_name" sqlType="VARCHAR" precision="100" scale="0" nullable="true" jdbcType="12" remarks="5pON5L2c5ZCN56ew"/>
+      <column name="cat_time" sqlType="DATE" precision="10" scale="0" nullable="true" jdbcType="91" remarks="5pON5L2c5pe26Ze0"/>
+      <primary-key name="PRIMARY" columns="cat_id"/>
+      <exported-key name="yjy_knowledge_info_ibfk_1" table="yjy_knowledge_info" schema="" catalog="yijiayi" columns="cat_id"/>
+      <index name="cat_pid" unique="false" columns="cat_pid"/>
+    </table>
+    <table name="yjy_knowledge_info" schema="" catalog="yijiayi" type="TABLE">
+      <column name="info_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="cat_id" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="info_title" sqlType="VARCHAR" precision="50" scale="0" nullable="true" jdbcType="12" remarks="5bCP5qCH6aKY"/>
+      <column name="info_detail" sqlType="TEXT" precision="65535" scale="0" nullable="true" jdbcType="-1" remarks="5L+h5oGv6KGo5YaF5a65"/>
+      <column name="info_order" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4" def="MQ==" remarks="5L+h5oGv5pi+56S65LyY5YWI57qn"/>
+      <column name="add_time" sqlType="DATE" precision="10" scale="0" nullable="true" jdbcType="91" remarks="5pON5L2c5pe26Ze0"/>
+      <primary-key name="PRIMARY" columns="info_id"/>
+      <foreign-key name="yjy_knowledge_info_ibfk_1" columns="cat_id" ref-table="yjy_knowledge_cat" ref-schema="" ref-catalog="yijiayi" ref-columns="cat_id" update-rule="3" delete-rule="3" deferrability="2"/>
+    </table>
+    <table name="yjy_service_appointment" schema="" catalog="yijiayi" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="user_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="address_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="confirm_time" sqlType="DATETIME" precision="19" scale="0" nullable="true" jdbcType="93"/>
+      <column name="contact_time" sqlType="DATETIME" precision="19" scale="0" nullable="true" jdbcType="93"/>
+      <column name="state" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4" def="MTAwMA=="/>
+      <column name="service_id" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="relationship" sqlType="VARCHAR" precision="128" scale="0" nullable="true" jdbcType="12"/>
+      <column name="name" sqlType="VARCHAR" precision="128" scale="0" nullable="true" jdbcType="12"/>
+      <column name="phone" sqlType="VARCHAR" precision="128" scale="0" nullable="true" jdbcType="12"/>
+      <column name="easy_time" sqlType="VARCHAR" precision="128" scale="0" nullable="true" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <foreign-key name="fk_appointment_address" columns="address_id" ref-table="yjy_user_address" ref-schema="" ref-catalog="yijiayi" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="fk_appointment_service" columns="service_id" ref-table="yjy_service_info" ref-schema="" ref-catalog="yijiayi" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <index name="fk_appointment_address" unique="false" columns="address_id"/>
+      <index name="fk_appointment_service" unique="false" columns="service_id"/>
+    </table>
+    <table name="yjy_service_info" schema="" catalog="yijiayi" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="type" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" def="MA==" remarks="5pyN5Yqh57G75Z6L77yaCuaciOWrgu+8mjEwMDAK5Yy75oqk77yaMjAwMArlrrbmiqTvvJozMDAwCumZquiviu+8mjQwMDA="/>
+      <column name="name" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12" remarks="5pyN5Yqh5ZCN5a2X"/>
+      <column name="description" sqlType="VARCHAR" precision="512" scale="0" nullable="true" jdbcType="12" remarks="5o+P6L+w5pyN5Yqh"/>
+      <column name="price_per_unit_min" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4" remarks="5pyN5Yqh5Lu35qC86IyD5Zu05LiL57q/"/>
+      <column name="unit" sqlType="VARCHAR" precision="45" scale="0" nullable="true" jdbcType="12" remarks="6K6h566X5Lu35qC85Y2V5L2N"/>
+      <column name="appointment_count" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" def="MA==" remarks="6aKE57qm5Lq65pWw"/>
+      <column name="priority" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4" remarks="5LyY5YWI57qn77yM55So5LqO5pi+56S65L2N572u55qE6LCD5pW0"/>
+      <column name="main_image" sqlType="VARCHAR" precision="1024" scale="0" nullable="true" jdbcType="12" remarks="5LuL57uN5Li75Zu+"/>
+      <column name="price_per_unit_max" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4" remarks="5pyN5Yqh5Lu35qC86IyD5Zu05LiK6ZmQ"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <exported-key name="fk_appointment_service" table="yjy_service_appointment" schema="" catalog="yijiayi" columns="service_id"/>
+      <index name="priority_UNIQUE" unique="true" columns="priority"/>
+    </table>
+    <table name="yjy_user" schema="" catalog="yijiayi" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="nick_name" sqlType="CHAR" precision="128" scale="0" nullable="true" jdbcType="1"/>
+      <column name="login_name" sqlType="CHAR" precision="128" scale="0" nullable="false" jdbcType="1"/>
+      <column name="password" sqlType="CHAR" precision="128" scale="0" nullable="false" jdbcType="1"/>
+      <column name="email" sqlType="CHAR" precision="128" scale="0" nullable="true" jdbcType="1"/>
+      <column name="wechat_name" sqlType="CHAR" precision="128" scale="0" nullable="true" jdbcType="1"/>
+      <column name="wechat_openid" sqlType="CHAR" precision="128" scale="0" nullable="true" jdbcType="1"/>
+      <column name="wechat_head_image" sqlType="CHAR" precision="128" scale="0" nullable="true" jdbcType="1"/>
+      <column name="phone" sqlType="VARCHAR" precision="24" scale="0" nullable="true" jdbcType="12" remarks="55So5oi357uR5a6a5omL5py6"/>
+      <column name="sex" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="head_image" sqlType="VARCHAR" precision="128" scale="0" nullable="true" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <exported-key name="FK_USERADDRESS_USER" table="yjy_user_address" schema="" catalog="yijiayi" columns="user_id"/>
+    </table>
+    <table name="yjy_user_address" schema="" catalog="yijiayi" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="user_id" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="province" sqlType="CHAR" precision="128" scale="0" nullable="false" jdbcType="1"/>
+      <column name="city" sqlType="CHAR" precision="128" scale="0" nullable="false" jdbcType="1"/>
+      <column name="town" sqlType="CHAR" precision="128" scale="0" nullable="true" jdbcType="1"/>
+      <column name="zone" sqlType="CHAR" precision="128" scale="0" nullable="true" jdbcType="1"/>
+      <column name="stree" sqlType="CHAR" precision="128" scale="0" nullable="false" jdbcType="1"/>
+      <column name="contact_name" sqlType="CHAR" precision="128" scale="0" nullable="false" jdbcType="1"/>
+      <column name="contact_phone" sqlType="CHAR" precision="128" scale="0" nullable="false" jdbcType="1"/>
+      <column name="status" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4" def="MA==" remarks="5aSn5LqO562J5LqO6Zu255qE5pe25YCZ5Y+v5Lul5Li65q2j5bi45Zyw5Z2A77yM5bCP5LqO6Zu255qE5pe25YCZ5Li65bqf5byD5Zyw5Z2A"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <foreign-key name="FK_USERADDRESS_USER" columns="user_id" ref-table="yjy_user" ref-schema="" ref-catalog="yijiayi" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <exported-key name="fk_appointment_address" table="yjy_service_appointment" schema="" catalog="yijiayi" columns="address_id"/>
+      <index name="FK_USERADDRESS_USER" unique="false" columns="user_id"/>
+    </table>
+  </data-source>
+</component>

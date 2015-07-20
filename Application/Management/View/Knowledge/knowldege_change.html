@@ -1,0 +1,93 @@
+<include file="Public/header"/>
+
+<body>
+<!--导航栏-->
+<div class="ui menu">
+    <div class="item">
+        <div class="ui button" id="knowledge_management"><a href="index">管理知识库</a></div>
+    </div>
+    <div class="item">
+        <div class="ui button" id="knowledge_add"><a href="knowledge_type_add">管添加目录</div>
+    </div>
+    <div class="item">
+        <div class="ui button" id="knowldege_add_msg"><a href="knowledge_add">添加新知识</a></div>
+    </div>
+    <div class="item">
+        <div class="ui button" id="logout"><a href="index">注销</a></div>
+    </div>
+</div>
+<!--end-->
+
+<!--管理内容-->
+<div class="info message">知识库信息</div>
+
+<!--管理类目-->
+<div class="ui list" id="knowledge_m">
+    <a class="item">
+        <i class="right triangle icon"></i>
+        How do you know your dog likes you?
+    </a>
+    <a class="item">
+        <i class="right triangle icon"></i>
+        When is it ok to send your dog to a farm?
+    </a>
+    <a class="item">
+        <i class="right triangle icon"></i>
+        Can you get your dog back from a farm if you really want him back?
+    </a>
+    <a class="item">
+        <i class="right triangle icon"></i>
+        Is trespassing on a farm a misdemeanor offence?
+    </a>
+</div>
+
+
+<!--添加类目-->
+
+
+
+<!--添加信息-->
+<div class="ui form segment" id="knowledge_a">
+    <p>删除</p>
+    <div class="two fields">
+        <div class="field">
+            <label>一级目录</label>
+            <input placeholder="一级目录" name="first-name" type="text">
+        </div>
+        <div class="field">
+            <label>二级目录</label>
+            <input placeholder="二级目录" name="last-name" type="text">
+        </div>
+    </div>
+    <div class="ui form">
+        <div class="field">
+            <label>输入小标题</label>
+            <input type="text">
+        </div>
+    </div>
+    <div class="field">
+        <label>信息的内容</label>
+        <textarea placeholder="请输入内容，字数在500以内" name="username" type="text"/></textarea>
+    </div>
+    <div class="field">
+        <label>密码</label>
+        <input name="password" type="password">
+    </div>
+    <div class="inline field">
+        <div class="ui checkbox">
+            <input name="terms" type="checkbox">
+            <label>I agree to the Terms and Conditions</label>
+        </div>
+    </div>
+    <div class="ui blue submit button">提交</div>
+    <div class="ui error message"></div>
+</div>
+</body>
+<script type="text/javascript">
+    $(document).ready(function(){
+        $("button").click(function(){
+            $("p").css("color","red");
+        });
+    });
+</script>
+<include file="Public/footer"/>

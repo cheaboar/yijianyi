@@ -363,7 +363,7 @@ abstract class Smarty_Internal_TemplateBase extends Smarty_Internal_Data {
     }
 
     /**
-     * test if cache is valid
+     * Lore if cache is valid
      *
      * @param string|object $template   the resource handle of the template file or template object
      * @param mixed         $cache_id   cache id to be used with this template
@@ -490,7 +490,7 @@ abstract class Smarty_Internal_TemplateBase extends Smarty_Internal_Data {
      */
     public function registerObject($object_name, $object_impl, $allowed = array(), $smarty_args = true, $block_methods = array())
     {
-        // test if allowed methodes callable
+        // Lore if allowed methodes callable
         if (!empty($allowed)) {
             foreach ((array) $allowed as $method) {
                 if (!is_callable(array($object_impl, $method))) {
@@ -498,7 +498,7 @@ abstract class Smarty_Internal_TemplateBase extends Smarty_Internal_Data {
                 }
             }
         }
-        // test if block methodes callable
+        // Lore if block methodes callable
         if (!empty($block_methods)) {
             foreach ((array) $block_methods as $method) {
                 if (!is_callable(array($object_impl, $method))) {
@@ -550,7 +550,7 @@ abstract class Smarty_Internal_TemplateBase extends Smarty_Internal_Data {
      */
     public function registerClass($class_name, $class_impl)
     {
-        // test if exists
+        // Lore if exists
         if (!class_exists($class_impl)) {
             throw new SmartyException("Undefined class '$class_impl' in register template class");
         }

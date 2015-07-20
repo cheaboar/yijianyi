@@ -1,0 +1,64 @@
+<!--<script type="text/javascript" src="__STATIC__/js/service/controller/viewController.js"></script>-->
+<script type="text/javascript" src="__STATIC__/js/service/controller/loginController.js"></script>
+
+<body ng-app="appointmentApp">
+    <div >
+        <!--<nav>登录</nav>-->
+        <include file="Public/nav" title="登录" />
+
+    </div>
+
+    <div class="login-form"  ng-controller="loginCtrl">
+        <div class="ui form segment" ng-submit="login()" >
+            <div class="field">
+                <label>用户名</label>
+                <input placeholder="用户名" name="username" type="text" ng-model="userName">
+            </div>
+            <div class="field">
+                <label>密码</label>
+                <input type="password" name="password" ng-model="passwd">
+            </div>
+
+            <div class="ui blue submit button">登录</div>
+            <a href="sign_up" class="ui teal button">注册</a>
+            <div class="ui error message"></div>
+            <div class="ui red message " ng-show="show_error_msg">
+                <p ng-bind="login_error_msg"></p>
+            </div>
+    </div>
+
+</body>
+
+
+
+
+
+<script>
+    (function($) {
+        $('.ui.form').form({
+                username: {
+                    identifier: 'username',
+                    rules: [
+                        {
+                            type: 'empty',
+                            prompt: '请输入用户名'
+                        }
+                    ]
+                },
+                password: {
+                    identifier: 'password',
+                    rules: [
+                        {
+                            type: 'empty',
+                            prompt: '请输入密码'
+                        }
+                    ]
+                }
+            }, {
+            onSuccess: function(){
+                console.log('good')
+            }
+        });
+    })(jQuery);
+
+</script>

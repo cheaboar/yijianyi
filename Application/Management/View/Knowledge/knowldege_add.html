@@ -1,0 +1,61 @@
+<include file="Public/header"/>
+<body>
+<!--导航栏-->
+<div class="ui menu">
+    <div class="item">
+        <div class="ui button" id="knowledge_management"><a href="index">管理知识库</a></div>
+    </div>
+    <div class="item">
+        <div class="ui button" id="knowledge_add"><a href="knowledge_type_add">管添加目录</div>
+    </div>
+    <div class="item">
+        <div class="ui button" id="knowldege_add_msg"><a href="knowledge_add">添加新知识</a></div>
+    </div>
+
+    <div class="item">
+        <div class="ui button" id="logout"><a href="index">注销</a></div>
+    </div>
+</div>
+<!--end-->
+
+<!--管理内容-->
+<div class="info message">添加新知识</div>
+<!--添加信息-->
+<div class="ui selection dropdown">
+    <input name="gender" type="hidden">
+    <div class="text">女</div>
+    <i class="dropdown icon"></i>
+    <div class="menu">
+        <div class="item" data-value="1">男</div>
+        <div class="item active" data-value="0">女</div>
+    </div>
+</div>
+<div class="ui form segment" id="knowledge_a">
+    <p>add news knowldege</p>
+    <div class="two fields">
+        <div class="field">
+            <label>一级目录</label>
+            <input placeholder="一级目录" name="first-name" type="text">
+        </div>
+        <div class="field">
+            <label>二级目录</label>
+            <input placeholder="二级目录" name="last-name" type="text">
+        </div>
+    </div>
+    <div class="ui form">
+        <div class="field">
+            <label>输入小标题</label>
+            <input type="text">
+        </div>
+    </div>
+    <div class="field">
+        <label>信息的内容</label>
+        <textarea placeholder="请输入内容，字数在1000以内" name="username" type="text"/></textarea>
+
+    </div>
+    <div class="ui blue submit button">提交</div>
+    <div class="ui error message"></div>
+</div>
+</body>
+
+<include file="Public/footer"/>

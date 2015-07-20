@@ -1,0 +1,33 @@
+<include file="Public/header"/>
+
+<body>
+    <!--导航栏-->
+    <include file="Public/knowledge_nav"/>
+    <!--end-->
+
+    <!--管理内容-->
+    <div class="info message">知识库信息</div>
+        <div class="ui items">
+            <volist name="know" id="know">
+                <div class="item" id="{$know.info_id}">
+                    <div class="content">
+                        <div class="meta">时间:{$know.add_time}</div>
+                        <div class="name">隶属：{$know.cat_name}->{$know.info_title}</div>
+                        <p class="description">标题：{$know.infotitle}</p>
+                        <p class="description">{$know.info_detail}</p>
+                    </div>
+                    <div class="extra">
+                        199 阅读量&nbsp;&nbsp;     <a href="" onclick="tip();">修改</a>
+                    </div>
+                </div>
+            </volist>
+        </div>
+    </div>
+</body>
+
+<script>
+    function tip(){
+        alert('该功能暂未开发完成');
+    }
+</script>
+<include file="Public/footer"/>

@@ -304,7 +304,7 @@ abstract class Smarty_Resource {
     }
 
     /**
-     * test is file exists and save timestamp
+     * Lore is file exists and save timestamp
      *
      * @param Smarty_Template_Source   $source    source object
      * @param string $file file name

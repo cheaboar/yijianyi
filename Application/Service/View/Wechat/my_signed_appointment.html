@@ -1,0 +1,37 @@
+<!--<script type="text/javascript" src="__STATIC__/js/service/controller/viewController.js"></script>-->
+<script type="text/javascript" src="__STATIC__/js/service/controller/my_signed_appointment.js"></script>
+<body ng-app="appointmentApp" ng-controller="mySignedAppointmentCtr">
+<!--<nav>我的服务</nav>-->
+<include file="Public/nav" title="我的服务" />
+
+<div class="my-appointment-container">
+    <div ng-if="my_appointments.length == 0" style="display: none" id="no-data">
+        <div class="appointment-tab center-align">
+            <h4 class="ui header teal">
+                您还没有服务
+            </h4>
+            <a href="service_info" class="ui button primary">返回首页</a>
+
+        </div>
+    </div>
+    <literal>
+        <div class="appointment-tab ui segment" ng-repeat="a in my_signed_appointments" id="item-{{a.id}}" >
+            <h4 class="ui header teal">
+                服务：{{a.service_name}}
+            </h4>
+            <div class="appointment-address">
+
+
+                <div>地址：{{a.address_str}}</div>
+                <div>联系人：{{a.name}}</div>
+                <div>联系电话：{{a.phone}}</div>
+                <div>创建时间：{{a.confirm_time}}</div>
+                <div>方便联系时间：{{a.easy_time}}</div>
+            </div>
+        </div>
+    </literal>
+
+
+</div>
+
+</body>

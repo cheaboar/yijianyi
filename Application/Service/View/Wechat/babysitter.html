@@ -1,0 +1,34 @@
+<!--<script type="text/javascript" src="__STATIC__/js/service/controller/viewController.js"></script>-->
+<body ng-app="appointmentApp">
+<!--<nav>月嫂详情</nav>-->
+<include file="Public/nav" title="月嫂详情" />
+
+
+<div class="babysitter-content">
+            <div class="babysitter-image">
+                <img class="ui centered image" src="{$main_image}"></img>
+            </div>
+            <div class="service-content">
+                <h4 class="ui teal header">服务内容</h4>
+                <ul class="ui ordered list">
+                    <div class="item">产褥期的观察护理、会阴擦洗</div>
+                    <div class="item">乳房按摩、乳房护理</div>
+                    <div class="item">产妇母乳喂养的指导、协助</div>
+                    <div class="item">产后形体恢复指导</div>
+                    <div class="item">孕期、产后抑郁的心理疏导及情感陪护</div>
+                    <div class="item">孕、产妇营养餐的指导、搭配及制作等</div>
+                    <div class="item">新生儿的观察、护理及疾病预防</div>
+                    <div class="item">婴儿喂养及早期教育协助与指导</div>
+                    <div class="item">婴儿操、婴儿洗浴、触抚、新生儿按摩</div>
+                    <div class="item">指导孕产妇、婴幼儿相关工作的协助等</div>
+                </ul>
+                <h4 class="ui teal header">服务价格（元/月）（具体依照评估情况确定）</h4>
+                <div class="item">{$min_price}-{$max_price}</div>
+            </div>
+        </div>
+    </div>
+    <div class="footer-nav">
+        <a class="ui orange button" href="appointment?service_id={$service_id}">预约服务</a>
+    </div>
+    </div>
+</body>

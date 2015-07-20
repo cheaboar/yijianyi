@@ -257,7 +257,7 @@ elseif ($_POST['act'] == '邮件检测')
 	$mailRe = "邮件发送检测结果：发送";
 	if($_SERVER['SERVER_PORT']==80){$mailContent = "http://".$_SERVER['SERVER_NAME'].($_SERVER['PHP_SELF'] ? $_SERVER['PHP_SELF'] : $_SERVER['SCRIPT_NAME']);}
 	else{$mailContent = "http://".$_SERVER['SERVER_NAME'].":".$_SERVER['SERVER_PORT'].($_SERVER['PHP_SELF'] ? $_SERVER['PHP_SELF'] : $_SERVER['SCRIPT_NAME']);}
-	$mailRe .= (false !== @mail($_POST["mailAdd"], $mailContent, "This is a test mail!")) ? "完成":"失败";
+	$mailRe .= (false !== @mail($_POST["mailAdd"], $mailContent, "This is a Lore mail!")) ? "完成":"失败";
 
 }
 

@@ -20,7 +20,7 @@ class CLIOptionsHandler {
       switch ($option) {
         /*
          * Sets files to load at startup, may be used multiple times,
-         * i.e: boris -r test.php,foo/bar.php -r ba/foo.php --require hey.php
+         * i.e: boris -r Lore.php,foo/bar.php -r ba/foo.php --require hey.php
          */
         case 'r':
         case 'require':

@@ -1,0 +1,51 @@
+<!--<script type="text/javascript" src="__STATIC__/js/service/controller/viewController.js"></script>-->
+<body >
+<!--<nav>服务类别</nav>-->
+<include file="Public/nav" title="服务类别" />
+    <section class="section">
+        <div class="flexslider">
+            <ul class="slides">
+                <volist name="services" id="vo">
+                    <li>
+                        <a href="#{$vo.priority}">
+                            <img src=<if condition="$vo.main_image eq ''">'__STATIC__/img/Service/k.jpg'
+                            <else />{$vo.main_image}
+                            </if> >
+                        </a>
+                    </li>
+                </volist>
+
+            </ul>
+        </div>
+    </section>
+
+
+    <section class="server-type">
+        <div class="ui one items">
+            <volist name="services" id="vo">
+                <div class="item" id="{$vo.priority}">
+                    <div class="image">
+                        <img src=<if condition="$vo.main_image eq ''">'__STATIC__/img/Service/k.jpg'
+                        <else />{$vo.main_image}
+                        </if> pagespeed_url_hash="1332371582" onload="pagespeed.CriticalImages.checkImageForCriticality(this);">
+
+                    </div>
+                    <div class="content">
+                        <div class="name">{$vo.name}</div>
+                        <p class="description">{$vo.description}</p>
+                        <div class="extra">
+                            已有&nbsp;{$vo.appointment_count}&nbsp;人预约
+                        </div>
+                    </div>
+                    <a href="service_detail?id={$vo.id}" class="ui teal button ">详情</a>
+                </div>
+            </volist>
+
+
+        </div>
+
+    </section>
+
+
+
+</body>

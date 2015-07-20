@@ -1,0 +1,58 @@
+<!--<script type="text/javascript" src="__STATIC__/js/service/controller/viewController.js"></script>-->
+<script type="text/javascript" src="__STATIC__/js/service/controller/my_appointment.js"></script>
+<body ng-app="appointmentApp" ng-controller="myAppointmentCtr">
+    <!--<nav>我的预约</nav>-->
+    <include file="Public/nav" title="我的预约" />
+
+    <div class="my-appointment-container">
+        <div class="loading-container">
+            <i class="loading icon"></i>
+        </div>
+        <div ng-if="my_appointments.length == 0" style="display: none" id="no-data">
+            <div class="appointment-tab center-align">
+                <h4 class="ui header teal">
+                    您还没有预约
+                </h4>
+                <a href="service_info" class="ui button primary">返回首页</a>
+
+            </div>
+        </div>
+        <literal>
+            <div class="appointment-tab ui segment" ng-repeat="a in my_appointments" id="item-{{a.id}}" >
+                <div class="ui right red corner label" ng-click="delete($index)">
+                    <i class="remove icon"></i>
+                </div>
+                <h4 class="ui header teal">
+                    预约服务：{{a.service_name}}
+                </h4>
+                <div class="appointment-address">
+
+
+                    <div>地址：{{a.address_str}}</div>
+                    <div>联系人：{{a.name}}</div>
+                    <div>联系电话：{{a.phone}}</div>
+                    <div>创建时间：{{a.confirm_time}}</div>
+                    <div>方便联系时间：{{a.easy_time}}</div>
+                </div>
+            </div>
+        </literal>
+
+
+    </div>
+
+    <div class="ui modal">
+        <i class="close icon"></i>
+        <div class="header">
+            是否删除选中的预约
+        </div>
+        <div class="content">
+            <div class="left">
+                删除之后无法恢复
+            </div>
+        </div>
+        <div class="actions">
+            <div class="ui button cancel">取消</div>
+            <div class="ui button approve">确定</div>
+        </div>
+    </div>
+</body>

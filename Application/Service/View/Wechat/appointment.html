@@ -1,0 +1,231 @@
+<!--<script type="text/javascript" src="__STATIC__/js/service/controller/viewController.js"></script>-->
+<script type="text/javascript" src="__STATIC__/js/service/controller/appointmentCtrl.js"></script>
+<body class="appointment-body" ng-app="appointmentApp" >
+<!--<input type="hidden" name="user_id"value="{$user_id}" id="user-id"/>-->
+<div ng-controller="appointmentCtrl">
+<!--<nav>预约服务</nav>-->
+    <include file="Public/nav" title="预约服务" />
+
+<div class="appointment-content">
+    <div class="appointment-type">
+        <div class="appointment-type-header ui grid">
+            <div class="appointment-type-name fifteen  column wide" >
+                <h4 class="teal ui header">预约服务:<span ng-bind="serviceName" id="service-name" value={$service_name}></span></h4>
+            </div>
+            <div class="appointment-type-price one column wide"></div>
+        </div>
+        <div class="ui grid">
+            <div class="one column wide"></div>
+            <div class="fourteen column wide">
+                <div>温馨提示：提交预约成功后工作人员将在1-2个工作日联系您了解详情，请耐心等候。</div>
+            </div>
+            <div class="one column wide"></div>
+
+        </div>
+        <!--<div>-->
+            <!--<div class="ui red message" ng-show="showCountAlertMessage">数量不能少于2</div>-->
+        <!--</div>-->
+
+        <!--<div class="ui grid">-->
+            <!--<div class="eight column wide">小计</div>-->
+
+            <!--<div class="eight column wide right-align">-->
+                <!--<a class="ui gray label"><span>{{service_price()}}</span>元</a>-->
+            <!--</div>-->
+        <!--</div>-->
+
+    </div>
+
+    <div class="ui form segment">
+            <div class="field">
+                <label>联系人</label>
+                <input placeholder="联系人" type="text" ng-model="name">
+            </div>
+            <div class="field">
+                <label>电话</label>
+                <input placeholder="电话" type="number" ng-model="phone">
+            </div>
+            <div class="field">
+                <label>与被服务人的关系</label>
+                <input placeholder="例如：本人，兄弟，夫妻..." type="text" ng-model="relationship">
+            </div>
+    </div>
+
+    <div class="appointment-address-time">
+        <div class="appointment-address ui grid">
+            <div class="fifteen wide column">
+                <i class="home icon"></i>
+                <span>请填写服务地址</span>
+            </div>
+            <div class="one wide column">
+                <i class="arrow right icon"></i>
+            </div>
+        </div>
+        <div class="appointment-address ui grid" ng-show="showSelectedAddress">
+            <div class="row">
+                <div class="fifteen wide column">
+                    <div class="red label ui">服务地址：<span ng-bind="selectedAddressStr"></span></div>
+                </div>
+                <div class="one wide column">
+                <!--<div class="one wide column">-->
+
+                </div>
+            </div>
+        </div>
+
+        <div class="ui grid">
+            <div class="fifteen wide column">
+                <i class="time icon"></i>
+                <div class="ui dropdown">
+                    <span>适合联系的时间段：&nbsp;&nbsp;</span><div class="text" ng-bind="time_type"></div>
+                    <i class="dropdown icon"></i>
+                    <div class="ui label blue" ng-bind="selected_time" id='selected_time'>工作时间</div>
+                    <div class="menu">
+                        <div class="item" data-value="option1">工作时间</div>
+                        <div class="item" data-value="option2">自己选定</div>
+                    </div>
+                </div>
+            </div>
+            <div class="one wide column">
+
+            </div>
+        </div>
+
+
+        <form class="ui grid" id="time-picker">
+            <div class="ui wide one column"></div>
+            <div class="ui wide fourteen column">
+                <div class="ui  action input">
+                    <input type="time" placeholder="开始时间..."  ng-model="time_start" min="09:00" max="17:59">
+                    <div class="ui labeled button">开始时间</div>
+                </div>
+                <br/>
+                <div class="ui  action input">
+                    <input type="time" placeholder="开始时间..."  ng-model="time_end" min="09:00" max="17:59">
+                    <div class="ui labeled button">结束时间</div>
+                </div>
+
+            </div>
+            <div class="ui wide one column"></div>
+        </form>
+
+
+
+
+        <div class="ui grid" id="address-needed-msg" ng-show="showAddressNeededMsg">
+            <div class="fifteen wide column">
+                <div class="ui error message">
+                    <i class="close icon"></i>
+                    <div class="header">
+                        请选择服务地址！
+                    </div>
+                </div>
+            </div>
+            <div class="one wide column"></div>
+        </div>
+
+    </div>
+</div>
+
+
+    <div class="footer-nav">
+        <a class="ui primary button" ng-click="commitAppointment({$service_id})">提交预约</a>
+    </div>
+
+
+    <div class="ui red vertical top  overlay sidebar menu" id="address-selector" >
+        <a class="item">
+            <i class="home icon"></i>
+            地址
+        </a>
+        <div ng-repeat="address in addresses">
+            <a class="item" ng-class="itemClass[$index]" ng-click="addressSelected($index)">
+                <div class="ui segment">
+                    <div class="ui right corner label" ng-class="labelClass[$index]">
+                        <i class="checkmark icon"></i>
+                    </div>
+                    <!--{{address.province + '省' +address.city +'市'+ address.zone + address.town + address.stree }}<br>-->
+                    <!--联系人：{{address.contact_name}}<br>-->
+                    <!--手机：{{address.contact_phone}}-->
+                    {{address.address}}
+                </div>
+            </a>
+        </div>
+
+
+
+        <div class="item">
+            <div class="center-align ">
+
+                <i class="add sign blue icon large" ng-click="addAddressClick()"></i>
+
+            </div>
+
+            <div class="ui form address-form" ng-show="showAddressForm" id="address-form">
+                <div class="field">
+                    <label>省</label>
+                    <!--<input type="text" class="" name="" ng-model="province" placeholder="输入省份" ng-class="provinceClass"required/>-->
+                    <select ng-model="province" ng-options="province.area_name for province in provinces" class="ui input"></select>
+                </div>
+                <div class="field">
+                    <label>市</label>
+                    <!--<input type="text" ng-class="cityClass" name="" ng-model="city" placeholder="输入市" required/>-->
+                    <select ng-model="city" ng-options="city.area_name for city in cities" class="ui  input "></select>
+                </div>
+                <div class="field">
+                    <label>区</label>
+                    <!--<input type="text" ng-class=""name="" ng-model="zone" placeholder="输入区（可选）" />-->
+                    <select ng-model="zone" ng-options="zone.area_name for zone in zones" class="ui  input "></select>
+                </div>
+                <div class="field">
+                    <label>镇</label>
+                    <input type="text" name="" ng-model="town" placeholder="输入镇（可选）" />
+                </div>
+                <div class="field">
+                    <label>街道</label>
+                    <input type="text" ng-class="streeClass" name="" ng-model="stree" placeholder="输入街道" required/>
+                </div>
+                <div class="field">
+                    <label>联系人</label>
+                    <input type="text" ng-class="contactNameClass"name="" ng-model="contactName" placeholder="输入联系人" required/>
+                </div>
+                <div class="field">
+                    <label>电话</label>
+                    <input type="number" ng-class="contactPhoneClass" name="" ng-model="contactPhone" placeholder="输入电话" required/>
+                </div>
+
+                <div class="ui red message" ng-show="showAddAddressMsg" ng-bind="addAddressWarnStr"></div>
+
+                <div class="ui black fluid button"  ng-click="addAddress()">提交</div>
+
+            </div>
+        </div>
+
+
+
+        <div class="item">
+            <div class="ui form">
+                <div class="ui button fluid blue " ng-click="addressSelectedConfirm()">确定</div>
+                <div>&nbsp;</div>
+                <div class="ui button fluid gray  " ng-click="addressSelectedCancle()">取消</div>
+            </div>
+
+        </div>
+
+    </div>
+
+
+</div>
+
+
+</body>
+<script>
+    $('#time-picker').hide();
+
+    $('.appointment-address').on('click', function(){
+        $('#address-selector').sidebar('toggle');
+    })
+
+
+
+</script>

@@ -1,0 +1,37 @@
+<!--<script type="text/javascript" src="__STATIC__/js/service/controller/viewController.js"></script>-->
+<script type="text/javascript" src="__STATIC__/js/service/controller/couponController.js"></script>
+
+<body ng-app="appointmentApp" class="address-body" ng-controller="couponCtrl">
+<!--<nav>我的优惠券</nav>-->
+<include file="Public/nav" title="我的优惠券" />
+
+    <div class="loading-container">
+        <i class="loading icon"></i>
+    </div>
+    <div class="no-coupon" style="display: none">
+        没有优惠券
+    </div>
+
+    <literal>
+        <div class="coupon-list">
+            <div class="ui segment" ng-repeat="coupon in coupons">
+                <div class="ui grid" >
+                    <div class="ui three wide column">
+                        {{coupon.coupon_amount}}元
+                    </div>
+                    <div class="ui thirteen wide column">
+                        <div>可在结算的时候使用</div>
+                    </div>
+                </div>
+                <div class="ui  divider"></div>
+                <div class="ui grid">
+                    <div class="eight wide column">{{coupon.state}}</div>
+                    <div class="eight wide column">{{coupon.expire}}</div>
+                </div>
+
+            </div>
+        </div>
+    </literal>
+
+
+</body>

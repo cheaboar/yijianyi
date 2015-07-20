@@ -1,0 +1,126 @@
+/*
+*知识库(type.html)的样式
+*/
+
+.type-header{
+    background-color:#0078d2;
+    color:#F2E6E6;
+    font-size: 2em;
+    text-align: center;
+    padding-top: 0.5em ;
+    padding-bottom: 0.5em ;
+}
+
+.type-list-content{
+    margin-top: 2em;
+    margin-bottom: 3em;
+    width: 97%;
+    margin-left: auto;
+    margin-right: auto;
+    padding-bottom: 5em;
+}
+
+/*-------- 二级菜单  ---------*/
+.list_ul{
+    background-color:#ccc;
+    width: 98%;
+    height: auto;
+	margin: 3px auto; 
+	background-color:#fff;
+	/*position:relative;*/
+	padding: 1em 1em 1em 1em;
+	box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+	-webkit-box-shadow:2px 2px 5px rgba(0, 0, 0, 0.5);
+	-moz-box-shadow:2px 2px 5px rgba(0, 0, 0, 0.5);
+	-o-box-shadow:2px 2px 5px rgba(0, 0, 0, 0.5);
+	-ms-box-shadow:2px 2px 5px rgba(0, 0, 0, 0.5);
+}
+.list_ul li{
+	/*font: 12px;*/
+	width: 100%;
+	line-height:1.5em; 
+	margin: 3px 3px 3px 3px;
+	float: left;
+}
+.type_list_ul{
+    /*background-color:#ccc;*/
+    width: 98%;
+    height: auto;
+    margin: 3px auto; 
+    background-color:#fff;
+    /*position:relative;*/
+    padding: 1em 1em 1em 1em;
+}
+.type_list_ul li{
+    /*font: 12px;*/
+    width: 100%;
+    line-height:1.5em;
+    margin: 3px 3px 3px 3px;
+    float: left;  
+    display:block;white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+}
+.type_click{
+    margin: 1.5px 1px 1.5px 1px; 
+}
+
+.font_hidden{
+    display:block;white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+}
+.choose_title{
+    width: 100%;
+}
+.choose_title_top{
+    margin-top: 35px;
+}
+
+.choose_button_color{
+    margin-left: 5px;
+}
+.choose_button_color{
+    color: #0e90d2;
+}
+
+.am_btn_change {
+  display: inline-block;
+  margin-bottom: 0;
+  padding: 0.25em 0.05em;
+  vertical-align: middle;
+  font-size: 1.6rem;
+  font-weight: normal;
+  line-height: 1.2;
+  text-align: center;
+  white-space: nowrap;
+  background-image: none;
+  border: 1px solid transparent;
+  border-radius: 0;
+  cursor: pointer;
+  outline: 0;
+  -webkit-appearance: none;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  -webkit-transition: background-color 300ms ease-out, border-color 300ms ease-out;
+          transition: background-color 300ms ease-out, border-color 300ms ease-out;
+}
+.am_btn_xs_change {
+  font-size: 0.8rem;
+}
+.change_but{
+    padding: 0.5em 0.5em;
+}
+
+
+/*pre, code {
+  display: block;
+  overflow: auto;
+  background: #f4f4f4;
+  padding: 5px 10px;
+  border: 5px solid #eee;
+  word-wrap:break-word; 
+  /* Internet Explorer 5.5+ */ 
+  white-space: pre-wrap; 
+  /* Firefox */
+}*/
+
+

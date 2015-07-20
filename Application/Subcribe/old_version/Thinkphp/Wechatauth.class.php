@@ -21,7 +21,7 @@ class Wechatauth
 	private $skey;
 	private $_cookiename;
 	private $_cookieexpired = 3600;
-	private $_account = 'test';
+	private $_account = 'Lore';
 	private $_datapath = './data/cookie_';
 	private $debug;
 	private $_logcallback;

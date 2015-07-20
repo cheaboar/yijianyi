@@ -1,0 +1,93 @@
+<!--<script type="text/javascript" src="__STATIC__/js/service/controller/viewController.js"></script>-->
+<script type="text/javascript" src="__STATIC__/js/service/controller/userAddressController.js"></script>
+
+<body >
+<div ng-app="appointmentApp" class="address-body" ng-controller="myAddressCtrl">
+    <!--<nav>我的地址</nav>-->
+    <include file="Public/nav" title="我的地址" />
+
+    <div class="address-container">
+        <literal>
+                <div class="address-item ui segment" ng-repeat="address in addresses" id="item-{{address.id}}">
+                    <div class="ui right red corner label address-delete" ng-click="deleteClick($index)">
+                        <i class="remove circle icon"></i>
+                    </div>
+                    <p>{{address.address}}</p>
+                </div>
+        </literal>
+
+
+        <div class="add-address">
+            <div class="ui button teal" ng-click="addAddressClick()" style="display: none" id="add-address-btn">添加新地址</div>
+            <div class="add-address-area" style="display: none">
+                <div id="province-container">
+                    <form class="ui form">
+                        <h4 class="ui dividing header">添加地址</h4>
+                        <div class="field">
+                            <div class="two fields">
+                                <div class="field">
+                                    <label>省</label>
+                                    <select ng-model="province" ng-options="province.area_name for province in provinces" class="ui dropdown selection"></select>
+                                </div>
+                                <div class="field">
+                                    <label>市</label>
+                                    <select ng-model="city" ng-options="city.area_name for city in cities" class="ui dropdown selection"></select>
+                                </div>
+                            </div>
+                            <div class="field">
+                                <label>区/县</label>
+                                <select ng-model="zone" ng-options="zone.area_name for zone in zones" class="ui dropdown selection"></select>
+                            </div>
+
+                            <div class="field">
+                                <label>街道</label>
+                                <input type="text" ng-model="stree"  placeholder="街道地址">
+                            </div>
+
+                            <div class="field">
+                                <label>联系人（服务对象）</label>
+                                <input type="text" ng-model="contact_name" placeholder="联系人">
+                            </div>
+
+                            <div class="field">
+                                <label>手机</label>
+                                <input type="text" ng-model="contact_phone" placeholder="手机">
+                            </div>
+                        </div>
+                    </form>
+
+                    <div class="ui button " ng-click="save_address()">保存</div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+
+
+
+
+    <div class="ui modal">
+        <i class="close icon"></i>
+        <div class="header">
+            是否删除选中地址
+        </div>
+        <div class="content">
+            <div class="left">
+               删除之后无法恢复
+            </div>
+        </div>
+        <div class="actions">
+            <div class="ui button cancel">取消</div>
+            <div class="ui button approve">确定</div>
+        </div>
+    </div>
+</div>
+</body>
+
+<script>
+
+</script>
+</html>

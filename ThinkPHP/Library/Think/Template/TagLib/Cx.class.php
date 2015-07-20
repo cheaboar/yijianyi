@@ -39,6 +39,7 @@ class Cx extends TagLib {
         'assign'    =>  array('attr'=>'name,value','close'=>0),
         'define'    =>  array('attr'=>'name,value','close'=>0),
         'for'       =>  array('attr'=>'start,end,name,comparison,step', 'level'=>3),
+        'for_test'       =>  array('attr'=>'name', 'level'=>3),
         );
 
     /**
@@ -48,6 +49,10 @@ class Cx extends TagLib {
      * @param string $content  标签内容
      * @return string
      */
+    public function _for_test($tag, $content){
+        $parseStr = '<div>'.$tag['name'].'</div>';
+        return $parseStr;
+    }
     public function _php($tag,$content) {
         $parseStr = '<?php '.$content.' ?>';
         return $parseStr;

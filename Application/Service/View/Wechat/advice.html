@@ -1,0 +1,25 @@
+<!--<script type="text/javascript" src="__STATIC__/js/service/controller/viewController.js"></script>-->
+<script type="text/javascript" src="__STATIC__/js/service/controller/adviceController.js"></script>
+
+<body ng-app="appointmentApp" class="address-body" ng-controller="adviceCtrl">
+<!--<nav>提出建议</nav>-->
+<include file="Public/nav" title="提出建议" />
+
+
+<div class="adivce ui form" >
+    <h4 class="ui dividing teal header" >我的建议</h4>
+    <div class="field">
+        <textarea ng-model="adviceStr"></textarea>
+    </div>
+
+    <div class="ui submit button" ng-click="send_advice()">提交</div>
+</div>
+
+<div class="advice_success" style="display: none">
+    <h4 class="ui teal header">提交成功 <i class="icon check red"></i></h4>
+
+    <a href="user_center.html" class="ui teal button ">返回用户中心</a>
+</div>
+
+</body>
+</html>

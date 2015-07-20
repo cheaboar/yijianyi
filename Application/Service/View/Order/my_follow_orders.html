@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Cache-Control" content="no-siteapp"/>
+    <script type="text/javascript" src="__STATIC__/js/jquery.min.js"></script>
+
+    <link rel="alternate icon" type="image/png" href="__STATIC__/img/logo.png">
+    <link rel="stylesheet" href="__STATIC__/css/semantic.min.css"/>
+    <link rel="stylesheet" href="__STATIC__/css/service.css"/>
+
+    <title>{$title}</title>
+</head>
+<body>
+    <div class="my-follow-order-container">
+        <include file="Public:header_nav" href="javascript:window.history.go(-1)" title="我关注的人"/>
+
+        <div class="orders-panel">
+            <empty name="orders">
+                <div class="no-order">
+                    没有订单
+                </div>
+                <else/>
+                <volist name="orders" id="orders">
+                    <volist name="orders.orders" id="list">
+                        <div class="ui grid order-list">
+                            <a href="order_detail?order_id={$list.order_id}" class="fourteen column wide">
+                                <div class="order-list-uppper ui grid">
+                                    <div class="ui   customer-name ten wide column">{$orders.customer.customer.customer_name}</div>
+                                    <div class=" six wide  column order-state">{$list.order_status}</div>
+                                </div>
+                                <div class="order-list-lower">
+                                    {$list.add_time}
+                                </div>
+                            </a>
+                            <a href="order_detail?order_id={$list.order_id}" class="two column wide order-angle ">
+                                <h4 class="header ui teal">
+                                    <i class="angle right teal icon"></i>
+                                </h4>
+
+                            </a>
+                        </div>
+                    </volist>
+
+                </volist>
+            </empty>
+
+
+
+
+    </div>
+
+</body>
+</html>

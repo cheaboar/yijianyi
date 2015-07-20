@@ -1,0 +1,28 @@
+
+<!--<script type="text/javascript" src="__STATIC__/js/service/controller/viewController.js"></script>-->
+<script type="text/javascript" src="__STATIC__/js/service/controller/myFollowController.js"></script>
+
+<body ng-app="appointmentApp" class="address-body" ng-controller="myFollowCtrl">
+<!--<nav>我关注的人</nav>-->
+<include file="Public/nav" title="我关注的人" />
+
+<div class="loading-container">
+    <i class="loading icon"></i>
+</div>
+<div class="no-follow" style="display: none">
+    没有关注的人
+</div>
+
+<literal>
+    <div class="follow-list">
+        <div class="ui segment" ng-repeat="follow in follows">
+            <div>姓名：{{follow.customer.customer_name}}</div>
+            <div>性别：{{follow.customer.customer_sex}}</div>
+            <div>年龄：{{follow.customer.customer_age}}</div>
+
+        </div>
+    </div>
+</literal>
+
+
+</body>

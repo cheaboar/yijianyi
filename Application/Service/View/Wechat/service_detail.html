@@ -1,0 +1,41 @@
+
+<!--<script type="text/javascript" src="__STATIC__/js/service/controller/viewController.js"></script>-->
+<body ng-app="appointmentApp">
+<include file="Public/nav" title="{$service_name}" />
+
+<!--<nav>{$service_name}</nav>-->
+
+    <!--<div class="ui grid">-->
+        <!--<div class="two wide column item">-->
+            <!--<div class="item">-->
+                <!--<i class="angle left icon "></i>-->
+            <!--</div>-->
+
+        <!--</div>-->
+        <!--<div class="twelve wide column item">-->
+            <!--<div class="item"></div>-->
+        <!--</div>-->
+        <!--<div class="two wide column item">-->
+            <!--<div class="ui dropdown item">-->
+                <!--<i class="list icon "></i>-->
+                <!--<div class="menu">-->
+                    <!--<div class="item">我</div>-->
+                    <!--<div class="item">我</div>-->
+                    <!--<div class="item">我</div>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
+
+    <!--</div>-->
+</div>
+<img class="detail-image" src="__STATIC_IMG__/Service/richangbaojie.jpg">
+<div class="detail-footer">
+
+</div>
+<div class="footer-nav">
+    <a class="ui orange button" href="appointment?service_id={$service_id}">预约服务</a>
+</div>
+</body>
+<script>
+    $('.ui.dropdown.item').dropdown();
+</script>

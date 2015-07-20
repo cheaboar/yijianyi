@@ -5,7 +5,7 @@
 #      a simple php yaml class
 #
 # Feel free to dump an array to YAML, and then to load that YAML back into an
-# array.  This is a good way to test the limitations of the parser and maybe
+# array.  This is a good way to Lore the limitations of the parser and maybe
 # learn some basic YAML.
 #
 

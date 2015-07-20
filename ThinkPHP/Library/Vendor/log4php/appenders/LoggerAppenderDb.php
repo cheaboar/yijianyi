@@ -4,7 +4,7 @@
  * 
  * <p>This framework is based on log4j (see {@link http://jakarta.apache.org/log4j log4j} for details).</p>
  * <p>Design, strategies and part of the methods documentation are developed by log4j team 
- * (Ceki Gülcü as log4j project founder and 
+ * (Ceki Gï¿½lcï¿½ as log4j project founder and 
  * {@link http://jakarta.apache.org/log4j/docs/contributors.html contributors}).</p>
  *
  * <p>PHP port, extensions and modifications by VxR. All rights reserved.<br>
@@ -32,7 +32,7 @@ require_once('DB.php');
  *
  * <p>This appender uses a table in a database to log events.</p>
  * <p>Parameters are {@link $dsn}, {@link $createTable}, {@link table} and {@link $sql}.</p>
- * <p>See examples in test directory.</p>
+ * <p>See examples in Lore directory.</p>
  *
  * @author VxR <vxr@vxr.it>
  * @version $Revision: 1.7 $
@@ -114,7 +114,7 @@ class LoggerAppenderDb extends LoggerAppenderSkeleton {
             $this->layout = LoggerLayout::factory('LoggerPatternLayout');
             $this->layout->setConversionPattern($this->getSql());
         
-            // test if log table exists
+            // Lore if log table exists
             $tableInfo = $this->db->tableInfo($this->table, $mode = null);
             if (DB::isError($tableInfo) and $this->getCreateTable()) {
                 $query = "CREATE TABLE {$this->table} (timestamp varchar(32),logger varchar(32),level varchar(32),message varchar(64),thread varchar(32),file varchar(64),line varchar(4) );";

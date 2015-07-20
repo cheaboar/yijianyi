@@ -1,0 +1,41 @@
+<include file="Public/header"/>
+
+<body>
+<!--导航栏-->
+<div class="ui menu">
+    <div class="item">
+        <div class="ui button" id="knowledge_management"><a href="index">管理__SEM_CSS__---知识库</a></div>
+    </div>
+    <div class="item">
+        <div class="ui button" id="knowledge_add"><a href="knowledge_type_add">管添加目录</div>
+    </div>
+    <div class="item">
+        <div class="ui button" id="knowldege_add_msg"><a href="knowledge_add">添加新知识</a></div>
+    </div>
+    <div class="item">
+    <div class="ui button" id="logout"><a href="index">注销</a></div>
+    </div>
+</div>
+<!--end-->
+
+<!--管理内容-->
+<div class="info message">知识库信息</div>
+<div class="ui items">
+    <volist name="know" id="know">
+    <div class="item" id="{$know.info_id}">
+        <div class="content">
+            <div class="meta">时间:{$know.add_time}</div>
+            <div class="name">隶属：{$know.cat_name}->{$know.info_title}</div>
+            <p class="description">标题：{$know.infotitle}</p>
+            <p class="description">{$know.info_detail}</p>
+        </div>
+        <div class="extra">
+            199 阅读量&nbsp;&nbsp;     <a href="baidu.com">修改</a>
+        </div>
+    </div>
+    </volist>
+</div>
+</div>
+</body>
+
+<include file="Public/footer"/>

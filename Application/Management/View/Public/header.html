@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Cache-Control" content="no-siteapp"/>
+    <script type="text/javascript" src="__STATIC__/js/jquery.min.js"></script>
+
+    <script type="text/javascript" src="__STATIC__/js/semantic.min.js"></script>
+    <!--<script type="text/javascript" src="__STATIC__/js/semantic.js"></script>-->
+    <script type="text/javascript" src="__STATIC__/js/angular.min.js"></script>
+    <script type="text/javascript" src="__STATIC__/js/angular-route.js"></script>
+    <script type="text/javascript" src="__STATIC__/js/angular-resource.min.js"></script>
+    <link rel="stylesheet" href="__STATIC__/css/semantic.min.css"/>
+    <link rel="stylesheet" href="__STATIC__/css/semantic.css"/>
+    <link rel="stylesheet" href="__STATIC__/css/management.css"/>
+    <link rel="stylesheet" href="__STATIC__/css/management_service.css"/>
+    <link rel="alternate icon" type="image/png" href="__STATIC__/img/logo.png">
+    <title>{$title}</title>
+</head>
+<body>
+    <section class="nav">
+        <div>后台管理系统</div>
+    </section>
+    <section class="">
+        <div class="sidebar-button">
+            <i class="list layout icon"></i>
+            <span style="display: none" class="sidebar-span">导航</span>
+        </div>
+        <div class="ui  wide sidebar" >
+            <!--头部修饰部分-->
+            <div class="sidebar-header">
+                <i class="circular inverted home icon"></i>
+            </div>
+            <div class="ui horizontal divider"></div>
+            <!--选项展示-->
+            <div class="select-bar ui vertical menu ">
+                <div class="header item">
+                    <i class="user icon"></i>
+                    服务管理
+                </div>
+
+                <a class="item" href="/management/index/index">
+                    服务列表
+                </a>
+                <a class="item">
+                    SEO优化
+                </a>
+                <a class="item" href="/management/knowledge/index">
+                    知识库__ROOT__
+                </a>
+        </div>
+    </section>
+    <script>
+        $('.sidebar-button').on('click', function(){
+            console.log('click')
+            $('.ui.sidebar').sidebar('toggle');
+        });
+
+        // //这里研究使用CSS3特性
+        // $('.sidebar-button').on('mouseover mouseout',function(){
+        //     if(event.type == 'mouseover'){
+        //         $('.sidebar-span').css('display', 'inline');
+        //     }else{
+        //         $('.sidebar-span').css('display', 'none');
+        //     }
+
+        // });
+    </script>
+</body>
+

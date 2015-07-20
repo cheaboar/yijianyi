@@ -8,7 +8,9 @@ use Wechat\TPWechat;
 use Think\Log;
 //vendor('log4php.Logger');
 
+use Overtrue\Wechat\Server;
 
+require LIB_PATH.'Org/Util/wechat-master/autoload.php';
 
 
 
@@ -43,7 +45,7 @@ class IndexController extends Controller {
 
     }
     public function index(){
-//        $this->test->sayHello();
+//        $this->Lore->sayHello();
 //        $text = array(
 //            'ds'=>'1',
 //            'dss' => 2,
@@ -66,47 +68,17 @@ class IndexController extends Controller {
 
     public function valid()
     {
-//        $this->wechat->valid();
-        $this->wechat->getRev();
-        $receive_data = $this->wechat->getRevData();
-        $receive_str = '';
-        foreach($this->wechat->getRevData() as $key=> $value){
-            $receive_str =  $receive_str . $key . ':' . $value . "\n";
-        }
-//        Log::write($receive_str);
-        if(isset($receive_data['Content']) && $receive_data['Content'] == 'a'){
-            $this->wechat->text('你好')->reply();
-        }elseif(isset($receive_data['Content'])){
-//            `$this->wechat->text('感谢您的留言，我们正在努力完善相关功能!')->reply();
-            $data = array(
-                "0" => array(
-                    'Title'=>'这些年，你亏欠妈妈多少爱？',
-                    'Description' => '母亲节来了，小依免费为大家奉出五套可穿戴健康管理设备',
-                    'PicUrl' => 'http://subcribe.ecare-easy.com/Public/assets/img/Subscribe/mother.jpg',
-                    'Url' => 'http://mp.weixin.qq.com/s?__biz=MjM5MTYxNjU2Nw==&mid=205115064&idx=1&sn=3aeb446cc3d9de37d25423c0be295b99&scene=1&key=1936e2bc22c2ceb5492ddcf40aa6339224b84e748f837dab1128d7f4bc0667dd1b6793ffce23df1bbcae512591345a3e&ascene=0&uin=MTUyMjgxNDg2Mw%3D%3D&devicetype=iMac+MacBookAir5%2C2+OSX+OSX+10.10.3+build(14D136)&version=11020012&pass_ticket=ExsbpFuyyOfUleOUBzoE4BsUZVyOPiPOuwlpg5HVMelA1HcvUQSHJup%2BS86Xwt%2BL'
-                )
-            );
-            $this->wechat->news($data)->reply();
+        $fp = fopen('/var/www/Application/Subcribe/Controller/log.txt', 'a+');
+        fwrite($fp, 'dsddf%');
+        fclose($fp);
 
-        }
+        $appId = 'wx9d24912c87f38ef5';
+        $token = 'ChanCheaboar';
+        $EncodingAESKey = 'XQSupevFqMLkhcl8rQhzr69bVs62dFYphHhxqdJsrj4';
 
-        if($receive_data['MsgType'] == 'voice'){
-            $this->wechat->voice($receive_data['MediaId'])->reply();
-        }
+        $server = new Server($appId, $token, $EncodingAESKey);
 
-
-        if($receive_data['Event'] == 'subscribe'){
-            $data = array(
-                "0" => array(
-                    'Title'=>'这些年，你亏欠妈妈多少爱？',
-                    'Description' => '母亲节来了，小依免费为大家奉出五套可穿戴健康管理设备',
-                    'PicUrl' => 'http://subcribe.ecare-easy.com/Public/assets/img/Subscribe/mother.jpg',
-                    'Url' => 'http://mp.weixin.qq.com/s?__biz=MjM5MTYxNjU2Nw==&mid=205115064&idx=1&sn=3aeb446cc3d9de37d25423c0be295b99&scene=1&key=1936e2bc22c2ceb5492ddcf40aa6339224b84e748f837dab1128d7f4bc0667dd1b6793ffce23df1bbcae512591345a3e&ascene=0&uin=MTUyMjgxNDg2Mw%3D%3D&devicetype=iMac+MacBookAir5%2C2+OSX+OSX+10.10.3+build(14D136)&version=11020012&pass_ticket=ExsbpFuyyOfUleOUBzoE4BsUZVyOPiPOuwlpg5HVMelA1HcvUQSHJup%2BS86Xwt%2BL'
-                )
-            );
-            $this->wechat->news($data)->reply();
-
-        }
+        echo $server->serve();
 
 
     }

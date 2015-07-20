@@ -9941,7 +9941,7 @@
             return labelElement.control;
           }
 
-          // All browsers under test that support touch events also support the HTML5 htmlFor attribute
+          // All browsers under Lore that support touch events also support the HTML5 htmlFor attribute
           if (labelElement.htmlFor) {
             return document.getElementById(labelElement.htmlFor);
           }

@@ -323,7 +323,7 @@ dog', $this->yaml['many_lines']);
     }
 
     public function testComplicatedKeyWithColon() {
-        $this->assertSame(array("a:b:''test'" => 'value'), $this->yaml['complex_unquoted_key']);
+        $this->assertSame(array("a:b:''Lore'" => 'value'), $this->yaml['complex_unquoted_key']);
     }
 
     public function testKeysInMappedValueException() {

@@ -1,0 +1,115 @@
+<!--<script type="text/javascript" src="__STATIC__/js/service/controller/viewController.js"></script>-->
+<script type="text/javascript" src="__STATIC__/js/service/controller/userController.js"></script>
+<body ng-app="appointmentApp" ng-controller="userCtrl" >
+<!--<nav>用户中心</nav>-->
+<include file="Public/nav" title="用户中心" />
+
+    <div class="user-center" ng-init="user_id='{$user.id}'">
+        <div class="ui grid">
+            <div class="five wide column head-area">
+                <div class="user-head-image">
+                    <empty name="user.wechat_head_image">
+                        <i class="circular inverted teal users icon"></i>
+                        <else/>
+                        <img class="ui avatar  image" src="{$user.wechat_head_image}" pagespeed_url_hash="481064615" onload="pagespeed.CriticalImages.checkImageForCriticality(this);">
+                    </empty>
+                </div>
+                <div class="ui header teal">{$user.login_name}</div>
+            </div>
+
+            <div class="nine wide column">
+                <div id="edit-area-show" ng-init="nick_name='{$user.nick_name}'">
+                    <div class="edit-erea-list">昵称：<literal>{{nick_name}}</literal></div>
+                    <div class="edit-erea-list" ng-init="sex='{$user.sex}'">性别：<literal>{{sex==''?'未知':sex}}</literal>
+                    </div>
+                </div>
+                <div id="edit-erea" style="display: none">
+                    <div class="edit-erea-list">昵称<div class="ui input"><input placeholder="昵称" type="text" ng-model="nick_name_temp"/></div></div>
+                    <div class="edit-erea-list">性别
+                        <div class="ui selection dropdown" id="select-sex">
+                            <input type="hidden" name="gender">
+                            <div class="text">男</div>
+                            <i class="dropdown icon"></i>
+                            <div class="menu">
+                                <div class="item" data-value="1">男</div>
+                                <div class="item active" data-value="2">女</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="edit-erea-list" >绑定手机：
+                    <empty name="user.phone">
+                        <div id="bind-input">
+                            <div class="ui input edit-erea-list">
+                                <input type="text" placeholder="输入手机号" ng-model="new_phone" id="new-phone"/>
+                            </div>
+                            <div class="ui action input edit-erea-list" id="validate" style="display: none">
+                                <input type="text" placeholder="输入验证码" autofocus="true" ng-model="send_code"/>
+                                <div class="ui button" ng-click="send_validate_code()">绑定</div>
+                            </div>
+                            <div class="edit-erea-list">
+                                <a class="ui label" ng-click="send_msg()" class="bind_btn_class" id="bind-btn-text">获取验证码</a>
+                            </div>
+                        </div>
+                        <else/>
+                            {$user.phone}
+                    </empty>
+                    <span ng-bind="new_phone" id="binded-phone" style="display: none"></span>
+                </div>
+            </div>
+            <div class="two wide column" id="edit-icon">
+                <div class="ui icon button" ng-click="edit()">
+                    <i  ng-class="edit_icon" ></i>
+                </div>
+                <div>&nbsp;</div>
+                <div id="cancel_edit" class="ui icon button" ng-click="cancel_edit()" style="display: none">
+                    <i class="remove red icon" ></i>
+                </div>
+
+            </div>
+        </div>
+        <div class="ui section divider "></div>
+        <div class="user-center-info-container ">
+            <a class="user-center-info-list ui grid" href="my_address.html">
+                <div class="fourteen wide column">我的地址</div>
+                <div class="two wide column"><i class="angle right icon"></i></div>
+            </a>
+            <a class="user-center-info-list ui grid" href="my_coupon.html">
+                <div class="fourteen wide column">我的优惠</div>
+                <div class="two wide column"><i class="angle right icon"></i></div>
+            </a>
+            <a class="user-center-info-list ui grid" href="my_orders">
+                <div class="fourteen wide column">我关注的人</div>
+                <div class="two wide column"><i class="angle right icon"></i></div>
+            </a>
+            <a class="user-center-info-list ui grid" href="my_appointment.html">
+                <div class="fourteen wide column">我的预约</div>
+                <div class="two wide column"><i class="angle right icon"></i></div>
+            </a>
+            <a class="user-center-info-list ui grid" href="my_signed_appointment.html">
+                <div class="fourteen wide column">我的服务</div>
+                <div class="two wide column"><i class="angle right icon"></i></div>
+            </a>
+            <a class="user-center-info-list ui grid" href="advice.html">
+                <div class="fourteen wide column">吐槽建议</div>
+                <div class="two wide column"><i class="angle right icon"></i></div>
+            </a>
+
+        </div>
+
+        <div CLASS="ui section divider" style="display: none"></div>
+        <div class="center-align" style="display: none">
+            <a href="logout" class="ui red button">退出</a>
+            <!--<i class="heart circular icon link" ></i>-->
+        </div>
+    </div>
+
+</body>
+
+<script>
+
+
+
+
+    $('#select-sex').dropdown();
+</script>

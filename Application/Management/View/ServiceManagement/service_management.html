@@ -1,0 +1,82 @@
+<script type="text/javascript" src="__STATIC__/js/service_management/app.js"></script>
+<body ng-app="tableApp">
+    <div data-form data-file="" ng-controller="tableController">
+
+        <ul ng-repeat="item in serviceTypes">
+            <li>{{item.description}}</li>
+        </ul>
+    </div>
+    <div class="form">
+        <table class="ui sortable table segment">
+            <thead>
+            <tr>
+                <th class="tab-title">姓名</th>
+                <th class="tab-title">状态</th>
+                <th class="tab-title">状态</th>
+                <th class="tab-title">状态</th>
+                <th class="tab-title">状态</th>
+                <th class="tab-title">状态</th>
+                <th class="tab-title">状态</th>
+                <th class="tab-title">备注</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>张三</td>
+                <td>No Action</td>
+                <td>No Action</td>
+                <td>No Action</td>
+                <td>No Action</td>
+                <td>No Action</td>
+                <td>No Action</td>
+                <td>无</td>
+                <td>
+                    <div class="ui primary button">编辑</div>
+                    <div class="ui secondary button">删除</div>
+                </td>
+            </tr>
+            <tr>
+                <td>李四</td>
+                <td class="positive">已接受</td>
+                <td class="warning">需要电话联系</td>
+                <td class="warning">需要电话联系</td>
+                <td class="warning">需要电话联系</td>
+                <td class="warning">需要电话联系</td>
+                <td>
+                    <div class="ui primary button">编辑</div>
+                    <div class="ui secondary button">删除</div>
+                </td>
+            </tr>
+            <tr>
+                <td>王五</td>
+                <td class="negative">已拒绝</td>
+                <td>无</td>
+                <td>无</td>
+                <td>无</td>
+                <td>无</td>
+                <td>
+                    <div class="ui primary button">编辑</div>
+                    <div class="ui secondary button">删除</div>
+                </td>
+            </tr>
+            </tbody>
+            <tfoot>
+            <tr><th>3个用户</th>
+                <th>2个已接受</th>
+                <th></th>
+            </tr></tfoot>
+
+        </table>
+    </div>
+
+    <div class="ui warning message">为表格的<code>th</code>加入类名 <code>ascending</code> 或者 <code>descending</code>就可以全表格变成一个可以被单击后进行排序的表格。 下面的例子使用的是 <a href="https://github.com/kylefox/jquery-tablesort">tablesort plugin</a> 来改变类名（当你单击表格列头的时候）。
+    </div>
+
+</body>
+<script>
+    (function(){
+        var from = $('[data-form]');
+
+    })();
+</script>

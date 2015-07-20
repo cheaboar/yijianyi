@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Cache-Control" content="no-siteapp"/>
+    <script type="text/javascript" src="__STATIC__/js/semantic.min.js"></script>
+    <script type="text/javascript" src="__STATIC__/js/jquery.min.js"></script>
+    <script type="text/javascript" src="__STATIC__/js/semantic.js"></script>
+    <link rel="stylesheet" href="__STATIC__/css/semantic.min.css"/>
+    <link rel="stylesheet" href="__STATIC__/css/semantic.css"/>
+    <link rel="stylesheet" href="__STATIC__/css/management.css"/>
+    <link rel="stylesheet" href="__STATIC__/css/management_service.css"/>
+    <link rel="alternate icon" type="image/png" href="__STATIC__/img/logo.png">
+    <title>{$title}</title>
+</head>
+<body>
+    <section class="nav">
+        <div>后台管理系统</div>
+    </section>
+    <section class="">
+        <div class="sidebar-button">
+            <i class="list layout icon"></i>
+            <span style="display: none" class="sidebar-span">导航</span>
+        </div>
+        <div class="ui  wide sidebar" >
+            <!--头部修饰部分-->
+            <div class="sidebar-header">
+                <i class="circular inverted home icon"></i>
+            </div>
+            <div class="ui horizontal divider"></div>
+            <!--选项展示-->
+            <div class="select-bar ui vertical menu ">
+                <div class="header item">
+                    <i class="user icon"></i>
+                    服务管理
+                </div>
+
+                <a class="item" href="/management/index/index">
+                    服务列表
+                </a>
+                <a class="item">
+                    SEO优化
+                </a>
+                <a class="item" href="/management/knowledge/index">
+                    知识库__ROOT__
+                </a>
+        </div>
+    </section>
+    <script>
+        $('.sidebar-button').on('click', function(){
+            console.log('click')
+            $('.ui.sidebar').sidebar('toggle');
+        });
+
+        // //这里研究使用CSS3特性
+        // $('.sidebar-button').on('mouseover mouseout',function(){
+        //     if(event.type == 'mouseover'){
+        //         $('.sidebar-span').css('display', 'inline');
+        //     }else{
+        //         $('.sidebar-span').css('display', 'none');
+        //     }
+
+        // });
+    </script>
+    
+    <!--导航栏-->
+    <!-- <include file="Public/knowledge_nav"/> -->
+    <div class="ui menu">
+        <div class="item">
+            <div class="ui button" id="knowledge_management"><a href="index">管理知识库</a></div>
+        </div>
+        <div class="item">
+            <div class="ui button" id="knowledge_add"><a href="knowledge_type_add">管添加目录</div>
+        </div>
+        <div class="item">
+            <div class="ui button" id="knowldege_add_msg"><a href="knowledge_add">添加新知识</a></div>
+        </div>
+        <div class="item">
+            <div class="ui button" id="logout"><a href="index">注销</a></div>
+        </div>
+    </div>
+    <!--end-->
+
+
+    <!--导航栏-->
+    <include file="Public/knowledge_nav"/>
+    <!--end-->
+    <!--管理内容-->
+    <div class="info message">知识库信息</div>
+        <div class="ui items">
+            <volist name="know" id="know">
+                <div class="item" id="{$know.info_id}">
+                    <div class="content">
+                        <div class="meta">时间:{$know.add_time}</div>
+                        <div class="name">隶属：{$know.cat_name}->{$know.info_title}</div>
+                        <p class="description">标题：{$know.infotitle}</p>
+                        <p class="description">{$know.info_detail}</p>
+                    </div>
+                    <div class="extra">
+                        199 阅读量&nbsp;&nbsp;     <a href="" onclick="tip();">修改</a>
+                    </div>
+                </div>
+            </volist>
+        </div>
+    </div>
+
+<script>
+    function tip(){
+        alert('该功能暂未开发完成');
+    }
+</script>
+
+<div class="footer">©广州易简医信息科技有限公司</div>
+
+</body>
+</html>

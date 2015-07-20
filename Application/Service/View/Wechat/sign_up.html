@@ -1,0 +1,80 @@
+<!--<script type="text/javascript" src="__STATIC__/js/service/controller/viewController.js"></script>-->
+<script type="text/javascript" src="__STATIC__/js/service/controller/signUpController.js"></script>
+<body ng-app="appointmentApp">
+    <!--<nav>注册</nav>-->
+    <include file="Public/nav" title="注册" />
+
+    <div class="login-form" ng-controller="signUpCtrl" >
+        <div class="ui form segment" ng-submit="signUp()"  >
+            <div class="field">
+                <label>用户名</label>
+                <input placeholder="用户名" name="username" type="text" ng-model="signUpUserName">
+            </div>
+            <div class="field">
+                <label>密码</label>
+                <input type="password" name="password1" ng-model="signUpPasswd1">
+            </div>
+            <div class="field">
+                <label>重复密码</label>
+                <input type="password" name="password2" ng-model="signUpPasswd2">
+            </div>
+
+            <div class="ui blue submit button">注册</div>
+            <a href="login" class="ui teal submit button">登录</a>
+            <div class="ui error message"></div>
+            <div class="ui red message" ng-show="show_return_msg">
+                <p ng-bind="return_msg"></p>
+            </div>
+        </div>
+    </div>
+</body>
+
+<script>
+    (function($) {
+        $('.ui.form').form({
+            username: {
+                identifier: 'username',
+                rules: [
+                    {
+                        type: 'empty',
+                        prompt: 'Please enter a username'
+                    }
+                ]
+            },
+            password1: {
+                identifier: 'password1',
+                rules: [
+                    {
+                        type: 'empty',
+                        prompt: 'Please enter a password'
+                    },
+                    {
+                        type: 'length[6]',
+                        prompt: 'Your password must be at least 6 characters'
+                    }
+                ]
+            },
+            password2: {
+                identifier: 'password2',
+                rules: [
+                    {
+                        type: 'empty',
+                        prompt: 'Please enter a password'
+                    },
+                    {
+                        type: 'length[6]',
+                        prompt: 'Your password must be at least 6 characters'
+                    },
+                    {
+                        type:'match[password1]',
+                        prompt:'密码必须相同'
+                    }
+                ]
+            }
+        }, {
+            onSuccess: function(){
+                console.log('good')
+            }
+        });
+    })(jQuery);
+</script>

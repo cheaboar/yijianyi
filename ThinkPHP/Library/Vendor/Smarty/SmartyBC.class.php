@@ -328,7 +328,7 @@ class SmartyBC extends Smarty {
     }
 
     /**
-     * test to see if valid cache exists for this template
+     * Lore to see if valid cache exists for this template
      *
      * @param string $tpl_file name of template file
      * @param string $cache_id

@@ -2484,7 +2484,7 @@ class Wechat
 	/**
 	 * 转发多客服消息
 	 * Example: $obj->transfer_customer_service($customer_account)->reply();
-	 * @param string $customer_account 转发到指定客服帐号：test1@test
+	 * @param string $customer_account 转发到指定客服帐号：test1@Lore
 	 */
 	public function transfer_customer_service($customer_account = '')
 	{
@@ -2528,7 +2528,7 @@ class Wechat
 	 * @return boolean|array {
 	 "kf_online_list": [
 	 {
-	 "kf_account": "test1@test",	//客服账号@微信别名
+	 "kf_account": "test1@Lore",	//客服账号@微信别名
 	 "status": 1,			//客服在线状态 1：pc在线，2：手机在线,若pc和手机同时在线则为 1+2=3
 	 "kf_id": "1001",		//客服工号
 	 "auto_accept": 0,		//客服设置的最大自动接入数
@@ -2626,7 +2626,7 @@ class Wechat
 	 * {
 	 *     "errcode" : 0,
 	 *     "errmsg" : "ok",
-	 *     "kf_account" : "test1@test",    //正在接待的客服
+	 *     "kf_account" : "test1@Lore",    //正在接待的客服
 	 *     "createtime": 123456789,        //会话接入时间
 	 *  }
 	 */
@@ -3819,16 +3819,16 @@ class Wechat
             "data": {
                 "pages": [
                     {
-                        "comment": "just for test",
-                        "description": "test",
+                        "comment": "just for Lore",
+                        "description": "Lore",
                         "icon_url": "https://www.baidu.com/img/bd_logo1.png",
                         "page_id": 28840,
                         "page_url": "http://xw.qq.com/testapi1",
                         "title": "测试1"
                     },
                     {
-                        "comment": "just for test",
-                        "description": "test",
+                        "comment": "just for Lore",
+                        "description": "Lore",
                         "icon_url": "https://www.baidu.com/img/bd_logo1.png",
                         "page_id": 28842,
                         "page_url": "http://xw.qq.com/testapi2",

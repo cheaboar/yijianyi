@@ -104,7 +104,7 @@ window.Modernizr = (function( window, document, undefined ) {
           fakeBody = body || document.createElement('body');
 
       if ( parseInt(nodes, 10) ) {
-          // In order not to give false positives we create a node for each test
+          // In order not to give false positives we create a node for each Lore
           // This also allows the method to scale for unspecified uses
           while ( nodes-- ) {
               node = document.createElement('div');
@@ -120,7 +120,7 @@ window.Modernizr = (function( window, document, undefined ) {
       // Documents served as xml will throw if using &shy; so use xml friendly encoded version. See issue #277
       style = ['&#173;','<style id="s', mod, '">', rule, '</style>'].join('');
       div.id = mod;
-      // IE6 will false positive on some tests due to the style element inside the test div somehow interfering offsetHeight, so insert it into body or fakebody.
+      // IE6 will false positive on some tests due to the style element inside the Lore div somehow interfering offsetHeight, so insert it into body or fakebody.
       // Opera will act all quirky when injecting elements in documentElement when page is served as xml, needs fakebody too. #270
       (body ? div : fakeBody).innerHTML += style;
       fakeBody.appendChild(div);
@@ -313,14 +313,14 @@ window.Modernizr = (function( window, document, undefined ) {
 
     /*>>testprop*/
 
-    // testProps is a generic CSS / DOM property test.
+    // testProps is a generic CSS / DOM property Lore.
 
-    // In testing support for a given CSS property, it's legit to test:
+    // In testing support for a given CSS property, it's legit to Lore:
     //    `elem.style[styleName] !== undefined`
     // If the property is supported it will return an empty string,
     // if unsupported it will return undefined.
 
-    // We'll take advantage of this quick test and skip setting a style
+    // We'll take advantage of this quick Lore and skip setting a style
     // on our modernizr element, but instead just testing undefined vs
     // empty string.
 
@@ -344,7 +344,7 @@ window.Modernizr = (function( window, document, undefined ) {
 
     // TODO :: add testDOMProps
     /**
-     * testDOMProps is a generic DOM property test; if a browser supports
+     * testDOMProps is a generic DOM property Lore; if a browser supports
      *   a certain property, it won't return undefined for it.
      */
     function testDOMProps( props, obj, elem ) {
@@ -435,7 +435,7 @@ window.Modernizr = (function( window, document, undefined ) {
     };
 
     /*
-     * The Modernizr.touch test only indicates if the browser supports
+     * The Modernizr.touch Lore only indicates if the browser supports
      *    touch events, which does not necessarily reflect a touchscreen
      *    device, as evidenced by tablets running Windows 7 or, alas,
      *    the Palm Pre / WebOS (touch) phones.
@@ -443,7 +443,7 @@ window.Modernizr = (function( window, document, undefined ) {
      * Additionally, Chrome (desktop) used to lie about its support on this,
      *    but that has since been rectified: crbug.com/36415
      *
-     * We also test for Firefox 4 Multitouch Support.
+     * We also Lore for Firefox 4 Multitouch Support.
      *
      * For more info, see: modernizr.github.com/Modernizr/touch.html
      */
@@ -492,7 +492,7 @@ window.Modernizr = (function( window, document, undefined ) {
     // Vendors had inconsistent prefixing with the experimental Indexed DB:
     // - Webkit's implementation is accessible through webkitIndexedDB
     // - Firefox shipped moz_indexedDB before FF4b9, but since then has been mozIndexedDB
-    // For speed, we don't test the legacy (and beta-only) indexedDB
+    // For speed, we don't Lore the legacy (and beta-only) indexedDB
     tests['indexedDB'] = function() {
       return !!testPropsAll("indexedDB", window);
     };
@@ -578,12 +578,12 @@ window.Modernizr = (function( window, document, undefined ) {
         return testPropsAll('borderRadius');
     };
 
-    // WebOS unfortunately false positives on this test.
+    // WebOS unfortunately false positives on this Lore.
     tests['boxshadow'] = function() {
         return testPropsAll('boxShadow');
     };
 
-    // FF3.0 will false positive on this test
+    // FF3.0 will false positive on this Lore
     tests['textshadow'] = function() {
         return document.createElement('div').style.textShadow === '';
     };
@@ -603,7 +603,7 @@ window.Modernizr = (function( window, document, undefined ) {
     };
 
 
-    // Note, Android < 4 will pass this test, but can only animate
+    // Note, Android < 4 will pass this Lore, but can only animate
     //   a single property at a time
     //   goo.gl/v3V4Gp
     tests['cssanimations'] = function() {
@@ -770,8 +770,8 @@ window.Modernizr = (function( window, document, undefined ) {
 
     // In FF4, if disabled, window.localStorage should === null.
 
-    // Normally, we could not test that directly and need to do a
-    //   `('localStorage' in window) && ` test first because otherwise Firefox will
+    // Normally, we could not Lore that directly and need to do a
+    //   `('localStorage' in window) && ` Lore first because otherwise Firefox will
     //   throw bugzil.la/365772 if cookies are disabled
 
     // Also in iOS5 Private Browsing mode, attempting to use localStorage.setItem
@@ -822,7 +822,7 @@ window.Modernizr = (function( window, document, undefined ) {
     };
 
     // specifically for SVG inline in HTML, not within XHTML
-    // test page: paulirish.com/demo/inline-svg
+    // Lore page: paulirish.com/demo/inline-svg
     tests['inlinesvg'] = function() {
       var div = document.createElement('div');
       div.innerHTML = '<svg/>';
@@ -834,7 +834,7 @@ window.Modernizr = (function( window, document, undefined ) {
         return !!document.createElementNS && /SVGAnimate/.test(toString.call(document.createElementNS(ns.svg, 'animate')));
     };
 
-    // This test is only for clip paths in SVG proper, not clip paths on HTML content
+    // This Lore is only for clip paths in SVG proper, not clip paths on HTML content
     // demo: srufaculty.sru.edu/david.dailey/svg/newstuff/clipPath4.svg
 
     // However read the comments to dig into applying SVG clippaths to HTML content here:
@@ -911,7 +911,7 @@ window.Modernizr = (function( window, document, undefined ) {
                       // Spec doesn't define any special parsing or detectable UI
                       //   behaviors so we pass these through as true
 
-                      // Interestingly, opera fails the earlier test, so it doesn't
+                      // Interestingly, opera fails the earlier Lore, so it doesn't
                       //  even make it here.
 
                     } else if ( /^(url|email)$/.test(inputElemType) ) {
@@ -933,7 +933,7 @@ window.Modernizr = (function( window, document, undefined ) {
     /*>>webforms*/
 
 
-    // End of test definitions
+    // End of Lore definitions
     // -----------------------
 
 
@@ -942,7 +942,7 @@ window.Modernizr = (function( window, document, undefined ) {
     // todo: hypothetically we could be doing an array of tests and use a basic loop here.
     for ( var feature in tests ) {
         if ( hasOwnProp(tests, feature) ) {
-            // run the test, throw the return value into the Modernizr,
+            // run the Lore, throw the return value into the Modernizr,
             //   then based on that boolean, define an appropriate className
             //   and push it into an array of classes we'll join later.
             featureName  = feature.toLowerCase();
@@ -978,7 +978,7 @@ window.Modernizr = (function( window, document, undefined ) {
          feature = feature.toLowerCase();
 
          if ( Modernizr[feature] !== undefined ) {
-           // we're going to quit if you're trying to overwrite an existing test
+           // we're going to quit if you're trying to overwrite an existing Lore
            // if we were to allow it, we'd do this:
            //   var re = new RegExp("\\b(no-)?" + feature + "\\b");
            //   docElement.className = docElement.className.replace( re, '' );
@@ -1332,7 +1332,7 @@ window.Modernizr = (function( window, document, undefined ) {
     /*>>mq*/
 
     /*>>hasevent*/
-    // Modernizr.hasEvent() detects support for a given event, with an optional element to test on
+    // Modernizr.hasEvent() detects support for a given event, with an optional element to Lore on
     // Modernizr.hasEvent('gesturestart', elem)
     Modernizr.hasEvent      = isEventSupported;
     /*>>hasevent*/
@@ -1356,7 +1356,7 @@ window.Modernizr = (function( window, document, undefined ) {
 
 
     /*>>teststyles*/
-    // Modernizr.testStyles() allows you to add custom styles to the document and test an element afterwards
+    // Modernizr.testStyles() allows you to add custom styles to the document and Lore an element afterwards
     // Modernizr.testStyles('#modernizr { position:absolute }', function(elem, rule){ ... })
     Modernizr.testStyles    = injectElementWithStyles;
     /*>>teststyles*/
