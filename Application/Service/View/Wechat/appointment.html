@@ -36,20 +36,20 @@
 
     </div>
 
-    <div class="ui form segment">
-            <div class="field">
-                <label>联系人</label>
-                <input placeholder="联系人" type="text" ng-model="name">
-            </div>
-            <div class="field">
-                <label>电话</label>
-                <input placeholder="电话" type="number" ng-model="phone">
-            </div>
-            <div class="field">
-                <label>与被服务人的关系</label>
-                <input placeholder="例如：本人，兄弟，夫妻..." type="text" ng-model="relationship">
-            </div>
-    </div>
+    <!--<div class="ui form segment">-->
+            <!--<div class="field">-->
+                <!--<label>联系人</label>-->
+                <!--<input placeholder="联系人" type="text" ng-model="name">-->
+            <!--</div>-->
+            <!--<div class="field">-->
+                <!--<label>电话</label>-->
+                <!--<input placeholder="电话" type="number" ng-model="phone">-->
+            <!--</div>-->
+            <!--<div class="field">-->
+                <!--<label>与被服务人的关系</label>-->
+                <!--<input placeholder="例如：本人，兄弟，夫妻..." type="text" ng-model="relationship">-->
+            <!--</div>-->
+    <!--</div>-->
 
     <div class="appointment-address-time">
         <div class="appointment-address ui grid">
@@ -177,24 +177,24 @@
                     <!--<input type="text" ng-class=""name="" ng-model="zone" placeholder="输入区（可选）" />-->
                     <select ng-model="zone" ng-options="zone.area_name for zone in zones" class="ui  input "></select>
                 </div>
-                <div class="field">
-                    <label>镇</label>
-                    <input type="text" name="" ng-model="town" placeholder="输入镇（可选）" />
-                </div>
+                <!--<div class="field">-->
+                    <!--<label>镇</label>-->
+                    <!--<input type="text" name="" ng-model="town" placeholder="输入镇（可选）" />-->
+                <!--</div>-->
                 <div class="field">
                     <label>街道</label>
                     <input type="text" ng-class="streeClass" name="" ng-model="stree" placeholder="输入街道" required/>
                 </div>
-                <div class="field">
-                    <label>联系人</label>
-                    <input type="text" ng-class="contactNameClass"name="" ng-model="contactName" placeholder="输入联系人" required/>
-                </div>
-                <div class="field">
-                    <label>电话</label>
-                    <input type="number" ng-class="contactPhoneClass" name="" ng-model="contactPhone" placeholder="输入电话" required/>
-                </div>
+                <!--<div class="field">-->
+                    <!--<label>联系人</label>-->
+                    <!--<input type="text" ng-class="contactNameClass"name="" ng-model="contactName" placeholder="输入联系人" required/>-->
+                <!--</div>-->
+                <!--<div class="field">-->
+                    <!--<label>电话</label>-->
+                    <!--<input type="number" ng-class="contactPhoneClass" name="" ng-model="contactPhone" placeholder="输入电话" required/>-->
+                <!--</div>-->
 
-                <div class="ui red message" ng-show="showAddAddressMsg" ng-bind="addAddressWarnStr"></div>
+                <!--<div class="ui red message" ng-show="showAddAddressMsg" ng-bind="addAddressWarnStr"></div>-->
 
                 <div class="ui black fluid button"  ng-click="addAddress()">提交</div>
 

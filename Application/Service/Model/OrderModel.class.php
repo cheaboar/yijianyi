@@ -96,5 +96,15 @@ class OrderModel extends Model{
         return $order_lists;
     }
 
+    //获取用户的所有order，这里指的是负责人的order，用于推动订单的详情
+    public function get_user_orders($user_id){
+        $condition = array(
+            user_id => $user_id,
+        );
 
+        $result =  $this->alias('o')->join('oa_customer as c on c.customer_id = o.customer_id')
+            ->where($condition)->order('add_time desc')
+            ->getField('order_id, order_no, customer_name, service_type, order_status, add_time');
+        return $result;
+    }
 }

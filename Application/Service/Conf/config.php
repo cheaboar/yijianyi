@@ -70,5 +70,7 @@ return array(
 
     ),
 
+    'AUTH_URL' => 'http://master.ecare-easy.com/index.php/oa_admin/wx/getUserMsg?url=',
+
 
 );

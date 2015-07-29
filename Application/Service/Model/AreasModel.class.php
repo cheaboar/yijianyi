@@ -32,4 +32,13 @@ class AreasModel extends Model{
 
         return $this->where($condition)->getField('area_id');
     }
+
+    public function get_area_name($area_id){
+        $condition = array(
+            'area_id' =>  $area_id,
+        );
+
+        return $this->where($condition)->getField('area_name');
+//        return S('area_name');
+    }
 }

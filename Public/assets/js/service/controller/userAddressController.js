@@ -77,16 +77,17 @@ userAddressCtrl = appointmentApp.controller('myAddressCtrl', ['$scope', '$resour
         }else{
             $scope.saving = true;
             var data = {
-                'province':$scope.province.area_name,
+                //'province':$scope.province.area_name,
                 'province_id':$scope.province.area_id,
-                'city':$scope.city.area_name,
+                //'city':$scope.city.area_name,
                 'city_id':$scope.city.area_id,
-                'zone':$scope.zone.area_name,
+                //'zone':$scope.zone.area_name,
                 'zone_id':$scope.zone.area_id,
-                'stree':$scope.stree,
-                'contact_name': $scope.contact_name,
-                'contact_phone':$scope.contact_phone
+                'stree':$scope.stree
+                //'contact_name': $scope.contact_name,
+                //'contact_phone':$scope.contact_phone
             }
+            //$('#save-btn').addClass('loading');
             var result = $resource('save_address').get(data, function(){
                 if(result.code == 200){
                     $scope.loadAddress();

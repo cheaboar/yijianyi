@@ -17,7 +17,7 @@
             <div class="ui segment" ng-repeat="coupon in coupons">
                 <div class="ui grid" >
                     <div class="ui three wide column">
-                        {{coupon.coupon_amount}}元
+                        <span ng-bind="coupon.coupon_amount"></span>元
                     </div>
                     <div class="ui thirteen wide column">
                         <div>可在结算的时候使用</div>
@@ -25,8 +25,8 @@
                 </div>
                 <div class="ui  divider"></div>
                 <div class="ui grid">
-                    <div class="eight wide column">{{coupon.state}}</div>
-                    <div class="eight wide column">{{coupon.expire}}</div>
+                    <div class="eight wide column"><span ng-bind="coupon.state"></span></div>
+                    <div class="eight wide column"><span ng-bind="coupon.expire"></span></div>
                 </div>
 
             </div>

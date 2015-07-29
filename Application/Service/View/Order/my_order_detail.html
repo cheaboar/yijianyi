@@ -1,0 +1,66 @@
+<body>
+
+    <include file="Public:title_header" href="new_my_service" title="订单详情"/>
+
+    <div class="order-detail-container">
+        <div class="order-detail">
+            <div class="customer-info detail-area">
+                <h4 class="ui header teal">
+                    客户信息
+                </h4>
+                <div class="info-area">
+                    <div class="info-line">姓名：{$order.customer_detail.customer_name}</div>
+                    <div class="info-line">性别：{$order.customer_detail.customer_sex}</div>
+                    <div class="info-line">年龄：{$order.customer_detail.customer_age}</div>
+                    <div class="info-line">语言：{$order.customer_detail.customer_language}</div>
+                </div>
+            </div>
+            <div class="order-info detail-area">
+                <h4 class="ui header teal">
+                    订单信息
+                </h4>
+                <div class="info-area">
+                    <div class="info-line">订单号：{$order.order_no}</div>
+                    <div class="info-line">服务类型：{$order.service_type}</div>
+                    <div class="info-line">服务模式：{$order.service_mode}</div>
+                    <div class="info-line">服务单价：￥{$order.order_fee}元</div>
+                    <div class="info-line">时间单位：{$order.order_fee_unit}</div>
+                    <div class="info-line">创建时间：{$order.add_time}</div>
+                    <div class="info-line">服务开始时间：{$order.order_start_time}</div>
+                    <div class="info-line">服务结束时间：{$order.order_end_time}</div>
+                    <div class="info-line">预付款：￥
+                        <empty name="order.order_advance_payment">
+                            0
+                            <else/>
+                            {$order.order_advance_payment}
+                        </empty>
+                        元</div>
+                    <div class="info-line">总费用：￥
+                        <empty name="order.order_advance_payment">
+                            0
+                            <else/>
+                            {$order.order_total_cost}
+                        </empty>
+                        元</div>
+                    <div class="info-line">订单转态：{$order.order_status}</div>
+
+                </div>
+            </div>
+
+            <div class="order-detail-bottom detail-area">
+                <div class="btn btn-success">确认</div>
+                <div class="btn btn-danger">取消</div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+</body>
+<script>
+
+</script>
+</html>

@@ -16,9 +16,9 @@
 <literal>
     <div class="follow-list">
         <div class="ui segment" ng-repeat="follow in follows">
-            <div>姓名：{{follow.customer.customer_name}}</div>
-            <div>性别：{{follow.customer.customer_sex}}</div>
-            <div>年龄：{{follow.customer.customer_age}}</div>
+            <div>姓名：<span ng-bind="follow.customer.customer_name"></span></div>
+            <div>性别：<span ng-bind="follow.customer.customer_sex"></span></div>
+            <div>年龄：<span ng-bind="follow.customer.customer_age"></span></div>
 
         </div>
     </div>

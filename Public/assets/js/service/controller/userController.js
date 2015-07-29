@@ -85,7 +85,7 @@ appointmentApp.controller('userCtrl',['$scope', '$resource', function($scope, $r
 
     $scope.edit = function(){
         if(!$scope.edit_status){
-            $scope.nick_name_temp = $scope.nick_name;
+            $scope.user_name_temp = $scope.user_name;
             $scope.edit_label = '完成';
             $scope.edit_icon = 'save teal icon';
             $('#edit-erea').show();
@@ -96,10 +96,9 @@ appointmentApp.controller('userCtrl',['$scope', '$resource', function($scope, $r
             //保存修改
 
             var user_info = $resource('save_user_info');
-            console.log($scope.sex_temp);
-            var result = user_info.save({'sex':$scope.sex_temp, 'nick_name':$scope.nick_name_temp, 'user_id':$scope.user_id},function(){
+            var result = user_info.save({'sex':$scope.sex_temp, 'user_name':$scope.user_name_temp},function(){
                 if(result.code == 200){
-                    $scope.nick_name = $scope.nick_name_temp;
+                    $scope.user_name = $scope.user_name_temp;
                     if($scope.sex_temp == 1){
                         $scope.sex = '男';
                     }else if($scope.sex_temp == 2){
@@ -107,6 +106,7 @@ appointmentApp.controller('userCtrl',['$scope', '$resource', function($scope, $r
                     }else{
                         $scope.sex = '男';
                     }
+                }else{
                 }
             })
 

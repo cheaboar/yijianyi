@@ -245,6 +245,7 @@ ul{
     width: 90%;
     margin: auto;
     margin-top: 50px;
+    margin-bottom: 80px;
     background-color: #ffffff;
     color: rgba(0, 0, 0, 0.5);
     border-radius: 4px;
@@ -574,4 +575,11 @@ ul{
     font-size: larger;
     margin-top: 2rem;
 
+}
+
+.bind-phone{
+    max-width: 500px;
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
 }

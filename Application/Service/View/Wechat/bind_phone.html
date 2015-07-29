@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Cache-Control" content="no-siteapp"/>
+    <script type="text/javascript" src="__STATIC__/js/jquery.min.js"></script>
+    <script type="text/javascript" src="__STATIC__/js/service.js"></script>
+
+    <link rel="alternate icon" type="image/png" href="__STATIC__/img/logo.png">
+    <link rel="stylesheet" href="__STATIC__/css/semantic.min.css"/>
+    <link rel="stylesheet" href="__STATIC__/css/service.css"/>
+
+    <title>{$title}</title>
+</head>
+<body>
+    <div class="bind-phone">
+        <include file="Public:header_nav" href="javascript:window.history.go(-1)" title="绑定手机"/>
+
+        <div class="ui form">
+            <div class="ui form segment">
+                <div class="field">
+                    <label>手机号</label>
+                    <div class="ui left labeled icon input">
+                        <input type="text" placeholder="输入要绑定的手机号" id="phone" autofocus="true">
+                        <i class="phone icon"></i>
+                        <div class="ui corner label">
+                            <i class="icon asterisk"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="field validate-field"  style="display: none">
+                    <label>验证码</label>
+                    <div class="ui left labeled icon input">
+                        <input type="text" placeholder="输入验证码" id="code">
+                        <i class="lock icon"></i>
+                        <div class="ui corner label">
+                            <i class="icon asterisk"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="ui error message" id="error-msg">
+                    <div class="header" id="error-msg-header">发生了错误</div>
+                </div>
+                <div class="ui teal button" id="get-code" >获取验证码</div>
+                <div class="ui blue  button validate-field" style="display: none" id="validate-button">验证</div>
+                <input type="text" style="display: none" value="{$request_uri}" id="request_uri"/>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+<script>
+    //验证手机验证码
+    $('#validate-button').on('click',function(){
+        $.ajax({
+            url:'validate_phone_code',
+            data: {
+                code: $('#code').val()
+            },
+            async:false,
+            dataType:'json',
+            success: function(data, status){
+                if(data.code == 200){
+                    //验证成功，跳转到指定路径去
+
+                    $('#error-msg-header').text('成功');
+                    $('#error-msg').show();
+                    window.location.href = $("#request_uri").val();
+                }else{
+                    //验证失败
+                    $('#error-msg-header').text('验证码错误');
+                    $('#error-msg').show();
+                }
+            }
+        })
+    })
+
+    $('#get-code').on('click',function(){
+        //验证手机号码
+        var phone = $('#phone').val();
+        if(!formValid.isPhone(phone)){
+            $('#error-msg-header').text('手机号码格式不正确，请输入正确手机号');
+            $('#error-msg').show();
+        }else{
+            $('#error-msg-header').text('手机号码正确');
+
+            //发起验证码请求
+            $.ajax({
+                        url:'send_msg',
+                        data: {
+                            new_phone : phone
+                        },
+                        async: false,
+                        dataType:'json',
+                        cache: false,
+                        success: function(data, textStatus){
+                            $('.validate-field').show();
+                        },
+                        error: function(request,status, error){
+                            $('#error-msg').show(error);
+                        }
+                    }
+            );
+
+
+        }
+        //显示时间
+        util.hsTime('#get-code');
+    })
+
+
+
+</script>
+</html>

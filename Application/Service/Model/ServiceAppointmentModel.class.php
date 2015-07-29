@@ -8,7 +8,7 @@
 
 namespace Service\Model;
 use Think\Model;
-use Service\Model\UserAddressModel;
+use Service\Model\AddressModel;
 use Service\Model\ServiceInfoModel;
 
 class ServiceAppointmentModel extends Model{
@@ -27,7 +27,7 @@ class ServiceAppointmentModel extends Model{
 
 
     public function get_my_appointments($user_id, $state){
-        $user_address = new UserAddressModel();
+        $addressM = new AddressModel();
         $service_info = new ServiceInfoModel();
         $result = array();
         $condition['user_id'] = $user_id;
@@ -35,9 +35,9 @@ class ServiceAppointmentModel extends Model{
         $my_appointments =  $this->where($condition)->order('id desc')->select();
 //        dump($this->getLastSql());
         foreach($my_appointments as $appointment){
-            $address = $user_address->get_address($appointment['address_id']);
+            $address = $addressM->get_address($appointment['address_id']);
 
-            $appointment['address_str'] = $this->parse_address($address);
+            $appointment['address_str'] = $addressM->address_to_str($address);
             $appointment['address'] = $address;
             $appointment['service_name'] = $service_info->get_service_name($appointment['service_id']);
             $result[] = $appointment;

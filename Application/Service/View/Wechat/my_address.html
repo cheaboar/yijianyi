@@ -12,7 +12,7 @@
                     <div class="ui right red corner label address-delete" ng-click="deleteClick($index)">
                         <i class="remove circle icon"></i>
                     </div>
-                    <p>{{address.address}}</p>
+                    <p><span ng-bind="address.address"></span></p>
                 </div>
         </literal>
 
@@ -44,19 +44,19 @@
                                 <input type="text" ng-model="stree"  placeholder="街道地址">
                             </div>
 
-                            <div class="field">
-                                <label>联系人（服务对象）</label>
-                                <input type="text" ng-model="contact_name" placeholder="联系人">
-                            </div>
+                            <!--<div class="field">-->
+                                <!--<label>联系人（服务对象）</label>-->
+                                <!--<input type="text" ng-model="contact_name" placeholder="联系人">-->
+                            <!--</div>-->
 
-                            <div class="field">
-                                <label>手机</label>
-                                <input type="text" ng-model="contact_phone" placeholder="手机">
-                            </div>
+                            <!--<div class="field">-->
+                                <!--<label>手机</label>-->
+                                <!--<input type="text" ng-model="contact_phone" placeholder="手机">-->
+                            <!--</div>-->
                         </div>
                     </form>
 
-                    <div class="ui button " ng-click="save_address()">保存</div>
+                    <div class="ui button " ng-click="save_address()" id="save-btn">保存</div>
 
                 </div>
             </div>

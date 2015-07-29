@@ -8,23 +8,24 @@
         <div class="ui grid">
             <div class="five wide column head-area">
                 <div class="user-head-image">
-                    <empty name="user.wechat_head_image">
+                    <empty name="user.user_icon">
                         <i class="circular inverted teal users icon"></i>
                         <else/>
-                        <img class="ui avatar  image" src="{$user.wechat_head_image}" pagespeed_url_hash="481064615" onload="pagespeed.CriticalImages.checkImageForCriticality(this);">
+                        <img class="ui avatar  image" src="{$user.user_icon}" pagespeed_url_hash="481064615" onload="pagespeed.CriticalImages.checkImageForCriticality(this);">
                     </empty>
                 </div>
-                <div class="ui header teal">{$user.login_name}</div>
+                <div class="ui header teal">{$user.user_nickname}</div>
             </div>
 
             <div class="nine wide column">
-                <div id="edit-area-show" ng-init="nick_name='{$user.nick_name}'">
-                    <div class="edit-erea-list">昵称：<literal>{{nick_name}}</literal></div>
-                    <div class="edit-erea-list" ng-init="sex='{$user.sex}'">性别：<literal>{{sex==''?'未知':sex}}</literal>
+                <div id="edit-area-show" ng-init="user_name='{$user.user_name}'">
+                    <div class="edit-erea-list">姓名：<literal><span ng-bind="user_name"></span></literal></div>
+                    <div class="edit-erea-list">地区：{$user.provinceName}{$user.cityName}</div>
+                    <div class="edit-erea-list" ng-init="sex='{$user.sex}'">性别：<literal><span ng-bind="sex==''?'未知':sex"></span></literal>
                     </div>
                 </div>
                 <div id="edit-erea" style="display: none">
-                    <div class="edit-erea-list">昵称<div class="ui input"><input placeholder="昵称" type="text" ng-model="nick_name_temp"/></div></div>
+                    <div class="edit-erea-list">姓名<div class="ui input"><input placeholder="填写姓名" type="text" ng-model="user_name_temp"/></div></div>
                     <div class="edit-erea-list">性别
                         <div class="ui selection dropdown" id="select-sex">
                             <input type="hidden" name="gender">

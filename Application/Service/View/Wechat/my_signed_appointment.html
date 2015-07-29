@@ -17,16 +17,16 @@
     <literal>
         <div class="appointment-tab ui segment" ng-repeat="a in my_signed_appointments" id="item-{{a.id}}" >
             <h4 class="ui header teal">
-                服务：{{a.service_name}}
+                服务：<span ng-bind="a.service_name"></span>
             </h4>
             <div class="appointment-address">
 
 
-                <div>地址：{{a.address_str}}</div>
-                <div>联系人：{{a.name}}</div>
-                <div>联系电话：{{a.phone}}</div>
-                <div>创建时间：{{a.confirm_time}}</div>
-                <div>方便联系时间：{{a.easy_time}}</div>
+                <div>地址：<span ng-bind="a.address_str"></span></div>
+                <div>联系人：<span ng-bind="a.name"></span></div>
+                <div>联系电话：<span ng-bind="a.phone"></span></div>
+                <div>创建时间：<span ng-bind="a.confirm_time"></span></div>
+                <div>方便联系时间：<span ng-bind="a.easy_time"></span></div>
             </div>
         </div>
     </literal>

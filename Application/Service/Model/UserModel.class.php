@@ -18,15 +18,16 @@ class UserModel extends Model {
     //不能匹配相同的，否则不返回，只能返回时的映射，不能用直接用于查询。
     protected $_map = array(
         'id' => 'user_id',
-        'nick_name' => 'user_nickname',
-        'login_name' => 'wechat_name',
+//        'nick_name' => 'user_nickname',
+//        'login_name' => 'wechat_name',
 //        'password' => 'password',
 //        'email' => 'email',
 //        'wechat_name' => 'wechat_name',
 //        'wechat_openid' => 'wechat_openid',
-        'wechat_head_image' => 'user_icon',
+//        'wechat_head_image' => 'user_icon',
         'phone' => 'user_phone',
         'sex' => 'user_sex',
+        'wechat_openid' => 'user_weixin',
 //        'head_image' => 'head_image'
       );
 
@@ -36,9 +37,9 @@ class UserModel extends Model {
     }
 
     //更新用户信息
-    public function update_user_info($user_id, $nick_name, $sex){
+    public function update_user_info($user_id, $user_name, $sex){
         $data = array(
-            'user_nickname' => $nick_name,
+            'user_name' => $user_name,
             'user_sex' => $sex
         );
         $this->where('user_id='.$user_id)->save($data);
@@ -46,9 +47,16 @@ class UserModel extends Model {
 
     //获取用户信息
     public function get_user_info($user_id){
-        $result = $this->where('user_id='.$user_id)->find();
+        $result = $this->alias('user')
+            ->join('left join oa_areas as a1 on user.user_province = a1.area_id')
+            ->join('left join oa_areas as a2 on user.user_city = a2.area_id')
+            ->where('user.user_id='.$user_id)->getField('user_id, user_name, user_phone as phone,
+            a1.area_name as provinceName, a2.area_name as cityName,
+             user_icon, user_nickname, user_sex as sex');
+
         return $result;
     }
+
 
 
 
@@ -63,9 +71,12 @@ class UserModel extends Model {
         $area = new AreasModel();
 
         $data = array(
-            'wechat_name' => $user['nickname'],
+//            'wechat_name' => $user['nickname'],
+            'user_nickname' => $user['nickname'],
+            'wechat_head_image' => $user['headimgurl'],
             'user_icon' => $user['headimgurl'],
             'wechat_openid' => $user['openid'],
+            'user_weixin' => $user['openid'],
             'user_sex' => $user['sex'],
             'user_province' => $area->get_area_id($user['province']),
             'user_city' => $area->get_area_id($user['city']),
@@ -114,7 +125,7 @@ class UserModel extends Model {
 
     }
 
-    //获取用户密码
+    //获取用户密码,已经废弃了
     //$user_name:用户登录名
     public function get_passwd_user_id($user_name){
 
@@ -140,5 +151,18 @@ class UserModel extends Model {
         }
 
         return $return_data;
+    }
+    //是否已经绑定了手机
+    public function is_bind_phone($user_id){
+        $condition = array(
+            'user_id' => $user_id,
+        );
+        $phone = $this->where($condition)->getField('user_phone');
+
+        if(empty($phone)){
+            return false;
+        }else{
+            return true;
+        }
     }
 }

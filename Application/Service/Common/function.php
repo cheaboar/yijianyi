@@ -17,3 +17,14 @@ function time_stamp_to_str($format, $time_stamp){
     return $time_str = date($format, $time_stamp);
 
 }
+
+
+
+function get_wechat_user_info(){
+    //判断是否缓存了用户信息
+
+    //是，不需要发送请求
+    //否
+    //缓存用户信息
+
+}

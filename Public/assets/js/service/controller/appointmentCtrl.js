@@ -67,9 +67,7 @@ appointmentApp.controller('appointmentCtrl', ['$scope', 'addressFactory','commit
     $scope.addressSelected = function(index){
         initAddressClass();
         $scope.showAddressNeededMsg = false;
-        console.log($scope.addresses[index]);
         $scope.selectedAddressId = $scope.addresses[index].id;
-        //$scope.selectedAddressStr = $scope.addresses[index].province + '省' + $scope.addresses[index].city + '市' + $scope.addresses[index].zone + $scope.addresses[index].town +  $scope.addresses[index].stree +'  联系人：' + $scope.addresses[index].contact_name + '  ' + $scope.addresses[index].contact_phone;
         $scope.selectedAddressStr = $scope.addresses[index].address;
         $scope.showSelectedAddress = true;
         $scope.itemClass[index] = 'active';
@@ -140,60 +138,58 @@ appointmentApp.controller('appointmentCtrl', ['$scope', 'addressFactory','commit
     //}
 
     $scope.addAddress = function(){
-        $scope.emptyCount = 0;
-        if($scope.province == '' || $scope.province === undefined){
-
-            $scope.emptyCount = $scope.emptyCount + 1;
-            $scope.provinceClass = 'warning-input';
-        }else{
-            $scope.provinceClass = '';
-        }
-
-        if($scope.city == '' || $scope.city === undefined){
-            $scope.emptyCount = $scope.emptyCount + 1;
-            $scope.cityClass = 'warning-input';
-        }else{
-            $scope.cityClass = '';
-        }
-
-        if($scope.stree == '' || $scope.stree === undefined){
-            $scope.emptyCount = $scope.emptyCount + 1;
-            $scope.streeClass = 'warning-input';
-        }else{
-            $scope.streeClass = '';
-        }
-
-        if($scope.contactName == '' || $scope.contactName === undefined){
-            $scope.emptyCount = $scope.emptyCount + 1;
-            $scope.contactNameClass = 'warning-input';
-        }else{
-            $scope.contactNameClass = '';
-        }
-
-        if($scope.contactPhone == '' || $scope.contactPhone === undefined){
-            $scope.emptyCount = $scope.emptyCount + 1;
-            $scope.contactPhoneClass = 'warning-input';
-        }else{
-            $scope.contactPhoneClass = '';
-            console.log($scope.contactPhone);
-        }
-
-        $scope.addAddressWarnStr = '请填写红框的信息。';
-        console.log($scope.emptyCount)
-        if($scope.emptyCount != 0){
-            $scope.showAddAddressMsg = true;
-
-        }else{
+        //$scope.emptyCount = 0;
+        //if($scope.province == '' || $scope.province === undefined){
+        //
+        //    $scope.emptyCount = $scope.emptyCount + 1;
+        //    $scope.provinceClass = 'warning-input';
+        //}else{
+        //    $scope.provinceClass = '';
+        //}
+        //
+        //if($scope.city == '' || $scope.city === undefined){
+        //    $scope.emptyCount = $scope.emptyCount + 1;
+        //    $scope.cityClass = 'warning-input';
+        //}else{
+        //    $scope.cityClass = '';
+        //}
+        //
+        //if($scope.stree == '' || $scope.stree === undefined){
+        //    $scope.emptyCount = $scope.emptyCount + 1;
+        //    $scope.streeClass = 'warning-input';
+        //}else{
+        //    $scope.streeClass = '';
+        //}
+        //
+        //if($scope.contactName == '' || $scope.contactName === undefined){
+        //    $scope.emptyCount = $scope.emptyCount + 1;
+        //    $scope.contactNameClass = 'warning-input';
+        //}else{
+        //    $scope.contactNameClass = '';
+        //}
+        //
+        //if($scope.contactPhone == '' || $scope.contactPhone === undefined){
+        //    $scope.emptyCount = $scope.emptyCount + 1;
+        //    $scope.contactPhoneClass = 'warning-input';
+        //}else{
+        //    $scope.contactPhoneClass = '';
+        //    console.log($scope.contactPhone);
+        //}
+        //
+        //$scope.addAddressWarnStr = '请填写红框的信息。';
+        //console.log($scope.emptyCount)
+        //if($scope.emptyCount != 0){
+            //$scope.showAddAddressMsg = true;
             $scope.showAddAddressMsg = false;
             $scope.newAddress = new addressFactory();
             //$scope.newAddress = new $resource('user_address');
-            $scope.newAddress.province = $scope.province.area_name;
-            $scope.newAddress.zone = $scope.zone.area_name;
-            $scope.newAddress.city = $scope.city.area_name;
-            $scope.newAddress.town = $scope.town;
+            $scope.newAddress.province = $scope.province.area_id;
+            $scope.newAddress.zone = $scope.zone.area_id;
+            $scope.newAddress.city = $scope.city.area_id;
+            //$scope.newAddress.town = $scope.town;
             $scope.newAddress.stree = $scope.stree;
-            $scope.newAddress.contact_name = $scope.contactName;
-            $scope.newAddress.contact_phone = $scope.contactPhone;
+            //$scope.newAddress.contact_name = $scope.contactName;
+            //$scope.newAddress.contact_phone = $scope.contactPhone;
 
             $scope.newAddress.$save(function(data){
                 if(data.code == 200){
@@ -202,7 +198,27 @@ appointmentApp.controller('appointmentCtrl', ['$scope', 'addressFactory','commit
                     $scope.addresses = addressFactory.query({user_id:$scope.user_id});
                 }
             });
-        }
+
+        //}else{
+        //    $scope.showAddAddressMsg = false;
+        //    $scope.newAddress = new addressFactory();
+        //    //$scope.newAddress = new $resource('user_address');
+        //    $scope.newAddress.province = $scope.province.area_name;
+        //    $scope.newAddress.zone = $scope.zone.area_name;
+        //    $scope.newAddress.city = $scope.city.area_name;
+        //    $scope.newAddress.town = $scope.town;
+        //    $scope.newAddress.stree = $scope.stree;
+        //    $scope.newAddress.contact_name = $scope.contactName;
+        //    $scope.newAddress.contact_phone = $scope.contactPhone;
+        //
+        //    $scope.newAddress.$save(function(data){
+        //        if(data.code == 200){
+        //            //添加展示地址
+        //            $scope.showAddressForm = false;
+        //            $scope.addresses = addressFactory.query({user_id:$scope.user_id});
+        //        }
+        //    });
+        //}
     }
 
 
