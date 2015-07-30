@@ -2,7 +2,7 @@
 @import "_icon";
 @primary_color:#5dd486;
 @main-text-color:rgba(0, 0, 0, 0.7);
-@second-text-color:rgba(0, 0, 0, 0.7);
+@second-text-color:rgba(0, 0, 0, 0.5);
 @shadow-color:#A9A9A9;
 @background-color:#EEEEEE;
 @btn-color:rgba(255,255, 255, 0.87);
@@ -335,6 +335,7 @@ body, html{
   background-color: @background-color;
 //  min-height: 100%;
   padding-top: 1px;
+
   .item-area{
 
     border-top: 1px solid @border-color;
@@ -378,7 +379,7 @@ body, html{
 .user-info-contaner{
   color:@main-text-color;
   .area{
-    margin-top: .5rem;
+    margin-top: 1.5rem;
     background-color: #ffffff;
     width: 100%;
     padding-left: 1rem;
@@ -403,6 +404,7 @@ body, html{
       .info{
         font-size: 1.5rem;
         color: @second-text-color;
+        padding-right: 0;
         text-align: right!important;
       }
       .offcanvas-toggle{
@@ -420,6 +422,10 @@ body, html{
   color:@primary_color;
   padding-top: 1rem;
   padding-bottom:1rem;
+  font-size: 2rem;
+  a{
+    color: @primary_color;
+  }
   .back{
     border-right: 1px solid @border-color;
   }
@@ -429,4 +435,32 @@ body, html{
   background-color: @background-color;
   width:100%;
   height: 100%;
+
+  .name-canvas{
+    margin-top: 2rem;
+    background-color: #ffffff;
+    min-height: 50%;
+    color: @second-text-color;
+    padding: 2rem 2rem;
+    input{
+      border:0;
+
+      border-bottom: solid 1px @primary_color;
+      width: 100%;
+      display: block;
+      font-size: 2rem;
+      color: @main-text-color;
+    }
+    .name-info{
+      margin-top: 1rem;
+      color: @second-text-color;
+    }
+
+    .btn-container{
+      text-align: right;
+      width: 100%;
+      font-size: 2rem;
+      padding: 2rem 2rem;
+    }
+  }
 }

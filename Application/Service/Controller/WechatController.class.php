@@ -21,7 +21,7 @@ use Org\Util\YunPian;
 
 use Overtrue\Wechat\Server;
 use Overtrue\Wechat\Auth;
-use Overtrue\Wechat\Url;
+use Overtrue\Wechat\Js;
 
 require LIB_PATH.'Org/Util/wechat-master/autoload.php';
 
@@ -828,9 +828,38 @@ class WechatController extends Controller {
         layout('Layout/new_layout');
         $user_id = 17;
         $user_info = $this->user->get_user_info($user_id);
-        dump($user_info);
+//        $app_id = C('SERVICE.APPID');
+//        $secret = C('SERVICE.SECRET');
+//        $js = new Js($app_id, $secret) ;
+//        $config = $js->config(array('onMenuShareQQ', 'onMenuShareWeibo', 'onMenuShareAppMessage'),true, true);
+
         $this->assign('user', $user_info);
+//        $this->assign('config', $config);
+
         $this->display('User:user_info');
+    }
+
+    public function save_name(){
+//        $this->need_login();
+        $user_id = 17;
+        $name = $_GET['name'];
+
+        $this->user->update_name($user_id, $name);
+
+        $result = array();
+        $error_msg = $this->user->getDbError();
+        if(empty($error_msg)){
+            $result = array(
+                'code' => '200'
+            );
+        }else{
+            $result = array(
+                'code' => 500,
+                'error_msg' => $error_msg
+            );
+        }
+
+        $this->ajaxReturn($result);
     }
 
 

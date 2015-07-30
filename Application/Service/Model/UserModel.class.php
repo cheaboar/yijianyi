@@ -54,6 +54,14 @@ class UserModel extends Model {
             a1.area_name as provinceName, a2.area_name as cityName,
              user_icon, user_nickname, user_sex as sex');
 
+        foreach($result as $i => $value){
+            $result = $value;
+        }
+
+        $sex_conf = C('SEX');
+
+        $result['sex'] = $sex_conf[$result['sex']];
+
         return $result;
     }
 
@@ -164,5 +172,17 @@ class UserModel extends Model {
         }else{
             return true;
         }
+    }
+
+    public function update_name($user_id, $name){
+        $conditon = array(
+            'user_id' => $user_id
+        );
+
+        $data = array(
+            'user_name' => $name
+        );
+
+        $this->where($conditon)->save($data);
     }
 }

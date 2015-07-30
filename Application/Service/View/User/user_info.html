@@ -2,6 +2,7 @@
     <script type="text/javascript" src="__STATIC__/js/jquery.min.js"></script>
     <script type="text/javascript" src="__STATIC__/js/bootstrap.offcanvas.min.js"></script>
     <link rel="stylesheet" href="__STATIC__/css/bootstrap.offcanvas.min.css"/>
+
 </head>
 <body class="body-offcanvas">
 
@@ -12,10 +13,49 @@
             头像
         </div>
     </nav>
-    <nav class="navbar navbar-default navbar-offcanvas navbar-offcanvas-touch navbar-offcanvas-fade" role="navigation" id="js-bootstrap-offcanvas1" style="width: 100%">
+    <nav class="navbar navbar-default navbar-offcanvas navbar-offcanvas-touch navbar-offcanvas-fade" role="navigation" id="user-name-canvas" style="width: 100%">
         <div class="sidebar-container">
-            <include file="Public:user_center_header" target="#js-bootstrap-offcanvas1" title="图片"/>
-            头像阿杜
+            <include file="Public:user_center_header" target="#user-name-canvas" title="更改姓名"/>
+            <div class="name-canvas">
+                <input type="text" id="name" value="{$user.user_name}"/>
+                <div class="name-info">
+                    请输入你的名字方便联系
+                </div>
+                <div class="btn-container">
+                    <div class="btn btn-success" id="name-commit-btn">确定</div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <nav class="navbar navbar-default navbar-offcanvas navbar-offcanvas-touch navbar-offcanvas-fade" role="navigation" id="user-phone-canvas" style="width: 100%">
+        <div class="sidebar-container">
+            <include file="Public:user_center_header" target="#user-phone-canvas" title="更改姓名"/>
+            <div class="name-canvas container-fluid">
+                <div class="row">
+                    <div class="col-xs-8">
+                        <input type="text" id="phone" value="{$user.phone}" placeholder="输入手机号码"/>
+                    </div>
+                    <div class="col-xs-4">
+                        <div class="btn btn-default">验证码</div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-xs-8">
+                        <input type="text" id="phone_code" placeholder="输入验证码"/>
+                    </div>
+                    <div class="col-xs-4">
+                    </div>
+                </div>
+
+                <div class="name-info">
+                    验证手机
+                </div>
+                <div class="btn-container">
+                    <div class="btn btn-success" id="phone-commit-btn">确定</div>
+                </div>
+            </div>
         </div>
     </nav>
 
@@ -44,20 +84,40 @@
         </div>
         <div class="divider"></div>
         <div class="item row">
-            <div class="col-xs-3">头像</div>
-            <div class="col-xs-7 info">k</div>
-            <div class="col-xs-1 navbar-toggle offcanvas-toggle"  data-toggle="offcanvas" data-target="#js-bootstrap-offcanvas1">
+            <div class="col-xs-3">姓名</div>
+            <div class="col-xs-7 info" id="name-value">{$user.user_name}</div>
+            <div class="col-xs-1 navbar-toggle offcanvas-toggle"  data-toggle="offcanvas" data-target="#user-name-canvas">
                 <img class="more-icon" src="__STATIC__/img/Service/iconfont-more.png" alt=""/>
             </div>
         </div>
         <div class="divider"></div>
         <div class="item row">
-            <div class="col-xs-3">头像</div>
-            <div class="col-xs-7 info">k</div>
-            <div class="col-xs-1">i</div>
+            <div class="col-xs-3">手机</div>
+            <div class="col-xs-7 info">{$user.phone}</div>
+            <div class="col-xs-1 navbar-toggle offcanvas-toggle"  data-toggle="offcanvas" data-target="#user-phone-canvas">
+                <img class="more-icon" src="__STATIC__/img/Service/iconfont-more.png" alt=""/>
+            </div>
         </div>
     </div>
-    <div class="area user-secondary-info"></div>
+    <div class="area user-secondary-info">
+        <div class="item row ">
+            <div class="col-xs-3 ">性别</div>
+            <div class="col-xs-7 info">
+               {$user.sex}
+            </div>
+            <div class="col-xs-1 navbar-toggle offcanvas-toggle"  data-toggle="offcanvas" data-target="#js-bootstrap-offcanvas">
+                <img class="more-icon more-user-icon" src="__STATIC__/img/Service/iconfont-more.png" alt=""/>
+            </div>
+        </div>
+        <div class="divider"></div>
+        <div class="item row">
+            <div class="col-xs-3">地区</div>
+            <div class="col-xs-7 info">{$user.provinceName} {$user.cityName}</div>
+            <div class="col-xs-1 navbar-toggle offcanvas-toggle"  data-toggle="offcanvas" data-target="#js-bootstrap-offcanvas1">
+                <img class="more-icon" src="__STATIC__/img/Service/iconfont-more.png" alt=""/>
+            </div>
+        </div>
+    </div>
 </div>
 
 </body>
@@ -67,6 +127,25 @@
         console.log(this);
         $($(this).attr('target')).toggleClass('in');
 
+    })
+
+
+    //修改名字
+    $('#name-commit-btn').on('click', function(){
+        var name = $('#name').val();
+        $.ajax({
+            url:'save_name',
+            data: {
+                name: name
+            },
+            type: 'GET',
+            success : function(){
+
+            }
+        });
+
+        $('#user-name-canvas').toggleClass('in');
+        $('#name-value').html(name);
     })
 </script>
 </html>
