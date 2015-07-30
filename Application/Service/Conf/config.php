@@ -15,8 +15,8 @@ return array(
 
     //数据库表字段一些常量对应的配置
     'SEX' => array(
-        'MALE' => 1,
-        'FEMALE' => 2,
+        1 => '男',
+        2 => '女',
     ),
 
     'ORDER' => array(

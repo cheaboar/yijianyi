@@ -1,0 +1,72 @@
+<head>
+    <script type="text/javascript" src="__STATIC__/js/jquery.min.js"></script>
+    <script type="text/javascript" src="__STATIC__/js/bootstrap.offcanvas.min.js"></script>
+    <link rel="stylesheet" href="__STATIC__/css/bootstrap.offcanvas.min.css"/>
+</head>
+<body class="body-offcanvas">
+
+
+    <nav class="navbar navbar-default navbar-offcanvas navbar-offcanvas-touch navbar-offcanvas-fade" role="navigation" id="js-bootstrap-offcanvas" style="width: 100%">
+        <div class="sidebar-container">
+            <include file="Public:user_center_header" target="#js-bootstrap-offcanvas" title="图片"/>
+            头像
+        </div>
+    </nav>
+    <nav class="navbar navbar-default navbar-offcanvas navbar-offcanvas-touch navbar-offcanvas-fade" role="navigation" id="js-bootstrap-offcanvas1" style="width: 100%">
+        <div class="sidebar-container">
+            <include file="Public:user_center_header" target="#js-bootstrap-offcanvas1" title="图片"/>
+            头像阿杜
+        </div>
+    </nav>
+
+    <div class="user-center-header container-fluid">
+        <div class="row">
+            <a href="new_user_center">
+                <div class="col-xs-2 back">
+                    <span class="icon-arrow-left2"></span>
+                </div>
+            </a>
+
+            <div class="col-xs-10">个人信息</div>
+        </div>
+    </div>
+
+<div class="user-info-contaner">
+    <div class="area user-primary-info ">
+        <div class="item row ">
+            <div class="col-xs-3 user-icon-name">头像</div>
+            <div class="col-xs-7 info">
+                <img class="user-icon" src="{$user.user_icon}" alt=""/>
+            </div>
+            <div class="col-xs-1 navbar-toggle offcanvas-toggle"  data-toggle="offcanvas" data-target="#js-bootstrap-offcanvas">
+                <img class="more-icon more-user-icon" src="__STATIC__/img/Service/iconfont-more.png" alt=""/>
+            </div>
+        </div>
+        <div class="divider"></div>
+        <div class="item row">
+            <div class="col-xs-3">头像</div>
+            <div class="col-xs-7 info">k</div>
+            <div class="col-xs-1 navbar-toggle offcanvas-toggle"  data-toggle="offcanvas" data-target="#js-bootstrap-offcanvas1">
+                <img class="more-icon" src="__STATIC__/img/Service/iconfont-more.png" alt=""/>
+            </div>
+        </div>
+        <div class="divider"></div>
+        <div class="item row">
+            <div class="col-xs-3">头像</div>
+            <div class="col-xs-7 info">k</div>
+            <div class="col-xs-1">i</div>
+        </div>
+    </div>
+    <div class="area user-secondary-info"></div>
+</div>
+
+</body>
+
+<script>
+    $('.back').on('click', function(){
+        console.log(this);
+        $($(this).attr('target')).toggleClass('in');
+
+    })
+</script>
+</html>

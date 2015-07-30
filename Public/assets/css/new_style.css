@@ -259,6 +259,12 @@ html {
   text-decoration: none;
   color: rgba(0, 0, 0, 0.7);
 }
+.bottom-var a:active {
+  color: #5dd486;
+}
+.bottom-var .item:active {
+  color: #5dd486;
+}
 .bottom-var .item div {
   padding-top: 0.2rem;
   font-size: 1rem;
@@ -270,7 +276,6 @@ html {
   padding-bottom: 0.2rem;
 }
 .service-list {
-  min-height: 100%;
   background-color: #eeeeee;
   padding-bottom: 5rem;
 }
@@ -341,4 +346,61 @@ html {
   height: 0;
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
   width: 100%;
+}
+.divider {
+  height: 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  width: 100%;
+}
+.user-info-contaner {
+  color: rgba(0, 0, 0, 0.7);
+}
+.user-info-contaner .area {
+  margin-top: .5rem;
+  background-color: #ffffff;
+  width: 100%;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+.user-info-contaner .area .item {
+  padding-left: 1rem;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  font-size: 1.5rem;
+  font-stretch: condensed;
+  vertical-align: middle;
+}
+.user-info-contaner .area .item .user-icon-name {
+  line-height: 3rem;
+}
+.user-info-contaner .area .item .more-user-icon {
+  padding-top: 0.5rem;
+}
+.user-info-contaner .area .item .user-icon {
+  width: 3rem;
+}
+.user-info-contaner .area .item .info {
+  font-size: 1.5rem;
+  color: rgba(0, 0, 0, 0.7);
+  text-align: right!important;
+}
+.user-info-contaner .area .item .offcanvas-toggle {
+  background-color: #ffffff;
+}
+.user-info-contaner .area .item .more-icon {
+  width: 2rem;
+}
+.user-center-header {
+  background-color: #ffffff;
+  color: #5dd486;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+.user-center-header .back {
+  border-right: 1px solid rgba(0, 0, 0, 0.1);
+}
+.sidebar-container {
+  background-color: #eeeeee;
+  width: 100%;
+  height: 100%;
 }

@@ -7,6 +7,7 @@
 @background-color:#EEEEEE;
 @btn-color:rgba(255,255, 255, 0.87);
 @btn-primary-color:#009688;
+@border-color:rgba(0, 0, 0,0.1);
 
 
 
@@ -264,9 +265,14 @@ body, html{
   a{
     text-decoration: none;
     color:@second-text-color;
+    &:active{
+      color:@primary_color;
+    }
   }
   .item{
-
+    &:active{
+      color: @primary_color;
+    }
     @padding-height: 0.2rem;
     div{
       padding-top: @padding-height;
@@ -282,7 +288,7 @@ body, html{
 }
 
 .service-list{
-  min-height: 100%;
+//  min-height: 100%;
   background-color: @background-color;
   padding-bottom: 5rem;
   a{
@@ -330,7 +336,7 @@ body, html{
 //  min-height: 100%;
   padding-top: 1px;
   .item-area{
-    @border-color:rgba(0, 0, 0,0.1);
+
     border-top: 1px solid @border-color;
     background-color: #ffffff;
     margin-left: auto;
@@ -363,4 +369,64 @@ body, html{
   }
 }
 
+.divider{
+  height: 0;
+  border-bottom: 1px solid @border-color;
+  width: 100%;
+}
 
+.user-info-contaner{
+  color:@main-text-color;
+  .area{
+    margin-top: .5rem;
+    background-color: #ffffff;
+    width: 100%;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    .item{
+      @font-size:1.5rem;
+      padding-left: 1rem;
+      padding-top: 2*@font-size/3;
+      padding-bottom: 2*@font-size/3;
+      font-size: @font-size;
+      font-stretch: condensed;
+      vertical-align: middle;
+      .user-icon-name{
+        line-height: 2*@font-size ;
+      }
+      .more-user-icon{
+        padding-top: @font-size/3;
+      }
+      .user-icon{
+        width: 2*@font-size;
+      }
+      .info{
+        font-size: 1.5rem;
+        color: @second-text-color;
+        text-align: right!important;
+      }
+      .offcanvas-toggle{
+        background-color: #ffffff;
+      }
+      .more-icon{
+        width: 2rem;
+      }
+    }
+  }
+}
+
+.user-center-header{
+  background-color: #ffffff;
+  color:@primary_color;
+  padding-top: 1rem;
+  padding-bottom:1rem;
+  .back{
+    border-right: 1px solid @border-color;
+  }
+}
+
+.sidebar-container{
+  background-color: @background-color;
+  width:100%;
+  height: 100%;
+}

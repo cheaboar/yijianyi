@@ -339,9 +339,9 @@ class WechatController extends Controller {
         //TODO:迁徙数据库表:done
         $user = $this->user->get_user_info($user_id);
 
-        foreach($user as $i => $value){
-            $user = $value;
-        }
+//        foreach($user as $i => $value){
+//            $user = $value;
+//        }
 
         if($user['sex'] == 1){
             $user['sex'] = '男';
@@ -357,22 +357,22 @@ class WechatController extends Controller {
     }
 
     public function new_user_center(){
-//        $this->need_login();
-        $user_id = 17;
+        $this->need_login();
+        $user_id = $this->user_id();
         //TODO:迁徙数据库表:done
         $user = $this->user->get_user_info($user_id);
 
-        foreach($user as $i => $value){
-            $user = $value;
-        }
-
-        if($user['sex'] == 1){
-            $user['sex'] = '男';
-        }elseif($user['sex'] == 2){
-            $user['sex'] = '女';
-        }else{
-            $user['sex'] = '未知';
-        }
+//        foreach($user as $i => $value){
+//            $user = $value;
+//        }
+//
+//        if($user['sex'] == 1){
+//            $user['sex'] = '男';
+//        }elseif($user['sex'] == 2){
+//            $user['sex'] = '女';
+//        }else{
+//            $user['sex'] = '未知';
+//        }
         $this->assign('user', $user);
 //        dump($user);
         layout('Layout/new_layout');
@@ -821,6 +821,16 @@ class WechatController extends Controller {
     //添加关注客户
     public function add_follow_customer(){
         echo '添加关注的人';
+    }
+
+    //修改个人信息
+    public function user_info(){
+        layout('Layout/new_layout');
+        $user_id = 17;
+        $user_info = $this->user->get_user_info($user_id);
+        dump($user_info);
+        $this->assign('user', $user_info);
+        $this->display('User:user_info');
     }
 
 
