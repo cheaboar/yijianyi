@@ -75,13 +75,14 @@ html {
   color: rgba(0, 0, 0, 0.7);
   background-color: #ffffff;
   margin-top: 1.2rem;
+  font-size: 1.8rem;
   padding-left: 10%;
   padding-right: 10%;
   text-align: center !important;
 }
 .service-tab .tab {
   height: 2rem;
-  line-height: 2rem;
+  padding-bottom: 2.5rem;
   vertical-align: middle;
 }
 .service-tab .active {
@@ -91,8 +92,6 @@ html {
 .service-container {
   padding-left: 0.5rem;
   padding-right: 0.5rem;
-  min-height: 100%;
-  margin-top: 2rem;
   background: #eeeeee;
 }
 .service-container .service-sub-container {
@@ -151,6 +150,38 @@ html {
 .service-container .service-sub-container .order-list .order-li .order-start-time {
   padding-left: 1rem;
   color: rgba(0, 0, 0, 0.7);
+}
+.service-container .service-sub-container .follow-list {
+  background-color: #ffffff;
+}
+.service-container .service-sub-container .follow-list .no-follow {
+  background-color: #ffffff;
+  padding-top: 2rem;
+  text-align: center !important;
+  line-height: 2rem;
+  padding-bottom: 2rem;
+}
+.service-container .service-sub-container .follow-list .no-follow .btn a {
+  color: rgba(255, 255, 255, 0.87);
+}
+.service-container .service-sub-container .follow-list a {
+  text-decoration: none;
+  display: block;
+}
+.service-container .service-sub-container .follow-list .item {
+  margin-bottom: 1px;
+  background-color: #ffffff;
+  color: #5dd486;
+  font-size: 1.5rem;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
+.service-container .service-sub-container .follow-list .divider {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  margin-left: 1.5rem;
+  margin-right: 1.5rem;
 }
 .service-container .front {
   display: inherit;

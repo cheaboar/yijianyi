@@ -38,10 +38,21 @@
             </div>
         </div>
         <div class="service-sub-container " id="follow-container">
-            hahaha
+            <div class="follow-list">
+                <volist name="follows" id="vo">
+                    <a class="item" href="customer_detail?customer_id={$vo.customer.customer_id}">
+                        {$vo.customer.customer_name}
+                    </a>
+                    <div class="divider"></div>
+                </volist>
+                <div class="no-follow">
+                    <div class="btn btn-success"><a href="add_follows">添加关注的人</a></div>
+                </div>
+            </div>
+
         </div>
     </div>
-
+<include file="Public:bottom_nav" class3="active"/>
 </body>
 <script>
     $('.tab').on('click', function(){

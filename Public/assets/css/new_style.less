@@ -57,16 +57,18 @@ body, html{
 }
 
 .service-tab{
+  @font-size:1.8rem;
   color: @main-text-color;
   background-color: #ffffff;
   margin-top: 1.2rem;
-  margin-top:1.2rem;
+//  padding-bottom:1.2rem;
+  font-size: @font-size;
   .padding-horizontal();
   .center-align;
 
   .tab{
     height: 2rem;
-    line-height: 2rem;
+    padding-bottom: 2.5rem;
     vertical-align: middle;
   }
 
@@ -79,8 +81,7 @@ body, html{
 
 .service-container{
   .padding-horizontal(.5rem);
-  min-height:100%;
-  margin-top: 2rem;
+//  min-height:100%;
   background: @background-color;
 
 
@@ -143,6 +144,41 @@ body, html{
           }
 
         }
+    }
+
+    .follow-list{
+      .no-follow{
+        background-color: #ffffff;
+        padding-top: 2rem;
+        .center-align;
+        line-height: 2rem;
+        padding-bottom: 2rem;
+        .btn{
+          a{
+            color: rgba(255, 255 , 255, 0.87);
+          }
+        }
+      }
+      background-color: #ffffff;
+      a{
+        text-decoration: none;
+        display: block;
+      }
+      @padding-width:1.5rem;
+      .item{
+        margin-bottom: 1px;
+        background-color: #ffffff;
+        color: @primary_color;
+        font-size: 1.5rem;
+        padding-top: 1rem;
+        padding-bottom: 1rem;
+        .padding-horizontal(@padding-width);
+      }
+      .divider{
+        border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        margin-left: @padding-width;
+        margin-right: @padding-width;
+      }
     }
   }
 

@@ -599,6 +599,7 @@ class WechatController extends Controller {
         $this->display('my_follow');
     }
 
+
     public function get_my_follows(){
         $this->need_login();
         $user_id = $this->user_id();
@@ -781,8 +782,14 @@ class WechatController extends Controller {
             $result[] = $order;
 
         }
+        //获取关注用户
+        $followM = new FollowModel();
+        $follows = $followM->get_follow($user_id);
+
         layout('Layout/new_layout');
         $this->assign('orders', $result);
+        $this->assign('follows', $follows);
+
         $this->display('Order:my_service');
     }
 
@@ -803,6 +810,17 @@ class WechatController extends Controller {
         layout('Layout/new_layout');
 
         $this->display('service_info');
+    }
+
+    //客户详细信息
+    public function customer_detail(){
+        $customer_id = $_GET['customer_id'];
+        echo '用户详细信息';
+    }
+
+    //添加关注客户
+    public function add_follow_customer(){
+        echo '添加关注的人';
     }
 
 

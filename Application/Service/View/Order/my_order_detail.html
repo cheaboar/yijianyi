@@ -9,7 +9,7 @@
                     客户信息
                 </h4>
                 <div class="info-area">
-                    <div class="info-line">姓名：{$order.customer_detail.customer_name}</div>
+                    <div class="info-line">姓名：<a href="customer_detail?customer_id={order.customer_detail.customer_id}">{$order.customer_detail.customer_name}</a></div>
                     <div class="info-line">性别：{$order.customer_detail.customer_sex}</div>
                     <div class="info-line">年龄：{$order.customer_detail.customer_age}</div>
                     <div class="info-line">语言：{$order.customer_detail.customer_language}</div>
