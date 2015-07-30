@@ -107,7 +107,7 @@
             <div class="col-xs-7 info">
                 <img class="user-icon" src="{$user.user_icon}" alt=""/>
             </div>
-            <div class="col-xs-1 navbar-toggle offcanvas-toggle"  data-toggle="offcanvas" data-target="#js-bootstrap-offcanvas">
+            <div style="display: none" class="col-xs-1 navbar-toggle offcanvas-toggle"  data-toggle="offcanvas" data-target="#js-bootstrap-offcanvas">
                 <img class="more-icon more-user-icon" src="__STATIC__/img/Service/iconfont-more.png" alt=""/>
             </div>
         </div>
@@ -134,8 +134,8 @@
             <div class="col-xs-7 info" id="user-sex">
                {$user.sex}
             </div>
-            <div class="col-xs-1 navbar-toggle offcanvas-toggle"  data-toggle="offcanvas" data-target="#js-bootstrap-offcanvas">
-                <img class="more-icon more-user-icon" src="__STATIC__/img/Service/iconfont-more.png" alt=""/>
+            <div class="col-xs-1"  id="modal-btn">
+                <img class="more-icon " src="__STATIC__/img/Service/iconfont-more.png" alt=""/>
             </div>
         </div>
         <div class="divider"></div>
@@ -148,7 +148,6 @@
         </div>
     </div>
 </div>
-    <button type="button" class="btn btn-primary" data-toggle="modal" id='modal-btn' >Small modal</button>
 
 
 
@@ -159,13 +158,32 @@
     $('.sex-item').on('click', function(){
         var icon = $(this).find('span');
         $('.icon-checkmark').hide();
+        $('#sex-select').modal('toggle');
         $(icon).show();
+
+        $select_id = $(this).attr('id');
+        var selected_sex = $select_id == 'male'?'男': '女';
+        //更改性别
+        $.ajax({
+            url:'save_sex',
+            data: {
+                sex: selected_sex
+            },
+            type: 'GET',
+            success: function(data , status){
+                if(data.code == 200){
+                    $('#user-sex').html(selected_sex);
+                }
+            }
+        })
+
+        $('#sex-select').modal('hide');
 
     })
 
     $('#modal-btn').on('click', function(){
         var sex = $.trim($('#user-sex').html());
-        console.log(sex);
+
         if(sex == '男') {
             $('#female-check').hide();
             $('#male-check').show();

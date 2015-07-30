@@ -185,4 +185,16 @@ class UserModel extends Model {
 
         $this->where($conditon)->save($data);
     }
+
+    public function update_sex($user_id, $sex){
+        $conditon = array(
+            'user_id' => $user_id
+        );
+
+        $data = array(
+            'user_sex' => $sex
+        );
+
+        $this->where($conditon)->save($data);
+    }
 }

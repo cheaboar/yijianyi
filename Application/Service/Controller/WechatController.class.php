@@ -862,5 +862,31 @@ class WechatController extends Controller {
         $this->ajaxReturn($result);
     }
 
+    public function  save_sex(){
+        $user_id = 17;
+        $sex = $_GET['sex'];
+        if($sex == '男'){
+            $sex = 1;
+        }else{
+            $sex = 2;
+        }
+        $this->user->update_sex($user_id, $sex);
+
+        $result = array();
+        $error_msg = $this->user->getDbError();
+        if(empty($error_msg)){
+            $result = array(
+                'code' => '200'
+            );
+        }else{
+            $result = array(
+                'code' => 500,
+                'error_msg' => $error_msg
+            );
+        }
+
+        $this->ajaxReturn($result);
+    }
+
 
 }
