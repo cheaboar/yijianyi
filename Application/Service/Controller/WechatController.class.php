@@ -657,8 +657,8 @@ class WechatController extends Controller {
     }
 
     public function send_msg(){
-        $this->need_login();
-        $user_id = $this->user_id();
+//        $this->need_login();
+        $user_id = 17;
         $yunpian = new YunPian();
 
         $phone = $_GET['new_phone'];
@@ -692,7 +692,7 @@ class WechatController extends Controller {
             //存储手机号码
             $phone = $this->get_temp_phone();
             //TODO:迁徙数据库表:done
-            $result = $this->user->update_phone($this->user_id(), $phone);
+            $result = $this->user->update_phone(17, $phone);
             if($result['code'] == 200){
                 $this->ajaxReturn( array(
                     code => 200,

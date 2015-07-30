@@ -10,12 +10,12 @@ var util = {
         _this = this;
 
         if (_this.wait == 1) {
-            $(that).removeAttr("disabled").text('重发短信验证码');
+            $(that).removeAttr("disabled").text('验证码');
             _this.wait = 90;
 
         } else {
             var _this = this;
-            $(that).attr("disabled", true).text('在' + _this.wait + '秒后点此重发');
+            $(that).attr("disabled", true).text( _this.wait + 'S');
             _this.wait--;
             setTimeout(function () {
                 _this.hsTime(that);
