@@ -12,14 +12,18 @@ use Think\Model;
 use Service\Model\Customer;
 use Service\Model\FollowModel;
 
-class OrderModel extends Model{
+class OrderModel extends Model
+{
     protected $tablePrefix = '';
     protected $tableName = 'oa_order';
 
 
 //    订单格式化，将字段的数字部分映射成文字
-    private function format_order_detail($order_detail){
+    private function format_order_detail($order_detail)
+    {
         $order_status = C('ORDER.STATUS');
+        $order_detail['order_status_code'] = $order_detail['order_status'];
+
         $order_detail['order_status'] = $order_status[$order_detail['order_status']];
 
         $order_service_mode = C('ORDER.SERVICE_MODE');
@@ -39,14 +43,16 @@ class OrderModel extends Model{
     }
 
     //获取订单的细节
-    public function get_order_detail($order_id){
+    public function get_order_detail($order_id, $user_id)
+    {
         $customerM = new Customer();
         $condition = array(
-            'order_id' => $order_id
+            'order_id' => $order_id,
+            'user_id' => $user_id,
         );
         $order_detail = $this->where($condition)->find();
 
-        if(!empty($order_detail)){
+        if (!empty($order_detail)) {
             //获取病人信息
             $customer = $customerM->get_customer($order_detail['customer_id']);
 
@@ -60,7 +66,8 @@ class OrderModel extends Model{
     }
 
     //获取客户的所有订单,返回order_id列表
-    public function get_customer_orders($customer_id){
+    public function get_customer_orders($customer_id)
+    {
         $condition = array(
             'customer_id' => $customer_id
         );
@@ -69,7 +76,7 @@ class OrderModel extends Model{
 
         $orders = $this->where($condition)->order('add_time desc')->select();
 
-        foreach($orders as $order){
+        foreach ($orders as $order) {
             $result[] = $this->format_order_detail($order);
         }
 
@@ -78,13 +85,14 @@ class OrderModel extends Model{
     }
 
 //    获取我关注的订单
-    public function get_my_follow_orders($user_id){
+    public function get_my_follow_orders($user_id)
+    {
         $followM = new FollowModel();
         $customers = $followM->get_follow($user_id);
 
         $order_lists = array();
 
-        foreach($customers as $customer){
+        foreach ($customers as $customer) {
             $item = array();
             $item['customer'] = $customer;
 
@@ -97,14 +105,29 @@ class OrderModel extends Model{
     }
 
     //获取用户的所有order，这里指的是负责人的order，用于推动订单的详情
-    public function get_user_orders($user_id){
+    public function get_user_orders($user_id)
+    {
         $condition = array(
             user_id => $user_id,
         );
 
-        $result =  $this->alias('o')->join('oa_customer as c on c.customer_id = o.customer_id')
+        $result = $this->alias('o')->join('oa_customer as c on c.customer_id = o.customer_id')
             ->where($condition)->order('add_time desc')
             ->getField('order_id, order_no, customer_name, service_type, order_status, add_time');
         return $result;
+    }
+
+    //改变订单的状态，这里同样需要身份的认证
+    public function change_order_satus($order_id, $user_id, $status){
+        $condition = array(
+            'order_id' => $order_id,
+            'user_id' => $user_id
+        );
+
+        $data = array(
+            'order_status' => $status
+        );
+
+        $this->where($condition)->save($data);
     }
 }

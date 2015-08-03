@@ -2,7 +2,6 @@
     <script type="text/javascript" src="__STATIC__/js/jquery.min.js"></script>
     <script type="text/javascript" src="__STATIC__/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="__STATIC__/js/service.js"></script>
-    <script type="text/javascript" src="__STATIC__/js/bootstrap.offcanvas.min.js"></script>
     <link rel="stylesheet" href="__STATIC__/css/bootstrap.offcanvas.min.css"/>
 
 </head>
@@ -35,13 +34,51 @@
     </div>
 </div>
 
+    <!--选择地区--省-->
+    <nav class="navbar navbar-default navbar-offcanvas navbar-offcanvas-touch navbar-offcanvas-fade" role="navigation" id="province-select-canvas" style="width: 100%">
+        <div class="sidebar-container">
+            <include file="Public:user_center_header" target="#province-select-canvas" title="选择地区"/>
+            <!--已选地区-->
+            <div class="area-zone container-fluid">
+                <div class="row city-selected-item">
+                    <div class="col-xs-8">{$user.provinceName}</div>
+                    <div class="col-xs-4 area-zone-selected">已选地区</div>
+                </div>
+            </div>
+            <!--省区显示-->
+            <div class="area-zone container-fluid">
+                <volist name="provinces" id="vo">
+                    <div class="row city-selected-item" >
+                        <div class="col-xs-12  offcanvas-toggle"  data-toggle="offcanvas" data-target="#city-select-canvas">{$vo.area_name}</div>
+                    </div>
+                    <div class="divider"></div>
+                </volist>
 
+            </div>
+        </div>
+    </nav>
+
+    <!--选择地区--市-->
+    <nav class="navbar navbar-default navbar-offcanvas navbar-offcanvas-touch navbar-offcanvas-fade" role="navigation" id="city-select-canvas" style="width: 100%">
+        <div class="sidebar-container">
+            <include file="Public:user_center_header" target="#city-select-canvas" title="选择地区"/>
+            <div class="loading">
+                正在加载城市
+            </div>
+
+            <div class="area-zone container-fluid" id="city-area">
+
+            </div>
+        </div>
+    </nav>
     <nav class="navbar navbar-default navbar-offcanvas navbar-offcanvas-touch navbar-offcanvas-fade" role="navigation" id="js-bootstrap-offcanvas" style="width: 100%">
         <div class="sidebar-container">
             <include file="Public:user_center_header" target="#js-bootstrap-offcanvas" title="图片"/>
             头像
         </div>
     </nav>
+
+    <!--名字-->
     <nav class="navbar navbar-default navbar-offcanvas navbar-offcanvas-touch navbar-offcanvas-fade" role="navigation" id="user-name-canvas" style="width: 100%">
         <div class="sidebar-container">
             <include file="Public:user_center_header" target="#user-name-canvas" title="更改姓名"/>
@@ -57,6 +94,8 @@
         </div>
     </nav>
 
+
+<!--手机验证-->
     <nav class="navbar navbar-default navbar-offcanvas navbar-offcanvas-touch navbar-offcanvas-fade" role="navigation" id="user-phone-canvas" style="width: 100%">
         <div class="sidebar-container">
             <include file="Public:user_center_header" target="#user-phone-canvas" title="更改姓名"/>
@@ -141,8 +180,8 @@
         <div class="divider"></div>
         <div class="item row">
             <div class="col-xs-3">地区</div>
-            <div class="col-xs-7 info">{$user.provinceName} {$user.cityName}</div>
-            <div class="col-xs-1 navbar-toggle offcanvas-toggle"  data-toggle="offcanvas" data-target="#js-bootstrap-offcanvas1">
+            <div class="col-xs-7 info" id="user-area">{$user.provinceName} {$user.cityName}</div>
+            <div class="col-xs-1 navbar-toggle offcanvas-toggle"  data-toggle="offcanvas" data-target="#province-select-canvas">
                 <img class="more-icon" src="__STATIC__/img/Service/iconfont-more.png" alt=""/>
             </div>
         </div>
@@ -153,7 +192,76 @@
 
 </body>
 
+
+<script type="text/javascript" src="__STATIC__/js/bootstrap.offcanvas.min.js"></script>
+
 <script>
+
+    $('.city-selected-item').on('click', function(){
+        $('.loading').show();
+        var selected_province_div = $(this).find('div');
+        var selected_province = $.trim($(selected_province_div).html());
+        console.log(selected_province);
+        //加载地区
+        $.ajax({
+            url:'get_cities',
+            data: {
+                province_name: selected_province
+            },
+            type:'GET',
+            dataType: 'json',
+            success : function(data, status){
+                console.log(data);
+                $('.loading').hide();
+                //生成城市列表
+                html = '';
+                data.forEach(function(c){
+                    html += '<div class="row city-selected-item" >' +
+                            '<div class="col-xs-12" >'+ c.area_name +'</div>' +
+                            '</div>' +
+                            '<div class="divider"></div>'
+                })
+
+                $('#city-area').html(html);
+
+                //添加城市选择监听事件
+                $('.city-selected-item').on('click', function(){
+                    //获取选择的城市
+                    var selected_city = $.trim($($(this).find('div')).html());
+                    console.log(selected_city);
+                    //发送更新数据请求
+                    $.ajax({
+                        url: 'update_user_area',
+                        data: {
+                            province : selected_province,
+                            city : selected_city
+                        },
+                        type : 'GET',
+                        dataType: 'json',
+                        success: function(){
+
+                        }
+                    });
+                    //更新用户信息界面,这里直接更新好了，不管后台交互成不成功
+                    $('#user-area').html(selected_province +' '+ selected_city);
+                    //清空城市列表
+                    $('#city-area').html('');
+
+                    //关闭offcanvas
+                    $('#city-select-canvas').toggleClass('in');
+//                    $('#province-select-canvas').toggleClass('in');
+                })
+
+            }
+        });
+
+        if($(selected_province_div).hasClass('js-offcanvas-has-events')){
+
+        }else{
+            $('#city-select-canvas').toggleClass('in');
+        }
+
+    })
 
     $('.sex-item').on('click', function(){
         var icon = $(this).find('span');

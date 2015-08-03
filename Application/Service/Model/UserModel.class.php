@@ -197,4 +197,18 @@ class UserModel extends Model {
 
         $this->where($conditon)->save($data);
     }
+
+    //更新用户的地址
+    public function update_user_area($user_id, $privince_id, $city_id){
+        $condition = array(
+            'user_id' => $user_id,
+        );
+
+        $data = array(
+            'user_province' => $privince_id,
+            'user_city' => $city_id,
+        );
+
+        $this->where($condition)->save($data);
+    }
 }

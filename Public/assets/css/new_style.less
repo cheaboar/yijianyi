@@ -213,6 +213,27 @@ body, html{
     }
 
   }
+
+  .order-payment-history{
+    line-height: 2rem;
+    vertical-align: middle;
+    .order-payment-list{
+      margin-top: 1rem;
+      margin-bottom: 1rem;
+      .order-payment-no{
+        color:@primary_color;
+
+      }
+
+      .payment-info{
+        .item-value{
+          color:@main-text-color;
+          text-align: right;
+
+        }
+      }
+    }
+  }
 }
 
 .order-detail-bottom{
@@ -438,7 +459,7 @@ body, html{
   .canvas{
     margin-top: 2rem;
     background-color: #ffffff;
-    min-height: 50%;
+//    min-height: 50%;
     color: @second-text-color;
     padding: 2rem 2rem;
   }
@@ -488,6 +509,34 @@ body, html{
     }
 
     .btn-container;
+  }
+
+  .area-zone{
+    @font-size : 2rem;
+    margin-top: 2rem;
+    width: 100%;
+    line-height: 2 * @font-size;
+    vertical-align: middle;
+    color: @main-text-color;
+    padding-left: @font-size;
+    padding-right: @font-size;
+    background-color: #ffffff;
+
+    .area-zone-selected{
+      color: @second-text-color;
+    }
+
+    .offcanvas-toggle{
+      background-color: #ffffff;
+    }
+
+  }
+  .loading{
+    .center-align;
+    margin-top: 3rem;
+    font-size: 2rem;
+    color: @second-text-color;
+
   }
 }
 

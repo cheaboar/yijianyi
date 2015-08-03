@@ -214,6 +214,21 @@ html {
 .order-detail-container .order-detail .detail-area .info-area {
   text-indent: 2rem;
 }
+.order-detail-container .order-payment-history {
+  line-height: 2rem;
+  vertical-align: middle;
+}
+.order-detail-container .order-payment-history .order-payment-list {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+.order-detail-container .order-payment-history .order-payment-list .order-payment-no {
+  color: #5dd486;
+}
+.order-detail-container .order-payment-history .order-payment-list .payment-info .item-value {
+  color: rgba(0, 0, 0, 0.7);
+  text-align: right;
+}
 .order-detail-bottom {
   text-align: right;
   padding-right: 1rem ;
@@ -415,7 +430,6 @@ html {
 .sidebar-container .canvas {
   margin-top: 2rem;
   background-color: #ffffff;
-  min-height: 50%;
   color: rgba(0, 0, 0, 0.5);
   padding: 2rem 2rem;
 }
@@ -434,7 +448,6 @@ html {
 .sidebar-container .phone-canvas {
   margin-top: 2rem;
   background-color: #ffffff;
-  min-height: 50%;
   text-align: left;
   font-size: 1rem;
   margin-top: 1rem;
@@ -455,7 +468,6 @@ html {
 .sidebar-container .name-canvas {
   margin-top: 2rem;
   background-color: #ffffff;
-  min-height: 50%;
   margin-top: 1rem;
   color: rgba(0, 0, 0, 0.5);
   text-align: right;
@@ -473,6 +485,28 @@ html {
 }
 .sidebar-container .name-canvas .text-info {
   margin-top: 1rem;
+  color: rgba(0, 0, 0, 0.5);
+}
+.sidebar-container .area-zone {
+  margin-top: 2rem;
+  width: 100%;
+  line-height: 4rem;
+  vertical-align: middle;
+  color: rgba(0, 0, 0, 0.7);
+  padding-left: 2rem;
+  padding-right: 2rem;
+  background-color: #ffffff;
+}
+.sidebar-container .area-zone .area-zone-selected {
+  color: rgba(0, 0, 0, 0.5);
+}
+.sidebar-container .area-zone .offcanvas-toggle {
+  background-color: #ffffff;
+}
+.sidebar-container .loading {
+  text-align: center !important;
+  margin-top: 3rem;
+  font-size: 2rem;
   color: rgba(0, 0, 0, 0.5);
 }
 .sex-selection .sex-header {

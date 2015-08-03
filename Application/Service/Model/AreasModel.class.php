@@ -21,6 +21,7 @@ class AreasModel extends Model{
         return $this->where('parent_id='.$provice_id)->select();
     }
 
+
     public function get_zones($city_id){
         return $this->where('parent_id='.$city_id)->select();
     }

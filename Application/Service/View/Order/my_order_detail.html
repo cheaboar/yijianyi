@@ -1,8 +1,9 @@
-<body>
+
+<body >
 
     <include file="Public:title_header" href="new_my_service" title="订单详情"/>
 
-    <div class="order-detail-container">
+    <div class="order-detail-container"  order-id="{$order.order_id}">
         <div class="order-detail">
             <div class="customer-info detail-area">
                 <h4 class="ui header teal">
@@ -42,15 +43,48 @@
                             {$order.order_total_cost}
                         </empty>
                         元</div>
-                    <div class="info-line">订单转态：{$order.order_status}</div>
+                    <div class="info-line" >订单转态：<span id="order-status">{$order.order_status}</span></div>
 
                 </div>
             </div>
 
-            <div class="order-detail-bottom detail-area">
-                <div class="btn btn-success">确认</div>
-                <div class="btn btn-danger">取消</div>
+            <IF condition="$order.order_status_code eq 1">
+                    <div class="order-detail-bottom detail-area" >
+                        <div class="btn btn-success" id="confirm-btn">确认</div>
+                        <div class="btn btn-danger" id="cancel-btn">取消</div>
+                    </div>
+                <else/>
+            </IF>
+
+
+            <div class="order-payment-history">
+                <h4 class="ui header teal">
+                    支付记录
+                </h4>
+                <volist name="payments" id="vo">
+                    <div class="order-payment-list">
+                        <div class="divider"></div>
+
+                        <div class="order-payment-no">{$vo.order_no}-{$vo.collection_id}</div>
+                        <div class="container-fluid payment-info">
+                            <div class="payment-info-item row">
+                                <div class="col-xs-5 item-key">付款金额git </div>
+                                <div class="col-xs-7 item-value">{$vo.collection_amount}元</div>
+                            </div>
+                            <div class="payment-info-item row">
+                                <div class="col-xs-5 item-key">支付时间</div>
+                                <div class="col-xs-7 item-value">{$vo.payment_time}</div>
+                            </div>
+                            <div class="payment-info-item row">
+                                <div class="col-xs-5 item-key">支付转态</div>
+                                <div class="col-xs-7 item-value">{$vo.collection_status_str}</div>
+                            </div>
+                        </div>
+                    </div>
+
+                </volist>
             </div>
+
         </div>
     </div>
 
@@ -61,6 +95,35 @@
 
 </body>
 <script>
+    //改变订单的显示状态
+    var change_order_status_display = function(order_status_str){
+        $('#order-status').html(order_status_str);
+    }
+//添加确认按钮响应和取消按钮响应
+    var order_id = $('.order-detail-container').attr('order-id');
+    console.log(order_id);
+    $('#confirm-btn').on('click', function(){
+        $.post('confirm_order', {order_id:order_id}, function(data, status){
+            //成功的话改变订单状态
+            if(data.code == 200){
 
+                change_order_status_display('进行中');
+                $('.order-detail-bottom').hide(500);
+
+            }
+        }, 'json');
+    })
+    $('#cancel-btn').on('click', function(){
+        $.post('cancel_order', {order_id:order_id}, function(data, status){
+            //成功之后改变订单状态
+            if(data.code == 200){
+
+                change_order_status_display('已取消');
+                $('.order-detail-bottom').hide(500);
+
+            }
+
+        }, 'json');
+    })
 </script>
 </html>
