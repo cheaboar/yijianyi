@@ -8,6 +8,7 @@
 @btn-color:rgba(255,255, 255, 0.87);
 @btn-primary-color:#009688;
 @border-color:rgba(0, 0, 0,0.1);
+@status-color:hsl(14,100%,57%);
 
 
 
@@ -195,7 +196,7 @@ body, html{
   color: @main-text-color;
   min-height: 100%;
   line-height: 2rem;
-  padding: 2rem 7.5%;
+  padding: 2rem 2.5%;
   .teal{
     color: @primary_color;
   }
@@ -225,11 +226,25 @@ body, html{
 
       }
 
+
       .payment-info{
         .item-value{
           color:@main-text-color;
           text-align: right;
 
+        }
+        .payment-status{
+          color: @status-color;
+        }
+
+        .payment-btn-item{
+          margin-top: 2rem;
+          margin-bottom: 1rem;
+          .center-align;
+          .payment-btn{
+            background-color: @status-color;
+            color: @btn-color;
+          }
         }
       }
     }
@@ -559,4 +574,79 @@ body, html{
   padding-left: 2rem;
   padding-right: 2rem;
   padding-bottom: 2rem;
+}
+
+.babysitter-service-container{
+  width: 100%;
+  color:@main-text-color;
+  .main-info-container{
+    width: 100%;
+    background-color: #ffffff;
+    img{
+      width:100%;
+    }
+    .service-appointment{
+      width: 100%;
+      background-color: #ffffff;
+      padding-top:.5rem;
+      padding-bottom:.5rem;
+      border-top: solid 1px @border-color;
+      border-bottom: solid 1px @border-color;
+      .row{
+        line-height: 3rem !important;
+        vertical-align: middle;
+      }
+    }
+
+    .sercice-promise{
+      //margin:1rem 2rem;
+      .border-left{
+        border-left:1px solid @border-color;
+      }
+      .border-right{
+        border-right:1px solid @border-color;
+      }
+      .promise-item{
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+        img{
+          width: 3rem;
+        }
+        .text-info{
+          margin-top: 1rem;
+        }
+      }
+
+
+    }
+
+  }
+
+  .introduce-info-container{
+    margin-top: 1.2rem;
+    margin-left:2.5%;
+    margin-right:2.5%;
+    padding: 1.5rem 2rem;
+    background-color: #ffffff;
+
+    .introduce-item{
+      margin-bottom: 1rem;
+      ul{
+        list-style-type: lower-hexadecimal;
+        line-height: 2rem;
+        vertical-align: middle;
+        color:@second-text-color;
+      }
+      .collapse-header{
+        color: @primary_color;
+        padding-bottom: 1rem;
+
+      }
+    }
+  }
+}
+
+.right-align{
+
+  text-align: right !important;
 }

@@ -40,7 +40,7 @@ function return_db_operation_result($db_obj){
 function parse_order_collection($collection){
     $collection_type_conf = C('ORDER_COLLECTION.COLLECTION_TYPE');
     $payment_type_conf = C('ORDER_COLLECTION.PAYMENT_TYPE');
-    $collection_status_conf = C('ORDER_COLLECTION.COLLECTION_TYPE');
+    $collection_status_conf = C('ORDER_COLLECTION.COLLECTION_STATUS');
     $bill_status_conf = C('ORDER_COLLECTION.BILL_STATUS');
 
     $collection['collection_type_str'] = $collection_type_conf[$collection['collection_type']];

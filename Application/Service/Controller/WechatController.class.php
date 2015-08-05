@@ -4,6 +4,7 @@ namespace Service\Controller;
 
 
 use Service\Model\AddressModel;
+use Service\Model\OrderCollectionModel;
 use Think\Controller;
 use Think\Crypt\Driver\Think;
 use Service\Model\ServiceInfoModel;
@@ -19,11 +20,23 @@ use Service\Model\ServiceAppointmentModel;
 use Think\Exception;
 use Org\Util\YunPian;
 
+use JsSdk;
+use UnifiedOrderPub;
+use WxPayConfPub;
+use WxPayUnifiedOrder;
+use WxPayConfig;
+use WxPayApi;
+use WxPayJsApiPay;
+
 use Overtrue\Wechat\Server;
 use Overtrue\Wechat\Auth;
 use Overtrue\Wechat\Js;
 
 require LIB_PATH.'Org/Util/wechat-master/autoload.php';
+require_once LIB_PATH."Org/Util/WxpayAPI_php_v3/lib/WxPay.Data.php";
+require_once LIB_PATH."Org/Util/WxpayAPI_php_v3/lib/WxPay.Config.php";
+require_once LIB_PATH."Org/Util/WxpayAPI_php_v3/lib/WxPay.Api.php";
+
 
 class WechatController extends Controller {
     protected $service_info;
@@ -483,7 +496,16 @@ class WechatController extends Controller {
     }
 
     public function get_cities(){
-        $cities = $this->areas->get_cities($_GET['province_id']);
+        $province_name = $_GET['province_name'];
+        $province_id = $_GET['province_id'];
+
+        if(!empty($province_name)){
+            $province_id = $this->areas->get_area_id($province_name);
+
+        }
+
+        $cities = $this->areas->get_cities($province_id);
+
 
         $this->ajaxReturn($cities);
     }
@@ -657,8 +679,8 @@ class WechatController extends Controller {
     }
 
     public function send_msg(){
-//        $this->need_login();
-        $user_id = 17;
+        $this->need_login();
+        $user_id = $this->user_id();
         $yunpian = new YunPian();
 
         $phone = $_GET['new_phone'];
@@ -692,7 +714,7 @@ class WechatController extends Controller {
             //存储手机号码
             $phone = $this->get_temp_phone();
             //TODO:迁徙数据库表:done
-            $result = $this->user->update_phone(17, $phone);
+            $result = $this->user->update_phone($this->user_id(), $phone);
             if($result['code'] == 200){
                 $this->ajaxReturn( array(
                     code => 200,
@@ -717,10 +739,11 @@ class WechatController extends Controller {
 
     //关注的订单详情
     public function order_detail(){
-//        $this->need_login();
+        $this->need_login();
         $order_id = $_GET['order_id'];
         $orderM = new OrderModel();
-        $order_detail = $orderM->get_order_detail($order_id);
+        $user_id = $this->user_id();
+        $order_detail = $orderM->get_order_detail($order_id, $user_id);
 
 
         $this->assign('order', $order_detail);
@@ -733,7 +756,6 @@ class WechatController extends Controller {
     public function my_orders(){
         $this->need_login();
         $user_id  = $this->user_id();
-//        $user_id  = 17;
         $orderM = new OrderModel();
 
         $follow_orders = $orderM->get_my_follow_orders($user_id);
@@ -767,8 +789,8 @@ class WechatController extends Controller {
     }
 
     public function new_my_service(){
-//        $this->need_login();
-        $user_id = 17;
+        $this->need_login();
+        $user_id = $this->user_id();
         //获取订单列表
         $orderM = new OrderModel();
         $orders = $orderM->get_user_orders($user_id);
@@ -795,11 +817,33 @@ class WechatController extends Controller {
 
     public function my_order_detail(){
 //        $this->need_login();
+        //此处除了需要验证登录外还需要确认user_id
         $order_id = $_GET['order_id'];
         $orderM = new OrderModel();
-        $order_detail = $orderM->get_order_detail($order_id);
+        $user_id = 17;
+        $order_detail = $orderM->get_order_detail($order_id, $user_id);
 
+        //获取支付列表
+        $collectionM = new OrderCollectionModel();
+        $paymet_list_temp = $collectionM->get_order_payment($order_id);
 
+        $paymet_list = array();
+
+        $app_id = C('SERVICE.APPID');
+        $secret = C('SERVICE.SECRET');
+        $js = new Js($app_id, $secret);
+        $config = $js->config(array('checkJsApi', 'chooseWXPay'),true, true);
+        $this->assign('config', $config);
+        foreach($paymet_list_temp as $collection){
+            $item = parse_order_collection($collection);
+            $paymet_list[] = $item;
+        }
+
+//        dump($paymet_list);
+
+        //预处理一下支付列表，使用公共函数，因为其他地方有可能会使用到
+
+        $this->assign('payments', $paymet_list);
         $this->assign('order', $order_detail);
         $this->assign('title', '订单');
         layout('Layout/new_layout');
@@ -826,8 +870,15 @@ class WechatController extends Controller {
     //修改个人信息
     public function user_info(){
         layout('Layout/new_layout');
-        $user_id = 17;
+        $this->need_login();
+        $user_id = $this->user_id();
         $user_info = $this->user->get_user_info($user_id);
+
+        //获取所有的省份
+        $provinces = $this->areas->get_provinces();
+
+        $this->assign('provinces', $provinces);
+
 //        $app_id = C('SERVICE.APPID');
 //        $secret = C('SERVICE.SECRET');
 //        $js = new Js($app_id, $secret) ;
@@ -840,8 +891,8 @@ class WechatController extends Controller {
     }
 
     public function save_name(){
-//        $this->need_login();
-        $user_id = 17;
+        $this->need_login();
+        $user_id = $this->user_id();
         $name = $_GET['name'];
 
         $this->user->update_name($user_id, $name);
@@ -863,7 +914,9 @@ class WechatController extends Controller {
     }
 
     public function  save_sex(){
-        $user_id = 17;
+        $this->need_login();
+
+        $user_id = $this->user_id();
         $sex = $_GET['sex'];
         if($sex == '男'){
             $sex = 1;
@@ -889,4 +942,117 @@ class WechatController extends Controller {
     }
 
 
+//    更新用户地区信息
+    public function update_user_area(){
+        $this->need_login();
+        $user_id = $this->user_id();
+        $province = $_GET['province'];
+        $city = $_GET['city'];
+
+        //此处可以优化成一个sql请求
+        $province_id = $this->areas->get_area_id($province);
+        $city_id = $this->areas->get_area_id($city);
+
+        $this->user->update_user_area($user_id, $province_id, $city_id);
+        $result = return_db_operation_result($this->user);
+
+        $this->ajaxReturn($result);
+    }
+
+//    将订单改变为进行中
+    public function confirm_order(){
+        $order_id = $_POST['order_id'];
+
+        $user_id = 17;
+        $orderM = new OrderModel();
+        $status_conf = C('ORDER.SATUS_R');
+        $orderM->change_order_satus($order_id, $user_id, $status_conf['进行中']);
+
+        $resutl = return_db_operation_result($orderM);
+
+        $this->ajaxReturn($resutl);
+    }
+//    将订单改变为取消
+    public function cancel_order(){
+        $order_id = $_POST['order_id'];
+
+        $user_id = 17;
+        $orderM = new OrderModel();
+        $status_conf = C('ORDER.SATUS_R');
+        $orderM->change_order_satus($order_id, $user_id, $status_conf['已取消']);
+
+        $resutl = return_db_operation_result($orderM);
+
+        $this->ajaxReturn($resutl);
+    }
+
+    public function GetJsApiParameters($UnifiedOrderResult)
+    {
+        ini_set('date.timezone','Asia/Shanghai');
+        if(!array_key_exists("appid", $UnifiedOrderResult)
+            || !array_key_exists("prepay_id", $UnifiedOrderResult)
+            || $UnifiedOrderResult['prepay_id'] == "")
+        {
+            throw new WxPayException("参数错误");
+        }
+        $jsapi = new WxPayJsApiPay();
+        $jsapi->SetAppid($UnifiedOrderResult["appid"]);
+        $timeStamp = time();
+        $jsapi->SetTimeStamp($timeStamp);
+        $jsapi->SetNonceStr(WxPayApi::getNonceStr());
+        $jsapi->SetPackage("prepay_id=" . $UnifiedOrderResult['prepay_id']);
+        $jsapi->SetSignType("MD5");
+        $jsapi->SetPaySign($jsapi->MakeSign());
+        $parameters = json_encode($jsapi->GetValues());
+        return $parameters;
+    }
+
+    public function pay_test(){
+
+        $app_id = C('SERVICE.APPID');
+        $secret = C('SERVICE.SECRET');
+        $js = new Js($app_id, $secret);
+        $config = $js->config(array('checkJsApi', 'chooseWXPay'),true, true);
+        $this->assign('config', $config);
+
+        $openId = 'o2DIYuBqdKzF316FXZxZZc2tjsM0';
+        dump($openId);
+        ini_set('date.timezone','Asia/Shanghai');
+//error_reporting(E_ERROR);
+
+        $input = new WxPayUnifiedOrder();
+        dump($input);
+        $input->SetBody("test");
+        $input->SetAttach("test");
+        $input->SetOut_trade_no('2015029012033321');
+        $input->SetTotal_fee("1");
+//        $input->SetTime_start(date("YmdHis"));
+//        $input->SetTime_expire(date("YmdHis", time() + 600));
+//        $input->SetGoods_tag("test");
+        $input->SetNotify_url("http://subcribe.ecare-easy.com/Service/wechat/pay_test_notify");
+        $input->SetTrade_type("JSAPI");
+        $input->SetOpenid($openId);
+
+        $order = WxPayApi::unifiedOrder($input);
+
+        $signInfo = $this->GetJsApiParameters($order);
+        dump($signInfo);
+        dump($input);
+        dump($order);
+        $this->assign('signInfo', $signInfo);
+//        require_once "WxPay.JsApiPay.php";
+//        require_once 'log.php';
+
+        $this->display('pay_test');
+    }
+
+    public function pay_test_notify(){
+        log('sssssss');
+    }
+
+    public function babysitter_service(){
+        layout('Layout/new_layout');
+
+        $this->display('Service:babysitter_service');
+    }
 }
