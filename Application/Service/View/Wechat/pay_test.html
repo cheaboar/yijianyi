@@ -1,7 +1,13 @@
-<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js" type="text/javascript" charset="utf-8"></script>
-<script type="text/javascript" charset="utf-8">
-    wx.config({$config});
-</script>
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>Document</title>
+</head>
+
 
 <body>
 <div>
@@ -11,32 +17,22 @@
 </div>
 
 </body>
-<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
 <script>
-    alert(location.href.split('#')[0])
-    wx.config({$config});
 
-    wx.ready(function () {
         var sign_info = {$signInfo};
+        console.log(sign_info);
 
-//        var new_sign_info = '';
-//        console.log(sign_info);
-//        console.log(sign_info['nonceStr']);
-//        var sign_str = ''
-//        for(var p in sign_info){
-//            console.log(p + sign_info[p]);
-//        }
-//        function jsApiCall()
-//        {
-//            WeixinJSBridge.invoke(
-//                    'getBrandWCPayRequest',
-//                    {$signInfo},
-//            function(res){
-//                WeixinJSBridge.log(res.err_msg);
-//                alert(res.err_code+res.err_desc+res.err_msg);
-//            }
-//        );
-//        }
+        function jsApiCall()
+        {
+            WeixinJSBridge.invoke(
+                    'getBrandWCPayRequest',
+                    {$signInfo},
+            function(res){
+                WeixinJSBridge.log(res.err_msg);
+                alert(res.err_code+res.err_desc+res.err_msg);
+            }
+        );
+        }
         document.querySelector('#chooseWXPay').onclick = function () {
             if (typeof WeixinJSBridge == "undefined"){
                 if( document.addEventListener ){
@@ -48,44 +44,9 @@
             }else{
                 jsApiCall();
             }
+        };
 
-            WeixinJSBridge.invoke(
-                    'getBrandWCPayRequest',
-                    {$signInfo},
-            function(res){
-                WeixinJSBridge.log(res.err_msg);
-                alert(res.err_code+res.err_desc+res.err_msg);
-                alert(res.err_desc+res.err_msg);
-            }
-            );
-//            wx.chooseWXPay({
-////                appId : sign_info['appId'],
-////                nonceStr : 'bkza7xtzsg8iq9gx8flgu71ot1unn2b5',
-////                package : 'prepay_id=wx20150804155615377adc69cd0393681140',
-////                signType: 'MD5',
-////                timestamp: '1438674975',
-////                paySign : 'C0CAC7585A34B2FD7D489026FCE07890',
-//                nonceStr : sign_info['nonceStr'],
-//                package : sign_info['package'],
-//                signType: sign_info['signType'],
-//                timeStamp: sign_info['timeStamp'],
-//                paySign : sign_info['paySign'],
-//                success: function (res) {
-//                    alert('good');
-//                },
-//                cancel: function(res){
-//                    alert(res.errMsg);
-//                },
-//                fail:function(res){
-//                    alert(res.errMsg);
-//                }
-//            });
-    };
-    });
 
-    wx.error(function (res) {
-        alert('验证失败:' + res.errMsg);
-        // Add Your Code Here If You Need
-    });
+
 </script>
 </html>

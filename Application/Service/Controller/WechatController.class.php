@@ -1014,9 +1014,9 @@ class WechatController extends Controller {
 
         $app_id = C('SERVICE.APPID');
         $secret = C('SERVICE.SECRET');
-        $js = new Js($app_id, $secret);
-        $config = $js->config(array('checkJsApi', 'chooseWXPay'),true, true);
-        $this->assign('config', $config);
+//        $js = new Js($app_id, $secret);
+//        $config = $js->config(array('checkJsApi', 'chooseWXPay'),true, true);
+//        $this->assign('config', $config);
 
         $openId = 'o2DIYuBqdKzF316FXZxZZc2tjsM0';
         dump($openId);
@@ -1092,10 +1092,10 @@ class WechatController extends Controller {
 //
 //            $level_sum += $avg_level;
         }
-        $attitude_level_avg = $attitude_level_sum/$level_count;
-        $profession_level_avg = $profession_level_sum/$level_count;
-        $discipline_level_avg = $discipline_level_sum/$level_count;
-        $comment_level = ($attitude_level_avg + $profession_level_avg + $discipline_level_avg)/3;
+        $attitude_level_avg = round($attitude_level_sum/$level_count, 2);
+        $profession_level_avg = round($profession_level_sum/$level_count, 2);
+        $discipline_level_avg = round($discipline_level_sum/$level_count, 2);
+        $comment_level = round(($attitude_level_avg + $profession_level_avg + $discipline_level_avg)/3, 2);
         $this->assign('comment_level', $comment_level);
         $this->assign('attitude_level', $attitude_level_avg);
         $this->assign('profession_level', $profession_level_avg);
