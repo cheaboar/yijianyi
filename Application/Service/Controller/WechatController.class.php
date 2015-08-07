@@ -15,10 +15,13 @@ use Service\Model\UserAddressModel;
 use Service\Model\AdviceModel;
 use Service\Model\UserModel;
 use Service\Model\AreasModel;
+use Service\Model\WorkerModel;
 use Service\Model\OrderModel;
 use Service\Model\ServiceAppointmentModel;
 use Think\Exception;
 use Org\Util\YunPian;
+use Service\Model\HospitalModel;
+use Service\Model\CommentModel;
 
 use JsSdk;
 use UnifiedOrderPub;
@@ -1054,5 +1057,86 @@ class WechatController extends Controller {
         layout('Layout/new_layout');
 
         $this->display('Service:babysitter_service');
+    }
+
+
+    public function worker_info(){
+        layout('Layout/new_layout');
+
+        $worker_id = $_GET['worker_id'];
+
+        //获取员工的信息
+        $workerM = new WorkerModel();
+        $worker = $workerM->getWrokerInfo($worker_id);
+        $worker = $worker[$worker_id];
+
+
+
+        //获取工作人员评分
+        $commentM = new CommentModel();
+        $levels = $commentM->getWorkerCommentLevels($worker_id);
+        $level_count = count($levels);
+        $attitude_level_sum = 0;
+        $profession_level_sum = 0;
+        $discipline_level_sum = 0;
+        foreach($levels as $key => $value){
+            $attitude_level_sum += $value['attitude_level'];
+            $profession_level_sum += $value['profession_level'];
+            $discipline_level_sum += $value['discipline_level'];
+//            $avg_sum = 0;
+//            foreach($value as $k=> $v){
+//                $avg_sum += $v;
+//            }
+//
+//            $avg_level = $avg_sum/count($value);
+//
+//            $level_sum += $avg_level;
+        }
+        $attitude_level_avg = $attitude_level_sum/$level_count;
+        $profession_level_avg = $profession_level_sum/$level_count;
+        $discipline_level_avg = $discipline_level_sum/$level_count;
+        $comment_level = ($attitude_level_avg + $profession_level_avg + $discipline_level_avg)/3;
+        $this->assign('comment_level', $comment_level);
+        $this->assign('attitude_level', $attitude_level_avg);
+        $this->assign('profession_level', $profession_level_avg);
+        $this->assign('discipline_level', $discipline_level_avg);
+        //格式化员工的信息
+        $worker = parse_worker_info($worker);
+        //获取员工的前5条评论
+        $result = $commentM->getWorkerComments($worker_id, 1);
+        $comments = array();
+        foreach($result as $k => $v){
+            $v['avg_level'] = ($v['attitude_level'] + $v['profession_level'] +$v['discipline_level'])/3;
+            $v['comment_time_str'] = time_stamp_to_str('m-d H:i', $v['comment_time']);
+
+            $comments[] = $v;
+        };
+        //显示加载更多按钮，如果评论数等于5则显示
+        if(count($comments) < 5){
+            $this->assign('display', 'none');
+        }
+
+        $this->assign('comments', $comments);
+        $this->assign('worker', $worker);
+        $this->display('User:worker');
+    }
+
+    //获取评论
+    public function get_comment_page(){
+        $worker_id = $_GET['worker_id'];
+        $page = $_GET['page'];
+        $page_step = 5;
+
+        $commentM = new CommentModel();
+        $comments = $commentM->getWorkerComments($worker_id, $page, $page_step);
+        $result = array();
+        foreach($comments as $k => $v){
+            $v['avg_level'] = ($v['attitude_level'] + $v['profession_level'] +$v['discipline_level'])/3;
+            $v['comment_time_str'] = time_stamp_to_str('m-d H:i', $v['comment_time']);
+
+            $result[] = $v;
+        }
+
+        $this->ajaxReturn($result);
     }
 }

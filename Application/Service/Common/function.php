@@ -6,9 +6,7 @@
  * Time: 上午11:50
  */
 
-function test(){
-    return 'test';
-}
+use Service\Model\HospitalModel;
 
 function time_stamp_to_str($format, $time_stamp){
     if(empty($time_stamp) || $time_stamp == 0){
@@ -54,6 +52,22 @@ function parse_order_collection($collection){
     return $collection;
 
 }
+
+//解析工作人员信息
+function parse_worker_info($worker){
+    $HospitalM = new HospitalModel();
+    $worker['stationary_str'] = $HospitalM->getHospitalById($worker['worker_stationary']);
+    $sexM = C('SEX');
+    $educationM = C('EDUCATION');
+    $serviceTypeM = C('SERVICE_TYPE');
+    $worker['worker_sex_str'] = $sexM[$worker['worker_sex']];
+    $worker['worker_education_str'] = $educationM[$worker['worker_education']];
+    $worker['worker_service_str'] = $serviceTypeM[$worker['worker_service']];
+
+    return $worker;
+}
+
+
 
 function get_wechat_user_info(){
     //判断是否缓存了用户信息

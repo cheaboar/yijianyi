@@ -9,7 +9,7 @@
 @btn-primary-color:#009688;
 @border-color:rgba(0, 0, 0,0.1);
 @status-color:hsl(14,100%,57%);
-
+@light-blue:hsl(188,90%,51%);
 
 
 body, html{
@@ -17,7 +17,7 @@ body, html{
   height: 100%;
   background-color: @background-color;
   margin: 0;
-//  font-size: 15px;
+  //  font-size: 15px;
 }
 
 .rounded-corners (@radius: 5px) {
@@ -63,7 +63,7 @@ body, html{
   color: @main-text-color;
   background-color: #ffffff;
   margin-top: 1.2rem;
-//  padding-bottom:1.2rem;
+  //  padding-bottom:1.2rem;
   font-size: @font-size;
   .padding-horizontal();
   .center-align;
@@ -83,7 +83,7 @@ body, html{
 
 .service-container{
   .padding-horizontal(.5rem);
-//  min-height:100%;
+  //  min-height:100%;
   background: @background-color;
 
 
@@ -93,59 +93,59 @@ body, html{
     width: 100%;
     display: none;
     .order-list{
+      margin-top: .5rem;
+      color: @main-text-color;
+      .no-order{
         margin-top: .5rem;
-        color: @main-text-color;
-        .no-order{
-          margin-top: .5rem;
-          width:100%;
-          .center-align;
+        width:100%;
+        .center-align;
+      }
+      .order-li{
+        a{
+          text-decoration: none;
+          color:@second-text-color;
         }
-        .order-li{
-          a{
-            text-decoration: none;
-            color:@second-text-color;
+
+
+
+        @name-font-size:2rem;
+        background-color: #ffffff;
+        line-height: 2rem;
+        vertical-align: middle;
+        .box-shadow(0, 4px, 10px, @shadow-color);
+        padding: .5rem;
+        margin-bottom: 1rem;
+        .order-header{
+          padding: 1rem 1rem;
+          display: -webkit-box;
+
+          .order-status{
+            @font-size:2rem;
+
+            background: @primary_color;
+            color:white;
+            font-size: @font-size;
+            padding: 0 .2rem;
+            line-height: @name-font-size;
+            vertical-align: middle;
+            .rounded-corners(2px);
           }
 
+          .customer-name{
+            padding-left:2rem;
 
-
-          @name-font-size:2rem;
-          background-color: #ffffff;
-          line-height: 2rem;
-          vertical-align: middle;
-          .box-shadow(0, 4px, 10px, @shadow-color);
-          padding: .5rem;
-          margin-bottom: 1rem;
-          .order-header{
-            padding: 1rem 1rem;
-            display: -webkit-box;
-
-            .order-status{
-              @font-size:2rem;
-
-              background: @primary_color;
-              color:white;
-              font-size: @font-size;
-              padding: 0 .2rem;
-              line-height: @name-font-size;
-              vertical-align: middle;
-              .rounded-corners(2px);
-            }
-
-            .customer-name{
-              padding-left:2rem;
-
-              color:@primary_color;
-              font-size: @name-font-size;
-            }
-
-
+            color:@primary_color;
+            font-size: @name-font-size;
           }
-          .order-start-time{
-            padding-left: 1rem;
-            color: @second-text-color;
-          }
+
 
         }
+        .order-start-time{
+          padding-left: 1rem;
+          color: @second-text-color;
+        }
+
+      }
     }
 
     .follow-list{
@@ -273,7 +273,7 @@ body, html{
   @unit-length:12.5%;
 
   .left-column{
-      width: @unit-length;
+    width: @unit-length;
   }
   .center-column{
     width:@unit-length * 6;
@@ -324,7 +324,7 @@ body, html{
 }
 
 .service-list{
-//  min-height: 100%;
+  //  min-height: 100%;
   background-color: @background-color;
   padding-bottom: 5rem;
   a{
@@ -369,7 +369,7 @@ body, html{
 
 .nav-container{
   background-color: @background-color;
-//  min-height: 100%;
+  //  min-height: 100%;
   padding-top: 1px;
 
   .item-area{
@@ -474,7 +474,7 @@ body, html{
   .canvas{
     margin-top: 2rem;
     background-color: #ffffff;
-//    min-height: 50%;
+    //    min-height: 50%;
     color: @second-text-color;
     padding: 2rem 2rem;
   }
@@ -577,6 +577,7 @@ body, html{
 }
 
 .babysitter-service-container{
+
   width: 100%;
   color:@main-text-color;
   .main-info-container{
@@ -590,13 +591,20 @@ body, html{
       background-color: #ffffff;
       padding-top:.5rem;
       padding-bottom:.5rem;
-      border-top: solid 1px @border-color;
+      z-index: 2;
+      //      border-top: solid 1px @border-color;
       border-bottom: solid 1px @border-color;
+      .service-name{
+        font-size: 1.5rem;
+        color:@primary_color;
+        padding-left: 2rem;
+      }
       .row{
         line-height: 3rem !important;
         vertical-align: middle;
       }
     }
+
 
     .sercice-promise{
       //margin:1rem 2rem;
@@ -613,12 +621,15 @@ body, html{
           width: 3rem;
         }
         .text-info{
+          color: @light-blue;
           margin-top: 1rem;
         }
       }
 
 
     }
+
+
 
   }
 
@@ -628,6 +639,15 @@ body, html{
     margin-right:2.5%;
     padding: 1.5rem 2rem;
     background-color: #ffffff;
+
+    .service-step{
+      .row{
+        margin-bottom: 1rem;
+        .time{
+          color: @light-blue;
+        }
+      }
+    }
 
     .introduce-item{
       margin-bottom: 1rem;
@@ -649,4 +669,137 @@ body, html{
 .right-align{
 
   text-align: right !important;
+}
+
+.worker-info-container{
+  with:100%;
+  @text-font-size:1.5rem;
+  .info-block{
+    margin-bottom: .8rem;
+    background-color: #ffffff;
+    width: 100%;
+    padding:2rem 1rem;
+  }
+
+  .info-title{
+    color:@primary_color;
+    font-size: @text-font-size;
+    .icon{
+      font-size:2rem;
+      margin-right: .5rem;
+    }
+  }
+  .info-list{
+    padding-left:2rem;
+    padding-right:2rem;
+    font-size: @text-font-size;
+    .row{
+      line-height: 3rem;
+      vertical-align: middle;
+      color:@second-text-color;
+    }
+  }
+
+  .head-info{
+    background-color: @primary_color;
+    padding-top: .5rem;
+    padding-bottom: .5rem;
+    .row{
+      margin:0;
+    }
+    img{
+      width: 60%;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .worker-name{
+      padding-top: .5rem;
+      font-size: @text-font-size;
+      color: #ffffff;
+    }
+    .raty{
+      font-size: @text-font-size;
+      color:#FFF100;
+    }
+  }
+
+  .customer-rate{
+    .load-more{
+      text-align: center;
+//      background-color: rgba(0, 0, 0, 0.01);
+      .btn{
+        background-color: rgba(0,0, 0, 0.03);
+        font-size: @text-font-size;
+        color:@primary_color;
+      }
+    }
+    .comment-star-area{
+      padding:1rem 1rem;
+      .comment-star-list{
+        line-height: 2rem;
+        vertical-align: middle;
+        font-size: @text-font-size;
+        display: inline-flex;
+
+        .comment-name{
+          color:@primary_color;
+          margin-right: 1rem;
+        }
+        .star{
+          color:@primary_color;
+          font-size: @text-font-size - .5rem;
+        }
+        .comment-note{
+          color:@second-text-color;
+        }
+      }
+    }
+    .comment-list{
+
+      .comment-star-area{
+        padding:1rem 1rem;
+        .comment-star-list{
+          line-height: 2rem;
+          vertical-align: middle;
+          font-size: @text-font-size;
+          display: inline-flex;
+
+          .comment-name{
+            color:@primary_color;
+            margin-right: 1rem;
+          }
+          .star{
+            color:@primary_color;
+            font-size: @text-font-size - .5rem;
+          }
+          .comment-note{
+            color:@second-text-color;
+          }
+        }
+      }
+
+      .comment-area{
+        font-size: @text-font-size;
+        padding:1rem;
+        color:@second-text-color;
+        line-height: 2rem;
+        vertical-align:middle;
+
+        .comment{
+//          text-indent:1rem;
+          font-size:@text-font-size;
+        }
+        .comment-star-info{
+          display: inline-flex;
+          color:@primary_color;
+          //text-indent:2rem;
+          .star{
+            font-size:@text-font-size - .5rem;
+          }
+        }
+
+
+      }
+    }
+  }
 }

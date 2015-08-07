@@ -1,0 +1,196 @@
+<!--<link rel="stylesheet" href="__STATIC__/css/jquery.raty.css"/>-->
+<script type="application/javascript" src="__STATIC__/js/jquery.raty.js"></script>
+
+<body>
+<include file="Public:title_header" href="new_service_info" title="护工信息"/>
+<div class="worker-info-container">
+    <div class="head-info info-block container-fluid">
+        <div class="row">
+            <div class="col-xs-4 center-align">
+                <img src="{$worker.worker_icon}" class="img-circle" alt=""/>
+            </div>
+            <div class="col-xs-8">
+                <div class="worker-name">{$worker.worker_name}</div>
+                <div class="star raty" value="{$comment_level}">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="basic-info info-block">
+        <div class="info-title"><span class="icon icon-file-text"></span>基础信息</div>
+        <div class="info-list container-fluid">
+            <div class="row">
+                <div class="col-xs-4 info-key">性别</div>
+                <div class="col-xs-8 right-align info-value">{$worker.worker_sex_str}</div>
+            </div>
+            <div class="row">
+                <div class="col-xs-4 info-key">年龄</div>
+                <div class="col-xs-8 right-align info-value">{$worker.worker_age}岁</div>
+            </div>
+            <div class="row">
+                <div class="col-xs-4 info-key">籍贯</div>
+                <div class="col-xs-8 right-align info-value">{$worker.provinceName} {$worker.cityName}</div>
+            </div>
+            <div class="row">
+                <div class="col-xs-4 info-key">归属</div>
+                <div class="col-xs-8 right-align info-value">{$worker.stationary_str}</div>
+            </div>
+            <div class="row">
+                <div class="col-xs-4 info-key">手机</div>
+                <div class="col-xs-8 right-align info-value">{$worker.worker_phone}</div>
+            </div>
+            <div class="row">
+                <div class="col-xs-4 info-key">教育状况</div>
+                <div class="col-xs-8 right-align info-value">{$worker.worker_education_str}</div>
+            </div>
+
+            <div class="row">
+                <div class="col-xs-4 info-key">工作经验</div>
+                <div class="col-xs-8 right-align info-value">{$worker.worker_experience}</div>
+            </div>
+
+
+
+        </div>
+    </div>
+    <div class="technique-info info-block">
+        <div class="info-title"><span class="icon icon-price-tag"></span>技能信息</div>
+        <div class="info-list container-fluid">
+            <div class="row">
+                <div class="col-xs-4 info-key">服务类型</div>
+                <div class="col-xs-8 right-align info-value">{$worker.worker_service_str}</div>
+            </div>
+            <div class="row">
+                <div class="col-xs-4 info-key">个人特点</div>
+                <div class="col-xs-8 right-align info-value">{$worker.worker_characteristic}</div>
+            </div>
+        </div>
+    </div>
+    <div class="customer-rate info-block">
+        <div class="info-title"><span class="icon icon-comment"></span>客户评价</div>
+        <div class="comment-star-area">
+            <div class="comment-star-list">
+                <span class="comment-name">服务态度</span>
+                <span class="star" value="{$attitude_level}"></span>
+                <span class="comment-note">（{$attitude_level}）</span>
+            </div>
+            <div class="comment-star-list">
+                <span class="comment-name">专业技能</span>
+                <span class="star" value="{$profession_level}"></span>
+                <span class="comment-note">（{$profession_level}）</span>
+            </div>
+            <div class="comment-star-list">
+                <span class="comment-name">劳动纪律</span>
+                <span class="star" value="{$discipline_level}"></span>
+                <span class="comment-note">（{$discipline_level}）</span>
+            </div>
+
+        </div>
+        <volist name="comments" id="vo">
+            <div class="comment-list">
+                <div class="divider"></div>
+                <!--<div class="comment-star-area">-->
+                    <!--<div class="comment-star-list">-->
+                        <!--<span class="comment-name">服务态度</span>-->
+                        <!--<span class="star" value="{$vo.attitude_level}"></span>-->
+                        <!--<span class="comment-note">（满分5分）</span>-->
+                    <!--</div>-->
+                    <!--<div class="comment-star-list">-->
+                        <!--<span class="comment-name">专业技能</span>-->
+                        <!--<span class="star" value="{$vo.profession_level}"></span>-->
+                        <!--<span class="comment-note">（满分5分）</span>-->
+                    <!--</div>-->
+                    <!--<div class="comment-star-list">-->
+                        <!--<span class="comment-name">劳动纪律</span>-->
+                        <!--<span class="star" value="{$vo.discipline_level}"></span>-->
+                        <!--<span class="comment-note">（满分5分）</span>-->
+                    <!--</div>-->
+
+                <!--</div>-->
+                <div class="comment-area">
+                    <div class="comment-user">{$vo.user_nickname}({$vo.comment_time_str})</div>
+                    <div class="comment">{$vo.comment_content}</div>
+                    <div class="comment-star-info">
+                        <span>评价：</span>
+                        <span class="star" value="{$vo.avg_level}"></span>
+                    </div>
+                </div>
+            </div>
+        </volist>
+
+        <div id="comment-append"></div>
+
+        <div class="load-more">
+            <div class="btn load-more-btn" worker_id="{$worker.worker_id}" page="1" style="display: {$display};">查看更多</div>
+        </div>
+    </div>
+
+
+
+</div>
+</body>
+<script>
+
+    var starts = $('.star');
+    starts.each(function(){
+        $(this).raty({score: $(this).attr('value'), readOnly:true, starType:'icon',starHalf:'icon-star.half',starOn:'icon-star.full',starOff:'icon-star.empty'});
+    });
+
+    //点击加载更多
+    $('.load-more-btn').on('click', function(){
+        var page = 1 + parseInt($(this).attr('page'));
+        var worker_id = $(this).attr('worker_id')
+        $.ajax({
+            url:'get_comment_page',
+            dataType: 'json',
+            data: {page:page, worker_id:worker_id},
+            success : function(data, satus){
+                //如果返回小于5项则关闭按钮
+                if(data.length < 5){
+                    $('.load-more-btn').hide();
+                }
+
+                //显示加载评价
+                var html_str = '';
+                for(var i=0; i < data.length ; i++){
+                    html_str += '<div class="comment-list">'+
+                    '<div class="divider"></div>'+
+//                    '<div class="comment-star-area">'+
+//                    '<div class="comment-star-list">'+
+//                    '<span class="comment-name">服务态度</span>'+
+//                    '<span class="star" value="'+data[i].attitude_level+'"></span>'+
+//                    '<span class="comment-note">（满分5分）</span>'+
+//                    '</div>'+
+//                    '<div class="comment-star-list">'+
+//                    '<span class="comment-name">专业技能</span>'+
+//                    '<span class="star" value="'+data[i].profession_level+'"></span>'+
+//                    '<span class="comment-note">（满分5分）</span>'+
+//                    '</div>'+
+//                    '<div class="comment-star-list">'+
+//                    '<span class="comment-name">劳动纪律</span>'+
+//                    '<span class="star" value="'+data[i].discipline_level+'"></span>'+
+//                    '<span class="comment-note">（满分5分）</span>'+
+//                    '</div>'+
+//                    '</div>'+
+                    '<div class="comment-area">'+
+                    '<div class="comment-user">{$vo.user_nickname}({$vo.comment_time_str})</div>'+
+                    '<div class="comment">{$vo.comment_content}</div>'+
+                    '<div class="comment-star-info">'+
+                    '<span>评价：</span>'+
+                    '<span class="star" value="'+data[i].avg_level+'"></span>'+
+                    '</div>'+
+                    '</div>'+
+                    '</div>'
+
+                }
+                $(html_str).appendTo('#comment-append');
+                var starts = $('.star');
+                starts.each(function(){
+                    $(this).raty({score: $(this).attr('value'), readOnly:true, starType:'icon',starHalf:'icon-star.half',starOn:'icon-star.full',starOff:'icon-star.empty'});
+                });
+            }
+        })
+    })
+
+</script>
+</html>
