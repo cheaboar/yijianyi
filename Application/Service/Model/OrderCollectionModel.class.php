@@ -21,5 +21,26 @@ class OrderCollectionModel extends Model{
         return $this->where($condition)->select();
     }
 
+    //获取订单的价格
+    public function get_collection($collection_id){
+        $condition = array(
+            'collection_id' => $collection_id,
+        );
+
+        return $this->where($condition)->find();
+    }
+
+    //跟新订单out_trade_no
+    public function update_out_trade_no($collection_id , $out_trade_no){
+        $condition = array(
+            'collection_id' => $collection_id,
+        );
+        $data = array(
+            'out_trade_no' => $out_trade_no,
+        );
+
+        $this->where($condition)->save($data);
+    }
+
 
 }

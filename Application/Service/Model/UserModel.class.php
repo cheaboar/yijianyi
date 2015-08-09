@@ -211,4 +211,12 @@ class UserModel extends Model {
 
         $this->where($condition)->save($data);
     }
+
+    public function get_user_openid($user_id){
+        $condition = array(
+            'user_id' => $user_id,
+        );
+
+        return $this->where($condition)->getField('user_weixin');
+    }
 }

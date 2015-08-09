@@ -85,7 +85,7 @@
                             </div>
                             <IF condition="$vo.collection_status eq 1">
                                 <div class="payment-btn-item row">
-                                    <div class="col-xs-12 payment-btn btn">支付</div>
+                                    <div class="col-xs-12 payment-btn btn" collection_id="{$vo.collection_id}">支付</div>
                                 </div>
                             </IF>
 
@@ -139,16 +139,37 @@
     //支付
     $('.payment-btn').on('click', function(){
         var btn = $(this);
+        var collection_id = btn.attr('collection_id');
+        console.log(collection_id);
+        var paySignInfo;
         //获取paySign信息
         function getPaySignInfo(collection_id){
-
+            $.ajax({
+                url:'get_pay_sign_info',
+                data: {
+                    collection_id : collection_id
+                },
+                dataType: 'json',
+                async:false,
+                success : function(data, status){
+                    console.log(data);
+                    paySignInfo = data;
+                    alert(paySignInfo.timeStamp);
+                },
+                error : function(e){
+                    console.log(e);
+                }
+            });
         }
+
+        getPaySignInfo(collection_id);
         //注册支付
         function jsApiCall()
         {
             WeixinJSBridge.invoke(
                     'getBrandWCPayRequest',
-                    {$signInfo},
+//                    {$signInfo},
+                    paySignInfo,
                     function(res){
                         WeixinJSBridge.log(res.err_msg);
                         alert(res.err_code+res.err_desc+res.err_msg);
