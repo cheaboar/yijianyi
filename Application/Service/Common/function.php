@@ -8,6 +8,60 @@
 
 use Service\Model\HospitalModel;
 
+use JsSdk;
+use UnifiedOrderPub;
+use WxPayConfPub;
+use WxPayUnifiedOrder;
+use WxPayConfig;
+use WxPayApi;
+use WxPayJsApiPay;
+use WxPayException;
+
+require_once LIB_PATH."Org/Util/WxpayAPI_php_v3/lib/WxPay.Data.php";
+require_once LIB_PATH."Org/Util/WxpayAPI_php_v3/lib/WxPay.Config.php";
+require_once LIB_PATH."Org/Util/WxpayAPI_php_v3/lib/WxPay.Api.php";
+
+
+function GetJsApiParameters($UnifiedOrderResult)
+{
+    ini_set('date.timezone','Asia/Shanghai');
+    if(!array_key_exists("appid", $UnifiedOrderResult)
+        || !array_key_exists("prepay_id", $UnifiedOrderResult)
+        || $UnifiedOrderResult['prepay_id'] == "")
+    {
+        throw new WxPayException("参数错误");
+    }
+    $jsapi = new WxPayJsApiPay();
+    $jsapi->SetAppid($UnifiedOrderResult["appid"]);
+    $timeStamp = time();
+    $jsapi->SetTimeStamp($timeStamp);
+    $jsapi->SetNonceStr(WxPayApi::getNonceStr());
+    $jsapi->SetPackage("prepay_id=" . $UnifiedOrderResult['prepay_id']);
+    $jsapi->SetSignType("MD5");
+    $jsapi->SetPaySign($jsapi->MakeSign());
+    $parameters = json_encode($jsapi->GetValues());
+    return $parameters;
+}
+
+function get_pay_sign_info($body, $fee, $out_trade_no, $openid, $attach='order-collection'){
+    $input = new WxPayUnifiedOrder();
+    $input->SetBody($body);
+    $input->SetAttach($attach);
+    $input->SetOut_trade_no($out_trade_no);
+    $input->SetTotal_fee($fee);
+
+    $input->SetNotify_url("http://subcribe.ecare-easy.com/Service/wechat/pay_test_notify");
+    $input->SetTrade_type("JSAPI");
+    $input->SetOpenid($openid);
+
+    $order = WxPayApi::unifiedOrder($input);
+
+    $signInfo = GetJsApiParameters($order);
+
+    return $signInfo;
+}
+
+
 function time_stamp_to_str($format, $time_stamp){
     if(empty($time_stamp) || $time_stamp == 0){
         return null;

@@ -1,7 +1,4 @@
-<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js" type="text/javascript" charset="utf-8"></script>
-<script type="text/javascript" charset="utf-8">
-    wx.config({$config});
-</script>
+
 <body >
 
     <include file="Public:title_header" href="new_my_service" title="订单详情"/>
@@ -137,6 +134,39 @@
             }
 
         }, 'json');
+    })
+
+    //支付
+    $('.payment-btn').on('click', function(){
+        var btn = $(this);
+        //获取paySign信息
+        function getPaySignInfo(collection_id){
+
+        }
+        //注册支付
+        function jsApiCall()
+        {
+            WeixinJSBridge.invoke(
+                    'getBrandWCPayRequest',
+                    {$signInfo},
+                    function(res){
+                        WeixinJSBridge.log(res.err_msg);
+                        alert(res.err_code+res.err_desc+res.err_msg);
+                    }
+            );
+        }
+
+        //调用支付
+        if (typeof WeixinJSBridge == "undefined"){
+            if( document.addEventListener ){
+                document.addEventListener('WeixinJSBridgeReady', jsApiCall, false);
+            }else if (document.attachEvent){
+                document.attachEvent('WeixinJSBridgeReady', jsApiCall);
+                document.attachEvent('onWeixinJSBridgeReady', jsApiCall);
+            }
+        }else{
+            jsApiCall();
+        }
     })
 </script>
 </html>

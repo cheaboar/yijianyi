@@ -30,6 +30,7 @@ use WxPayUnifiedOrder;
 use WxPayConfig;
 use WxPayApi;
 use WxPayJsApiPay;
+use WxPayException;
 
 use Overtrue\Wechat\Server;
 use Overtrue\Wechat\Auth;
@@ -834,14 +835,17 @@ class WechatController extends Controller {
 
         $app_id = C('SERVICE.APPID');
         $secret = C('SERVICE.SECRET');
-        $js = new Js($app_id, $secret);
-        $config = $js->config(array('checkJsApi', 'chooseWXPay'),true, true);
-        $this->assign('config', $config);
+//        $js = new Js($app_id, $secret);
+//        $config = $js->config(array('checkJsApi', 'chooseWXPay'),true, true);
+//        $this->assign('config', $config);
         foreach($paymet_list_temp as $collection){
             $item = parse_order_collection($collection);
             $paymet_list[] = $item;
         }
 
+        $openId = 'o2DIYuBqdKzF316FXZxZZc2tjsM0';
+        $signInfo = get_pay_sign_info('hah', 1, 'sdsdsdd123131', $openId);
+        $this->assign('signInfo', $signInfo);
 //        dump($paymet_list);
 
         //预处理一下支付列表，使用公共函数，因为其他地方有可能会使用到
@@ -1023,25 +1027,26 @@ class WechatController extends Controller {
         ini_set('date.timezone','Asia/Shanghai');
 //error_reporting(E_ERROR);
 
-        $input = new WxPayUnifiedOrder();
-        dump($input);
-        $input->SetBody("test");
-        $input->SetAttach("test");
-        $input->SetOut_trade_no('2015029012033321');
-        $input->SetTotal_fee("1");
-//        $input->SetTime_start(date("YmdHis"));
-//        $input->SetTime_expire(date("YmdHis", time() + 600));
-//        $input->SetGoods_tag("test");
-        $input->SetNotify_url("http://subcribe.ecare-easy.com/Service/wechat/pay_test_notify");
-        $input->SetTrade_type("JSAPI");
-        $input->SetOpenid($openId);
-
-        $order = WxPayApi::unifiedOrder($input);
-
-        $signInfo = $this->GetJsApiParameters($order);
+//        $input = new WxPayUnifiedOrder();
+//        dump($input);
+//        $input->SetBody("test");
+//        $input->SetAttach("test");
+//        $input->SetOut_trade_no('20150290120s33321');
+//        $input->SetTotal_fee("1");
+////        $input->SetTime_start(date("YmdHis"));
+////        $input->SetTime_expire(date("YmdHis", time() + 600));
+////        $input->SetGoods_tag("test");
+//        $input->SetNotify_url("http://subcribe.ecare-easy.com/Service/wechat/pay_test_notify");
+//        $input->SetTrade_type("JSAPI");
+//        $input->SetOpenid($openId);
+//
+//        $order = WxPayApi::unifiedOrder($input);
+//
+//        $signInfo = GetJsApiParameters($order);
+        $signInfo = get_pay_sign_info('hahaha', 2, 'dddshjssd12313411', $openId);
         dump($signInfo);
-        dump($input);
-        dump($order);
+//        dump($input);
+//        dump($order);
         $this->assign('signInfo', $signInfo);
 //        require_once "WxPay.JsApiPay.php";
 //        require_once 'log.php';
