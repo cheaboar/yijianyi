@@ -130,4 +130,42 @@ class OrderModel extends Model
 
         $this->where($condition)->save($data);
     }
+
+    /*支付订单
+     * @order_id：订单id
+     * @fee:支付的费用
+     *return:空
+     * 如果费用加上预付款比总费用少则将款项添加到预付款，订单状态不变。
+     * **/
+    public function pay_for_order($order_id, $fee){
+        $condition = array(
+            'order_id' => $order_id
+        );
+
+        $result = $this->where($condition)->getField('order_id, order_advance_payment, order_total_cost');
+
+        $fees = $result[$order_id];
+
+        $advance_payment = $fees['order_advance_payment'];
+        $total_cost = $fees['order_total_cost'];
+        $end_payment = $advance_payment + $fee;
+
+        if($end_payment < $total_cost){
+            //只更新预付款
+            $data = array(
+                'order_advance_payment' => $end_payment,
+            );
+
+            $this->where($condition)->save($data);
+        }else{
+            //更新预付款并且更行订单状态
+            $status_r = C('ORDER.STATUS_R');
+            $data = array(
+                'order_advance_payment' => $end_payment,
+                'order_status' => $status_r['已完成']
+            );
+
+            $this->where($condition)->save($data);
+        }
+    }
 }

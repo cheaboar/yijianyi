@@ -24,6 +24,7 @@ use Service\Model\HospitalModel;
 use Service\Model\CommentModel;
 
 use JsSdk;
+use Think\Log;
 use UnifiedOrderPub;
 use WxPayConfPub;
 use WxPayUnifiedOrder;
@@ -35,6 +36,7 @@ use WxPayException;
 use Overtrue\Wechat\Server;
 use Overtrue\Wechat\Auth;
 use Overtrue\Wechat\Js;
+use Overtrue\Wechat\Utils\XML;
 
 require LIB_PATH.'Org/Util/wechat-master/autoload.php';
 require_once LIB_PATH."Org/Util/WxpayAPI_php_v3/lib/WxPay.Data.php";
@@ -833,8 +835,8 @@ class WechatController extends Controller {
 
         $paymet_list = array();
 
-        $app_id = C('SERVICE.APPID');
-        $secret = C('SERVICE.SECRET');
+//        $app_id = C('SERVICE.APPID');
+//        $secret = C('SERVICE.SECRET');
 //        $js = new Js($app_id, $secret);
 //        $config = $js->config(array('checkJsApi', 'chooseWXPay'),true, true);
 //        $this->assign('config', $config);
@@ -843,9 +845,9 @@ class WechatController extends Controller {
             $paymet_list[] = $item;
         }
 
-        $openId = 'o2DIYuBqdKzF316FXZxZZc2tjsM0';
-        $signInfo = get_pay_sign_info('hah', 1, 'sdsdsdd123131', $openId);
-        $this->assign('signInfo', $signInfo);
+//        $openId = 'o2DIYuBqdKzF316FXZxZZc2tjsM0';
+//        $signInfo = get_pay_sign_info('hah', 1, 'sdsdsdd123131', $openId);
+//        $this->assign('signInfo', $signInfo);
 //        dump($paymet_list);
 
         //预处理一下支付列表，使用公共函数，因为其他地方有可能会使用到
@@ -855,6 +857,35 @@ class WechatController extends Controller {
         $this->assign('title', '订单');
         layout('Layout/new_layout');
         $this->display('Order:my_order_detail');
+    }
+
+    //获取collection的支付验证
+    public function get_pay_sign_info(){
+        \Think\Log::record('获取支付验证码','INFO');
+        //判断当前支付条目是否已经支付
+        //获取当前用户的openid
+        //TODO:获取当前用户id
+        $user_id  = 17;
+        $openId = $this->user->get_user_openid($user_id);
+
+        $collection_id = $_GET['collection_id'];
+        //获取此支付的金额
+        $collectionM = new OrderCollectionModel();
+        $collection = $collectionM->get_collection($collection_id);
+        $collection_fee = $collection['collection_amount'] * 100;
+//        dump($collection);
+        //生成out_trade_no并更新到数据库中
+        $out_trade_no = $collection['order_no'].$collection_id.date('YmdHis');
+        $collectionM->update_out_trade_no($collection_id, $out_trade_no);
+
+        //生成attach,用以在order_collection使用
+        $attach = $collection_id;
+
+        //生成验证信息并以json的形式返回
+        $paySignInfo = get_pay_sign_info('陪护', 1, $out_trade_no, $openId, $attach);
+        Log::write($paySignInfo['paySign'], 'INFO');
+        $this->ajaxReturn($paySignInfo);
+
     }
 
     public function new_service_info(){
@@ -993,70 +1024,49 @@ class WechatController extends Controller {
         $this->ajaxReturn($resutl);
     }
 
-    public function GetJsApiParameters($UnifiedOrderResult)
-    {
-        ini_set('date.timezone','Asia/Shanghai');
-        if(!array_key_exists("appid", $UnifiedOrderResult)
-            || !array_key_exists("prepay_id", $UnifiedOrderResult)
-            || $UnifiedOrderResult['prepay_id'] == "")
-        {
-            throw new WxPayException("参数错误");
-        }
-        $jsapi = new WxPayJsApiPay();
-        $jsapi->SetAppid($UnifiedOrderResult["appid"]);
-        $timeStamp = time();
-        $jsapi->SetTimeStamp($timeStamp);
-        $jsapi->SetNonceStr(WxPayApi::getNonceStr());
-        $jsapi->SetPackage("prepay_id=" . $UnifiedOrderResult['prepay_id']);
-        $jsapi->SetSignType("MD5");
-        $jsapi->SetPaySign($jsapi->MakeSign());
-        $parameters = json_encode($jsapi->GetValues());
-        return $parameters;
-    }
 
     public function pay_test(){
-
-        $app_id = C('SERVICE.APPID');
-        $secret = C('SERVICE.SECRET');
-//        $js = new Js($app_id, $secret);
-//        $config = $js->config(array('checkJsApi', 'chooseWXPay'),true, true);
-//        $this->assign('config', $config);
 
         $openId = 'o2DIYuBqdKzF316FXZxZZc2tjsM0';
         dump($openId);
         ini_set('date.timezone','Asia/Shanghai');
-//error_reporting(E_ERROR);
 
-//        $input = new WxPayUnifiedOrder();
-//        dump($input);
-//        $input->SetBody("test");
-//        $input->SetAttach("test");
-//        $input->SetOut_trade_no('20150290120s33321');
-//        $input->SetTotal_fee("1");
-////        $input->SetTime_start(date("YmdHis"));
-////        $input->SetTime_expire(date("YmdHis", time() + 600));
-////        $input->SetGoods_tag("test");
-//        $input->SetNotify_url("http://subcribe.ecare-easy.com/Service/wechat/pay_test_notify");
-//        $input->SetTrade_type("JSAPI");
-//        $input->SetOpenid($openId);
-//
-//        $order = WxPayApi::unifiedOrder($input);
-//
-//        $signInfo = GetJsApiParameters($order);
         $signInfo = get_pay_sign_info('hahaha', 2, 'dddshjssd12313411', $openId);
         dump($signInfo);
-//        dump($input);
-//        dump($order);
         $this->assign('signInfo', $signInfo);
-//        require_once "WxPay.JsApiPay.php";
-//        require_once 'log.php';
 
         $this->display('pay_test');
     }
 
-    public function pay_test_notify(){
-        log('sssssss');
+    //支付成功通知路径
+    public function pay_notify(){
+        //解析返回数据
+        $postStr = $GLOBALS['HTTP_RAW_POST_DATA'];
+        $postArr = XML::parse($postStr);
+
+        $out_trade_no = $postArr['out_trade_no'];
+        $collection_id = $postArr['attach'];
+        $total_fee = $postArr['total_fee'] /100;
+        $result_code = $postArr['result_code'];
+
+        if($result_code == 'SUCCESS'){
+            //更新数据库
+            $collectionM = new OrderCollectionModel();
+            $collectionM->set_collection_paid($collection_id, $out_trade_no, $total_fee);
+        }
+
+        //返回给服务器，表示已经处理
+        $return_data = array(
+            'return_code' => 'SUCCESS',
+            'return_msg' => 'OK',
+        );
+
+        $return_data_xml = XML::build($return_data);
+
+        echo $return_data_xml;
+
     }
+
 
     public function babysitter_service(){
         layout('Layout/new_layout');

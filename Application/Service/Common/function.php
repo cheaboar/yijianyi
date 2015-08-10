@@ -44,14 +44,14 @@ function GetJsApiParameters($UnifiedOrderResult)
     return $parameters;
 }
 
-function get_pay_sign_info($body, $fee, $out_trade_no, $openid, $attach='order-collection'){
+function get_pay_sign_info($body, $fee, $out_trade_no, $openid, $attach='order-collection', $notify_url='http://subcribe.ecare-easy.com/Service/wechat/pay_notify'){
     $input = new WxPayUnifiedOrder();
     $input->SetBody($body);
     $input->SetAttach($attach);
     $input->SetOut_trade_no($out_trade_no);
     $input->SetTotal_fee($fee);
 
-    $input->SetNotify_url("http://subcribe.ecare-easy.com/Service/wechat/pay_test_notify");
+    $input->SetNotify_url($notify_url);
     $input->SetTrade_type("JSAPI");
     $input->SetOpenid($openid);
 

@@ -13,6 +13,7 @@ return array(
 	'DB_CHARSET'=> 'utf8', // 字符集
     'READ_DATA_MAP'=>true,//字段自动映射
 
+
     //数据库表字段一些常量对应的配置
     'SEX' => array(
         1 => '男',

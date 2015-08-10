@@ -135,59 +135,71 @@
 
         }, 'json');
     })
-
+    var is_paying = false;
     //支付
     $('.payment-btn').on('click', function(){
-        var btn = $(this);
-        var collection_id = btn.attr('collection_id');
-        console.log(collection_id);
-        var paySignInfo;
-        //获取paySign信息
-        function getPaySignInfo(collection_id){
-            $.ajax({
-                url:'get_pay_sign_info',
-                data: {
-                    collection_id : collection_id
-                },
-                dataType: 'json',
-                async:false,
-                success : function(data, status){
-                    console.log(data);
-                    paySignInfo = data;
-                    alert(paySignInfo.timeStamp);
-                },
-                error : function(e){
-                    console.log(e);
-                }
-            });
-        }
-
-        getPaySignInfo(collection_id);
-        //注册支付
-        function jsApiCall()
-        {
-            WeixinJSBridge.invoke(
-                    'getBrandWCPayRequest',
-//                    {$signInfo},
-                    paySignInfo,
-                    function(res){
-                        WeixinJSBridge.log(res.err_msg);
-                        alert(res.err_code+res.err_desc+res.err_msg);
+        if(!is_paying){
+            is_paying = true;
+            var btn = $(this);
+            var collection_id = btn.attr('collection_id');
+            console.log(collection_id);
+            var paySignInfo;
+            //获取paySign信息
+            function getPaySignInfo(collection_id){
+                $.ajax({
+                    url:'get_pay_sign_info',
+                    data: {
+                        collection_id : collection_id
+                    },
+                    dataType: 'json',
+                    async:false,
+                    success : function(data, status){
+                        console.log(data);
+                        paySignInfo = data;
+                    },
+                    error : function(e){
+                        console.log(e);
                     }
-            );
-        }
+                });
+            }
 
-        //调用支付
-        if (typeof WeixinJSBridge == "undefined"){
-            if( document.addEventListener ){
-                document.addEventListener('WeixinJSBridgeReady', jsApiCall, false);
-            }else if (document.attachEvent){
-                document.attachEvent('WeixinJSBridgeReady', jsApiCall);
-                document.attachEvent('onWeixinJSBridgeReady', jsApiCall);
+            getPaySignInfo(collection_id);
+            //注册支付
+            function jsApiCall()
+            {
+                WeixinJSBridge.invoke(
+                        'getBrandWCPayRequest',
+//                    {$signInfo},
+                        paySignInfo,
+                        function(res){
+                            WeixinJSBridge.log(res.err_msg);
+                            is_paying = false;
+//                            alert(res.err_code+res.err_desc+res.err_msg);
+//                            alert(res.err_msg);
+//                            alert(res.err_code);
+                            if(res.err_msg == 'get_brand_wcpay_request:ok'){
+                                //支付成功
+                                window.location.href = '';
+                            }
+                        }
+                );
+            }
+
+            //调用支付
+            if (typeof WeixinJSBridge == "undefined"){
+                if( document.addEventListener ){
+                    document.addEventListener('WeixinJSBridgeReady', jsApiCall, false);
+                }else if (document.attachEvent){
+                    document.attachEvent('WeixinJSBridgeReady', jsApiCall);
+                    document.attachEvent('onWeixinJSBridgeReady', jsApiCall);
+                }
+            }else{
+                jsApiCall();
             }
         }else{
-            jsApiCall();
+            //不作处理
         }
+
     })
 </script>
 </html>
