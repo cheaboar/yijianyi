@@ -90,4 +90,19 @@ class OrderCollectionModel extends Model{
 
     }
 
+
+    /*获取订单的服务名称
+     * @collection_id :支付条目id
+     * 返回：订单的服务名称
+     */
+    public function get_service_type_str($collection_id){
+        $service_type = C('SERVICE_TYPE');
+        $condition = array(
+            'collection_id' => $collection_id
+        );
+
+        $type = $this->alias('c')->join('oa_order as o on c.order_id = o.order_id', 'left')->where($condition)->getField('service_type');
+
+        return $service_type[$type];
+    }
 }

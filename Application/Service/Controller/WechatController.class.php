@@ -822,11 +822,11 @@ class WechatController extends Controller {
     }
 
     public function my_order_detail(){
-//        $this->need_login();
+        $this->need_login();
         //此处除了需要验证登录外还需要确认user_id
         $order_id = $_GET['order_id'];
         $orderM = new OrderModel();
-        $user_id = 17;
+        $user_id = $this->user_id();
         $order_detail = $orderM->get_order_detail($order_id, $user_id);
 
         //获取支付列表
@@ -835,20 +835,13 @@ class WechatController extends Controller {
 
         $paymet_list = array();
 
-//        $app_id = C('SERVICE.APPID');
-//        $secret = C('SERVICE.SECRET');
-//        $js = new Js($app_id, $secret);
-//        $config = $js->config(array('checkJsApi', 'chooseWXPay'),true, true);
-//        $this->assign('config', $config);
+
         foreach($paymet_list_temp as $collection){
             $item = parse_order_collection($collection);
             $paymet_list[] = $item;
         }
 
-//        $openId = 'o2DIYuBqdKzF316FXZxZZc2tjsM0';
-//        $signInfo = get_pay_sign_info('hah', 1, 'sdsdsdd123131', $openId);
-//        $this->assign('signInfo', $signInfo);
-//        dump($paymet_list);
+
 
         //预处理一下支付列表，使用公共函数，因为其他地方有可能会使用到
 
@@ -882,7 +875,9 @@ class WechatController extends Controller {
         $attach = $collection_id;
 
         //生成验证信息并以json的形式返回
-        $paySignInfo = get_pay_sign_info('陪护', 1, $out_trade_no, $openId, $attach);
+        //获取服务预约名称
+        $body = $collectionM->get_service_type_str($collection_id);
+        $paySignInfo = get_pay_sign_info($body, 1, $out_trade_no, $openId, $attach);
         Log::write($paySignInfo['paySign'], 'INFO');
         $this->ajaxReturn($paySignInfo);
 
