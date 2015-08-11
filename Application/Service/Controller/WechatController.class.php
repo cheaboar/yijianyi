@@ -797,6 +797,7 @@ class WechatController extends Controller {
     public function new_my_service(){
         $this->need_login();
         $user_id = $this->user_id();
+//        $user_id = 17;
         //获取订单列表
         $orderM = new OrderModel();
         $orders = $orderM->get_user_orders($user_id);
@@ -896,15 +897,15 @@ class WechatController extends Controller {
     }
 
     //添加关注客户
-    public function add_follow_customer(){
+    public function add_follows(){
         echo '添加关注的人';
     }
 
     //修改个人信息
     public function user_info(){
         layout('Layout/new_layout');
-        $this->need_login();
-        $user_id = $this->user_id();
+//        $this->need_login();
+        $user_id = 17;
         $user_info = $this->user->get_user_info($user_id);
 
         //获取所有的省份
@@ -1149,4 +1150,17 @@ class WechatController extends Controller {
 
         $this->ajaxReturn($result);
     }
+
+    public function home_page(){
+        layout('Layout/new_layout');
+
+        $this->display('home_page');
+    }
+
+    public function health_management(){
+        layout('Layout/new_layout');
+
+        $this->display('User:health-management');
+    }
+
 }

@@ -14,8 +14,8 @@
     .navbar-offcanvas.in {
         box-shadow: 0 0 20px rgba(0, 0, 0, 0.3); }
     .navbar-offcanvas.navbar-offcanvas-fade {
-        display: none;
-
+        display:none;
+        /*opacity: 0;*/
     }
     .navbar-offcanvas.navbar-offcanvas-fade.in {
         display: inherit;

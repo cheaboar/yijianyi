@@ -1,0 +1,39 @@
+<head>
+    <script type="text/javascript" src="__STATIC__/js/sidebar.min.js"></script>
+    <link rel="stylesheet" href="__STATIC__/css/sidebar.min.css"/>
+</head>
+<body class="health-management">
+<include file="Public:title_header" href="javascript:window.history.go(-1)" title="健康管理"/>
+
+<div class="basic-info info-container container-fluid">
+    <div class="ui sidebar" style="width: 100% ;height:100%">
+        <include file="Public:user_center_header" target="#province-select-canvas" title="选择地区"/>
+        <a class="item">
+            1
+        </a>
+        <a class="item">
+            2
+        </a>
+        <input type="text"/>
+        <a class="item">
+            3
+        </a>
+    </div>
+    <div class="pusher btn btn-success">
+        <!-- Site content !-->
+        测试
+    </div>
+
+</div>
+<div class="valuation-info info-container container-fluid"></div>
+<div class="user-follow info-container container-fluid"></div>
+
+</body>
+<script>
+    $('.pusher').on('click', function(){
+        $('.ui.sidebar')
+                .sidebar('toggle')
+        ;
+    })
+</script>
+</html>

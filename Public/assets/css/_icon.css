@@ -27,8 +27,14 @@
 .icon-comment:before {
   content: "\e048";
 }
+.icon-chevron_right:before {
+  content: "\e208";
+}
 .icon-radio_button_checked:before {
   content: "\e25f";
+}
+.icon-credit_card:before {
+  content: "\e285";
 }
 .icon-home:before {
   content: "\e900";

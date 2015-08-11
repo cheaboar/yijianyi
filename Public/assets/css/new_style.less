@@ -68,6 +68,7 @@ body, html{
   color: @main-text-color;
   background-color: #ffffff;
   margin-top: 1.2rem;
+  padding-bottom: 1rem;
   //  padding-bottom:1.2rem;
   font-size: @font-size;
   .padding-horizontal();
@@ -87,18 +88,18 @@ body, html{
 
 
 .service-container{
-  .padding-horizontal(.5rem);
+//  .padding-horizontal(.5rem);
   //  min-height:100%;
   background: @background-color;
 
 
   .service-sub-container{
     padding-top: 2rem;
-    min-height: 100%;
+//    min-height: 100%;
     width: 100%;
     display: none;
     .order-list{
-      margin-top: .5rem;
+//      margin-top: .5rem;
       color: @main-text-color;
       .no-order{
         margin-top: .5rem;
@@ -106,6 +107,8 @@ body, html{
         .center-align;
       }
       .order-li{
+        padding-top: 1rem;
+        padding-bottom:1rem;
         a{
           text-decoration: none;
           color:@second-text-color;
@@ -118,7 +121,7 @@ body, html{
         line-height: 2rem;
         vertical-align: middle;
         .box-shadow(0, 4px, 10px, @shadow-color);
-        padding: .5rem;
+//        padding: .5rem;
         margin-bottom: 1rem;
         .order-header{
           padding: 1rem 1rem;
@@ -183,8 +186,8 @@ body, html{
       }
       .divider{
         border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-        margin-left: @padding-width;
-        margin-right: @padding-width;
+//        margin-left: @padding-width;
+//        margin-right: @padding-width;
       }
     }
   }
@@ -608,6 +611,10 @@ body, html{
         line-height: 3rem !important;
         vertical-align: middle;
       }
+      .btn-appointment{
+        background-color: #ff5722;
+        color: rgba(255, 255, 255, 0.87);
+      }
     }
 
 
@@ -806,5 +813,113 @@ body, html{
 
       }
     }
+  }
+}
+
+.home-page{
+  color: @main-text-color;
+  .introduce-image{
+    width: 100%;
+    img{
+      width:100%;
+    }
+  }
+  a{
+    color:@main-text-color;
+  }
+  @main-font-size:2rem;
+  @second-font-size:1rem;
+
+  .service-phone{
+    font-size: @main-font-size;
+    font-stretch: condensed;
+    text-align:center;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    .service-phone-img{
+      img{
+        width: @main-font-size;
+      }
+      margin-right: 1rem;
+      margin-left: 1rem;
+
+    }
+
+  }
+
+  .service-area{
+    background-color: #ffffff;
+    .service-item{
+//      padding:1rem 30%;
+      padding-bottom: 2rem;
+
+      .service-item-tab{
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 2rem;
+        margin-bottom: 1rem;
+        @inner-width:.5rem;
+        background-color: @primary_color;
+        width: 2*@main-font-size;
+        height: 2*@main-font-size;
+
+        padding-left: @inner-width;
+        padding-top: @inner-width;
+        img{
+          width: 2*@main-font-size - 2*@inner-width;
+        }
+      }
+      .customer-service{
+        background-color: #ff5722;
+      }
+      .text{
+        text-align: center;
+        font-size: @main-font-size *2/ 3;
+        width:100%;
+      }
+    }
+  }
+
+  .info-item{
+    background-color: #ffffff;
+    padding-top:1rem;
+    padding-bottom: 1rem;
+    margin-top: .4rem;
+    @basic-font-size : 1rem;
+    img{
+      width: 2.5*@basic-font-size;
+    }
+    .item-title{
+      font-size: 1.5 * @basic-font-size;
+    }
+    .item-intro{
+      font-size: @basic-font-size;
+      color:@second-text-color;
+
+    }
+    .icon-img{
+      line-height: 2.5*@basic-font-size;
+      vertical-align: middle;
+    }
+    .icon-next{
+      line-height: 2.5*@basic-font-size;
+      color: @second-text-color;
+      vertical-align: middle;
+    }
+  }
+
+}
+
+.health-management{
+  .info-container{
+    margin-top: .5rem;
+    background-color: #ffffff;
+
+  }
+}
+
+.user-info-edit{
+  .sidebar{
+    width:100%;
   }
 }

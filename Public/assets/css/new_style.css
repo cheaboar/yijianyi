@@ -27,8 +27,14 @@
 .icon-comment:before {
   content: "\e048";
 }
+.icon-chevron_right:before {
+  content: "\e208";
+}
 .icon-radio_button_checked:before {
   content: "\e25f";
+}
+.icon-credit_card:before {
+  content: "\e285";
 }
 .icon-home:before {
   content: "\e900";
@@ -115,6 +121,7 @@ html {
   color: rgba(0, 0, 0, 0.7);
   background-color: #ffffff;
   margin-top: 1.2rem;
+  padding-bottom: 1rem;
   font-size: 1.8rem;
   padding-left: 10%;
   padding-right: 10%;
@@ -130,18 +137,14 @@ html {
   border-bottom: solid 2px #5dd486;
 }
 .service-container {
-  padding-left: 0.5rem;
-  padding-right: 0.5rem;
   background: #eeeeee;
 }
 .service-container .service-sub-container {
   padding-top: 2rem;
-  min-height: 100%;
   width: 100%;
   display: none;
 }
 .service-container .service-sub-container .order-list {
-  margin-top: .5rem;
   color: rgba(0, 0, 0, 0.7);
 }
 .service-container .service-sub-container .order-list .no-order {
@@ -150,6 +153,8 @@ html {
   text-align: center !important;
 }
 .service-container .service-sub-container .order-list .order-li {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
   background-color: #ffffff;
   line-height: 2rem;
   vertical-align: middle;
@@ -158,7 +163,6 @@ html {
   box-shadow: 0 4px 10px #a9a9a9;
   -ms-box-shadow: 0 4px 10px #a9a9a9;
   -o-box-shadow: 0 4px 10px #a9a9a9;
-  padding: .5rem;
   margin-bottom: 1rem;
 }
 .service-container .service-sub-container .order-list .order-li a {
@@ -220,8 +224,6 @@ html {
 }
 .service-container .service-sub-container .follow-list .divider {
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-  margin-left: 1.5rem;
-  margin-right: 1.5rem;
 }
 .service-container .front {
   display: inherit;
@@ -608,6 +610,10 @@ html {
   line-height: 3rem !important;
   vertical-align: middle;
 }
+.babysitter-service-container .main-info-container .service-appointment .btn-appointment {
+  background-color: #ff5722;
+  color: rgba(255, 255, 255, 0.87);
+}
 .babysitter-service-container .main-info-container .sercice-promise .border-left {
   border-left: 1px solid rgba(0, 0, 0, 0.1);
 }
@@ -767,4 +773,90 @@ html {
 }
 .worker-info-container .customer-rate .comment-list .comment-area .comment-star-info .star {
   font-size: 1rem;
+}
+.home-page {
+  color: rgba(0, 0, 0, 0.7);
+}
+.home-page .introduce-image {
+  width: 100%;
+}
+.home-page .introduce-image img {
+  width: 100%;
+}
+.home-page a {
+  color: rgba(0, 0, 0, 0.7);
+}
+.home-page .service-phone {
+  font-size: 2rem;
+  font-stretch: condensed;
+  text-align: center;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+.home-page .service-phone .service-phone-img {
+  margin-right: 1rem;
+  margin-left: 1rem;
+}
+.home-page .service-phone .service-phone-img img {
+  width: 2rem;
+}
+.home-page .service-area {
+  background-color: #ffffff;
+}
+.home-page .service-area .service-item {
+  padding-bottom: 2rem;
+}
+.home-page .service-area .service-item .service-item-tab {
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  background-color: #5dd486;
+  width: 4rem;
+  height: 4rem;
+  padding-left: 0.5rem;
+  padding-top: 0.5rem;
+}
+.home-page .service-area .service-item .service-item-tab img {
+  width: 3rem;
+}
+.home-page .service-area .service-item .customer-service {
+  background-color: #ff5722;
+}
+.home-page .service-area .service-item .text {
+  text-align: center;
+  font-size: 1.33333333rem;
+  width: 100%;
+}
+.home-page .info-item {
+  background-color: #ffffff;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  margin-top: .4rem;
+}
+.home-page .info-item img {
+  width: 2.5rem;
+}
+.home-page .info-item .item-title {
+  font-size: 1.5rem;
+}
+.home-page .info-item .item-intro {
+  font-size: 1rem;
+  color: rgba(0, 0, 0, 0.5);
+}
+.home-page .info-item .icon-img {
+  line-height: 2.5rem;
+  vertical-align: middle;
+}
+.home-page .info-item .icon-next {
+  line-height: 2.5rem;
+  color: rgba(0, 0, 0, 0.5);
+  vertical-align: middle;
+}
+.health-management .info-container {
+  margin-top: .5rem;
+  background-color: #ffffff;
+}
+.user-info-edit .sidebar {
+  width: 100%;
 }
