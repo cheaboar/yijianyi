@@ -30,6 +30,15 @@
 .icon-chevron_right:before {
   content: "\e208";
 }
+.icon-close:before {
+  content: "\e209";
+}
+.icon-expand_less:before {
+  content: "\e20a";
+}
+.icon-expand_more:before {
+  content: "\e20b";
+}
 .icon-radio_button_checked:before {
   content: "\e25f";
 }

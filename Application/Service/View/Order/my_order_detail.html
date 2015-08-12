@@ -156,6 +156,8 @@
                     success : function(data, status){
                         console.log(data);
                         paySignInfo = data;
+//                        alert(paySignInfo.timeStamp)
+
                     },
                     error : function(e){
                         console.log(e);
@@ -164,6 +166,7 @@
             }
 
             getPaySignInfo(collection_id);
+
             //注册支付
             function jsApiCall()
             {

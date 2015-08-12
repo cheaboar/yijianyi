@@ -168,7 +168,7 @@ class WechatController extends Controller {
     }
 
     public function address_test(){
-        $user_id = 17;
+        $user_id = $this->user_id();
 
         $address = $this->address->get_user_address_string($user_id);
 //            $address = $this->user_address->get_user_address_string($user_id);
@@ -859,7 +859,7 @@ class WechatController extends Controller {
         //判断当前支付条目是否已经支付
         //获取当前用户的openid
         //TODO:获取当前用户id
-        $user_id  = 17;
+        $user_id  = $this->user_id();
         $openId = $this->user->get_user_openid($user_id);
 
         $collection_id = $_GET['collection_id'];
@@ -904,8 +904,8 @@ class WechatController extends Controller {
     //修改个人信息
     public function user_info(){
         layout('Layout/new_layout');
-//        $this->need_login();
-        $user_id = 17;
+        $this->need_login();
+        $user_id = $this->user_id();
         $user_info = $this->user->get_user_info($user_id);
 
         //获取所有的省份
@@ -997,7 +997,7 @@ class WechatController extends Controller {
     public function confirm_order(){
         $order_id = $_POST['order_id'];
 
-        $user_id = 17;
+        $user_id = $this->user_id();
         $orderM = new OrderModel();
         $status_conf = C('ORDER.SATUS_R');
         $orderM->change_order_satus($order_id, $user_id, $status_conf['进行中']);
@@ -1010,7 +1010,7 @@ class WechatController extends Controller {
     public function cancel_order(){
         $order_id = $_POST['order_id'];
 
-        $user_id = 17;
+        $user_id = $this->user_id();
         $orderM = new OrderModel();
         $status_conf = C('ORDER.SATUS_R');
         $orderM->change_order_satus($order_id, $user_id, $status_conf['已取消']);
@@ -1161,6 +1161,18 @@ class WechatController extends Controller {
         layout('Layout/new_layout');
 
         $this->display('User:health-management');
+    }
+
+    public function hospital_care(){
+        layout('Layout/new_layout');
+
+        $this->display('Service:hospital_care');
+    }
+
+    public function home_care(){
+        layout('Layout/new_layout');
+
+        $this->display('Service:home_care');
     }
 
 }

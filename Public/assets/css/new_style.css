@@ -30,6 +30,15 @@
 .icon-chevron_right:before {
   content: "\e208";
 }
+.icon-close:before {
+  content: "\e209";
+}
+.icon-expand_less:before {
+  content: "\e20a";
+}
+.icon-expand_more:before {
+  content: "\e20b";
+}
 .icon-radio_button_checked:before {
   content: "\e25f";
 }
@@ -158,12 +167,6 @@ html {
   background-color: #ffffff;
   line-height: 2rem;
   vertical-align: middle;
-  -webkit-box-shadow: 0 4px 10px #a9a9a9;
-  -moz-box-shadow: 0 4px 10px #a9a9a9;
-  box-shadow: 0 4px 10px #a9a9a9;
-  -ms-box-shadow: 0 4px 10px #a9a9a9;
-  -o-box-shadow: 0 4px 10px #a9a9a9;
-  margin-bottom: 1rem;
 }
 .service-container .service-sub-container .order-list .order-li a {
   text-decoration: none;
@@ -360,11 +363,15 @@ html {
   background-color: #5dd486;
   color: rgba(255, 255, 255, 0.87);
 }
+.user-info a {
+  color: rgba(255, 255, 255, 0.87);
+}
 .user-info img {
-  width: 70% ;
-  margin-left: 15%;
-  margin-top: 10%;
-  margin-bottom: 10%;
+  width: 4rem;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
   -webkit-box-shadow: 0 0 25px #ffffff;
   -moz-box-shadow: 0 0 25px #ffffff;
   box-shadow: 0 0 25px #ffffff;
@@ -373,14 +380,14 @@ html {
 }
 .user-info .info-area {
   vertical-align: middle;
-  height: 100%;
-  padding-top: 1.2rem;
+  height: 6rem;
+  padding-top: 1.5rem;
 }
 .user-info .info-area .name {
-  font-size: 1.5rem;
+  font-size: 1.7rem;
 }
 .user-info .info-area .phone {
-  font-size: 1.2rem;
+  font-size: 1.3rem;
 }
 .nav-container {
   background-color: #eeeeee;
@@ -560,6 +567,11 @@ html {
   font-size: 2rem;
   color: rgba(0, 0, 0, 0.5);
 }
+.sex-selection {
+  margin-top: 1.5rem;
+  background-color: #ffffff;
+  padding: 1rem 1.5rem ;
+}
 .sex-selection .sex-header {
   font-size: 2.5rem;
 }
@@ -647,6 +659,41 @@ html {
 .babysitter-service-container .introduce-info-container .introduce-item {
   margin-bottom: 1rem;
 }
+.babysitter-service-container .introduce-info-container .introduce-item .content-container .item-title {
+  font-size: 1.5rem;
+}
+.babysitter-service-container .introduce-info-container .introduce-item .content-container .info-item {
+  text-indent: 2rem;
+  color: rgba(0, 0, 0, 0.5);
+  font-size: 1.5rem;
+  margin-top: 1rem;
+  margin-bottom: 2rem;
+}
+.babysitter-service-container .introduce-info-container .introduce-item .content-container .service-content {
+  padding: 2rem 2rem;
+  text-align: center;
+}
+.babysitter-service-container .introduce-info-container .introduce-item .content-container .service-content .service-item {
+  margin-top: 2rem;
+}
+.babysitter-service-container .introduce-info-container .introduce-item .content-container .service-content .service-item .service-item-icon img {
+  width: 3rem;
+}
+.babysitter-service-container .introduce-info-container .introduce-item .content-container .service-content .service-item .service-item-text {
+  font-size: .5rem;
+  color: rgba(0, 0, 0, 0.5);
+  margin-top: 1rem;
+}
+.babysitter-service-container .introduce-info-container .introduce-item .content-container ul {
+  list-style-type: inherit;
+  line-height: 2rem;
+  vertical-align: middle;
+  color: rgba(0, 0, 0, 0.5);
+}
+.babysitter-service-container .introduce-info-container .introduce-item .container-fluid {
+  padding-left: 0;
+  padding-right: 0;
+}
 .babysitter-service-container .introduce-info-container .introduce-item ul {
   list-style-type: lower-hexadecimal;
   line-height: 2rem;
@@ -656,6 +703,23 @@ html {
 .babysitter-service-container .introduce-info-container .introduce-item .collapse-header {
   color: #5dd486;
   padding-bottom: 1rem;
+}
+.babysitter-service-container .introduce-info-container .introduce-item .collapse-header .header-title {
+  display: flex;
+  line-height: 3rem;
+}
+.babysitter-service-container .introduce-info-container .introduce-item .collapse-header .home-care-level {
+  background-color: #ff5722;
+  color: rgba(255, 255, 255, 0.87);
+  padding-left: 1.5rem;
+  margin-left: -2rem;
+}
+.babysitter-service-container .introduce-info-container .introduce-item .collapse-header .triangle-right {
+  height: 0;
+  width: 0;
+  border-top: 1.5rem solid transparent;
+  border-bottom: 1.5rem solid transparent;
+  border-left: solid 1.5rem #ff5722;
 }
 .right-align {
   text-align: right !important;
@@ -859,4 +923,7 @@ html {
 }
 .user-info-edit .sidebar {
   width: 100%;
+}
+.user-info-edit .pusher {
+  background-color: #eeeeee !important;
 }

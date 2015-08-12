@@ -40,10 +40,21 @@
         <div class="service-content introduce-item">
             <h4 >
                 <div class="collapse-header" role="button" data-toggle="collapse" data-parent="#accordion" href="#content" aria-expanded="true" aria-controls="collapseOne">
-                    服务内容
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-xs-10">
+                                服务内容
+                            </div>
+                            <div class="col-xs-1">
+                                <span class="icon icon-expand_less" id="content-expand-icon"></span>
+                            </div>
+                        </div>
+                    </div>
+
+
                 </div>
             </h4>
-            <div id="content" class="collapse in "  aria-labelledby="headingOne">
+            <div id="content" class="collapse in "  aria-labelledby="headingOne" connect-icon="#content-expand-icon">
                 <div class="collapse-container">
                     <ul>
                         <li>产褥期的观察护理、会阴擦洗</li>
@@ -64,11 +75,22 @@
         <!--服务流程-->
             <div class="service-step introduce-item" id="headingOne1">
                 <h4 >
-                    <div class="collapse-header" role="button" data-toggle="collapse" data-parent="#accordion" href="#introduce" aria-expanded="true" aria-controls="collapseOne">
-                       服务流程
-                    </div>
+                        <div class="collapse-header" role="button" data-toggle="collapse" data-parent="#accordion" href="#introduce" aria-expanded="true" aria-controls="collapseOne">
+                            <div class="container-fluid">
+                                <div class="row">
+                                    <div class="col-xs-10">
+                                        服务流程
+                                    </div>
+                                    <div class="col-xs-1">
+                                        <span class="icon icon-expand_more" id="introduce-expand-icon"></span>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
                 </h4>
-                <div id="introduce" class="collapse"  aria-labelledby="headingOne">
+                <div id="introduce" class="collapse"  aria-labelledby="headingOne" connect-icon="#introduce-expand-icon">
                     <div class="collapse-container container-fluid">
                         <div class="row">
                             <div class="col-xs-3 time">06:00</div>
@@ -176,10 +198,21 @@
         <div class="service-price introduce-item">
             <h4 >
                 <div class="collapse-header" role="button" data-toggle="collapse" data-parent="#accordion" href="#price" aria-expanded="true" aria-controls="collapseOne">
-                    价格范围
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-xs-10">
+                                价格范围
+                            </div>
+                            <div class="col-xs-1">
+                                <span class="icon icon-expand_more" id="price-expand-icon"></span>
+                            </div>
+                        </div>
+                    </div>
+
+
                 </div>
             </h4>
-            <div id="price" class="collapse "  aria-labelledby="headingOne">
+            <div id="price" class="collapse "  aria-labelledby="headingOne" connect-icon="#price-expand-icon">
                 <div class="collapse-container">
                     4800-21600 元
                 </div>
@@ -207,6 +240,19 @@
 
         });
     });
+
+    $('.collapse').on('hidden.bs.collapse', function(){
+        console.log('hidden');
+        console.log(this);
+        var icon_id = $(this).attr('connect-icon');
+        $(icon_id).removeClass('icon-expand_less').addClass('icon-expand_more');
+    })
+    $('.collapse').on('shown.bs.collapse', function(){
+        console.log('hidden');
+        console.log(this);
+        var icon_id = $(this).attr('connect-icon');
+        $(icon_id).removeClass('icon-expand_more').addClass('icon-expand_less');
+    })
 
 </script>
 
