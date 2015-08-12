@@ -34,7 +34,7 @@ function GetJsApiParameters($UnifiedOrderResult)
     $jsapi = new WxPayJsApiPay();
     $jsapi->SetAppid($UnifiedOrderResult["appid"]);
     $timeStamp = time();
-    $jsapi->SetTimeStamp($timeStamp);
+    $jsapi->SetTimeStamp("$timeStamp");
     $jsapi->SetNonceStr(WxPayApi::getNonceStr());
     $jsapi->SetPackage("prepay_id=" . $UnifiedOrderResult['prepay_id']);
     $jsapi->SetSignType("MD5");
