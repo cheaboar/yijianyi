@@ -680,7 +680,7 @@ html {
   width: 3rem;
 }
 .babysitter-service-container .introduce-info-container .introduce-item .content-container .service-content .service-item .service-item-text {
-  font-size: .5rem;
+  font-size: 1rem;
   color: rgba(0, 0, 0, 0.5);
   margin-top: 1rem;
 }
@@ -705,7 +705,7 @@ html {
   padding-bottom: 1rem;
 }
 .babysitter-service-container .introduce-info-container .introduce-item .collapse-header .header-title {
-  display: flex;
+  display: -webkit-box;
   line-height: 3rem;
 }
 .babysitter-service-container .introduce-info-container .introduce-item .collapse-header .home-care-level {
