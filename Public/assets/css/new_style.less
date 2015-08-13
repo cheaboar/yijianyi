@@ -62,6 +62,7 @@ body, html{
 }
 .tab-container{
   background-color: #ffffff;
+  margin-top:.5rem;
 }
 
 .service-tab{
@@ -69,7 +70,7 @@ body, html{
   color: @main-text-color;
   background-color: #ffffff;
   margin-top: 1.2rem;
-  padding-bottom: 1rem;
+//  padding-bottom: 1rem;
   //  padding-bottom:1.2rem;
   font-size: @font-size;
   .padding-horizontal();
@@ -97,7 +98,7 @@ body, html{
 
 
   .service-sub-container{
-    padding-top: 2rem;
+    padding-top: 1rem;
 //    min-height: 100%;
     width: 100%;
     display: none;
@@ -219,6 +220,13 @@ body, html{
     .detail-area{
       padding-bottom: 2rem;
 
+      .header-name{
+        color:@primary_color;
+      }
+      .header-right-icon{
+        text-align: right;
+        color:@second-text-color;
+      }
       .info-area{
         text-indent: 2rem;
       }
@@ -792,21 +800,23 @@ body, html{
     background-color: @primary_color;
     padding-top: .5rem;
     padding-bottom: .5rem;
+    @basic-font-size:1rem;
     .row{
       margin:0;
     }
     img{
-      width: 60%;
+      width: 4*@basic-font-size;
+      height:4*@basic-font-size;
       margin-left: auto;
       margin-right: auto;
     }
     .worker-name{
-      padding-top: .5rem;
-      font-size: @text-font-size;
+      padding-top: 0.5 * @basic-font-size rem;
+      font-size: 2*@basic-font-size;
       color: #ffffff;
     }
     .raty{
-      font-size: @text-font-size;
+      font-size: @basic-font-size;
       color:#FFF100;
     }
   }
@@ -989,9 +999,50 @@ body, html{
 .health-management{
   .info-container{
     margin-top: .5rem;
+    padding:1rem 2rem 0.5rem 2rem;
     background-color: #ffffff;
+    color: @second-text-color;
+    font-size: 1.5rem;
+    line-height: 3rem;
+    .info-title{
+//      color: @primary_color;
+      font-size: 1.8rem;
+    }
+    .key{
+      font-size: 1rem;
+    }
+    .value{
+      color:@main-text-color;
+      text-align: right;
+    }
+    .icon{
+      font-size: 3rem;
+    }
 
+    .risk-area{
+      padding-left: 1rem;
+      line-height: 2rem;
+      .risk-area-item{
+        .risk-title{
+          font-size: 1rem;
+        }
+        .risk-info{
+          font-size: .8rem;
+          padding-left: 1rem;
+        }
+      }
+    }
   }
+
+  .user-follow{
+    padding: 1rem 2rem;
+    font-size: 1.5rem;
+    a{
+      color:@second-text-color;
+    }
+    margin-bottom: 5rem;
+  }
+
 }
 
 .user-info-edit{

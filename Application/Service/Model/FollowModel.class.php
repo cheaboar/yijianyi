@@ -27,4 +27,18 @@ class FollowModel extends Model{
         }
         return $result;
     }
+
+    public function exit_follow_connection($user_id, $customer_id){
+        $condition = array(
+            'user_id' => $user_id,
+            'customer_id' => $customer_id
+        );
+
+        $result = $this->where($condition)->find();
+        if(empty($result)){
+            return false;
+        }else{
+            return true;
+        }
+    }
 }

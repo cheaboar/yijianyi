@@ -6,34 +6,132 @@
 <include file="Public:title_header" href="javascript:window.history.go(-1)" title="健康管理"/>
 
 <div class="basic-info info-container container-fluid">
-    <div class="ui sidebar" style="width: 100% ;height:100%">
-        <include file="Public:user_center_header" target="#province-select-canvas" title="选择地区"/>
-        <a class="item">
-            1
-        </a>
-        <a class="item">
-            2
-        </a>
-        <input type="text"/>
-        <a class="item">
-            3
-        </a>
+    <div class="row">
+        <div class="col-xs-12 info-title">基本信息</div>
     </div>
-    <div class="pusher btn btn-success">
-        <!-- Site content !-->
-        测试
+    <div class="divider"></div>
+    <div class="row">
+        <div class="col-xs-6 key">姓名</div>
+        <div class="col-xs-6 value">{$customer.customer_name}</div>
+    </div>
+    <div class="divider"></div>
+    <div class="row">
+        <div class="col-xs-6 key">年龄</div>
+        <div class="col-xs-6 value">{$customer.customer_age}</div>
+    </div>
+    <div class="divider"></div>
+    <div class="row">
+        <div class="col-xs-6 key">常用语言</div>
+        <div class="col-xs-6 value">{$customer.customer_language}</div>
+    </div>
+    <div class="divider"></div>
+    <div class="row">
+        <div class="col-xs-6 key">医院</div>
+        <div class="col-xs-6 value">{$customer.customer_hospital_str}</div>
+    </div>
+    <div class="divider"></div>
+    <div class="row">
+        <div class="col-xs-6 key">科室</div>
+        <div class="col-xs-6 value">{$customer.customer_hospital_department_str}</div>
+    </div>
+    <div class="divider"></div>
+    <div class="row">
+        <div class="col-xs-6 key">床位</div>
+        <div class="col-xs-6 value">{$customer.customer_bed_no}</div>
+    </div>
+    <div class="divider"></div>
+    <div class="row">
+        <div class="col-xs-6 key">服务分组</div>
+        <div class="col-xs-6 value">{$customer.customer_service_type_str}</div>
+    </div>
+</div>
+<div class="valuation-info info-container container-fluid">
+    <div class="row">
+        <div class="col-xs-12 info-title">个人评估</div>
+    </div>
+    <div class="divider"></div>
+    <div class="row">
+        <div class="col-xs-6 key">病情</div>
+        <div class="col-xs-6 value">{$customer.customer_illness}</div>
+    </div>
+    <div class="divider"></div>
+    <div class="row">
+        <div class="col-xs-6 key">过敏药物或食品</div>
+        <div class="col-xs-6 value">{$customer.customer_allergy}</div>
+    </div>
+    <div class="divider"></div>
+    <div class="row">
+        <div class="col-xs-6 key">个人特殊嗜好</div>
+        <div class="col-xs-6 value">{$customer.customer_hobby}</div>
+    </div>
+    <div class="divider"></div>
+    <div class="row">
+        <div class="col-xs-6 key">家族遗传病史</div>
+        <div class="col-xs-6 value">{$customer.customer_genetic}</div>
+    </div>
+    <div class="divider"></div>
+    <div class="row">
+        <div class="col-xs-6 key">大小便情况</div>
+        <div class="col-xs-6 value">{$customer.customer_defecate_piss}</div>
+    </div>
+    <div class="divider"></div>
+    <div class="row">
+        <div class="col-xs-6 key">意识状态</div>
+        <div class="col-xs-6 value">{$customer.customer_state}</div>
+    </div>
+
+    <div class="divider"></div>
+    <div class="row">
+        <div class="col-xs-6 key">服务级别</div>
+        <div class="col-xs-6 value">{$customer.customer_service_level_str}</div>
+    </div>
+    <div class="divider"></div>
+    <div class="row">
+        <div class="col-xs-6 key">自理能力</div>
+        <div class="col-xs-6 value">{$customer.customer_selfcare_ability}</div>
+    </div>
+    <div class="divider"></div>
+    <div class="row">
+        <div class="col-xs-12">风险因素</div>
+    </div>
+    <div class="risk-area">
+        <div class="risk-area-item">
+            <div class="risk-title">心脑血管</div>
+            <div class="risk-info">{$customer.customer_risk_xnxg}</div>
+        </div>
+        <div class="risk-area-item">
+            <div class="risk-title">呼吸系统</div>
+            <div class="risk-info">{$customer.customer_risk_hxxt}</div>
+        </div>
+        <div class="risk-area-item">
+            <div class="risk-title">消化系统</div>
+            <div class="risk-info">{$customer.customer_risk_xhxt}</div>
+        </div>
+        <div class="risk-area-item">
+            <div class="risk-title">神经系统</div>
+            <div class="risk-info">{$customer.customer_risk_sjxt}</div>
+        </div>
+        <div class="risk-area-item">
+            <div class="risk-title">其他问题</div>
+            <div class="risk-info">{$customer.customer_risk_other}</div>
+        </div>
+
     </div>
 
 </div>
-<div class="valuation-info info-container container-fluid"></div>
-<div class="user-follow info-container container-fluid"></div>
+<div class="user-follow info-container container-fluid">
+    <a href="">
+        <div class="row">
+            <div class="col-xs-6 ">关注我的用户</div>
+            <div class="col-xs-6 right-align"><span class="icon-chevron_right icon"></span></div>
+        </div>
+    </a>
+
+
+</div>
 
 </body>
 <script>
-    $('.pusher').on('click', function(){
-        $('.ui.sidebar')
-                .sidebar('toggle')
-        ;
-    })
+
 </script>
 </html>

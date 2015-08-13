@@ -25,4 +25,12 @@ class Customer extends Model{
 
         return $result;
     }
+
+    public function get_customer_info($customer_id){
+        $condition = array(
+            'customer_id' => $customer_id
+        );
+
+        return $this->where($condition)->find();
+    }
 }

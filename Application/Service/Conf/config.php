@@ -13,6 +13,8 @@ return array(
 	'DB_CHARSET'=> 'utf8', // 字符集
     'READ_DATA_MAP'=>true,//字段自动映射
 
+    //头像路径
+    'ICON_DIR' => 'http://master.ecare-easy.com/upload/ico/',
 
     //数据库表字段一些常量对应的配置
     'SEX' => array(
@@ -140,6 +142,19 @@ return array(
         '4' => '月嫂'
     ),
 
+    'CUSTOMER_SERVICE_LEVEL' => array(
+        '1' => '特级护理',
+        '2' => '一级护理',
+        '3' => '二级护理',
+        '4' => '三级护理'
+    ),
+
+    'CUSTOMER_SERVICE_LEVEL_R' => array(
+        '特级护理' => '1',
+        '一级护理' => '2',
+        '二级护理' => '3',
+        '三级护理' => '4'
+    ),
 
     //云片配置
     'YUNPIAN' => array(

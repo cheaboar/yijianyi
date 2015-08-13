@@ -125,12 +125,12 @@ html {
 }
 .tab-container {
   background-color: #ffffff;
+  margin-top: .5rem;
 }
 .service-tab {
   color: rgba(0, 0, 0, 0.7);
   background-color: #ffffff;
   margin-top: 1.2rem;
-  padding-bottom: 1rem;
   font-size: 1.8rem;
   padding-left: 10%;
   padding-right: 10%;
@@ -149,7 +149,7 @@ html {
   background: #eeeeee;
 }
 .service-container .service-sub-container {
-  padding-top: 2rem;
+  padding-top: 1rem;
   width: 100%;
   display: none;
 }
@@ -252,6 +252,13 @@ html {
 }
 .order-detail-container .order-detail .detail-area {
   padding-bottom: 2rem;
+}
+.order-detail-container .order-detail .detail-area .header-name {
+  color: #5dd486;
+}
+.order-detail-container .order-detail .detail-area .header-right-icon {
+  text-align: right;
+  color: rgba(0, 0, 0, 0.5);
 }
 .order-detail-container .order-detail .detail-area .info-area {
   text-indent: 2rem;
@@ -760,17 +767,18 @@ html {
   margin: 0;
 }
 .worker-info-container .head-info img {
-  width: 60%;
+  width: 4rem;
+  height: 4rem;
   margin-left: auto;
   margin-right: auto;
 }
 .worker-info-container .head-info .worker-name {
-  padding-top: .5rem;
-  font-size: 1.5rem;
+  padding-top: 0.5rem rem;
+  font-size: 2rem;
   color: #ffffff;
 }
 .worker-info-container .head-info .raty {
-  font-size: 1.5rem;
+  font-size: 1rem;
   color: #FFF100;
 }
 .worker-info-container .customer-rate .load-more {
@@ -919,7 +927,43 @@ html {
 }
 .health-management .info-container {
   margin-top: .5rem;
+  padding: 1rem 2rem 0.5rem 2rem;
   background-color: #ffffff;
+  color: rgba(0, 0, 0, 0.5);
+  font-size: 1.5rem;
+  line-height: 3rem;
+}
+.health-management .info-container .info-title {
+  font-size: 1.8rem;
+}
+.health-management .info-container .key {
+  font-size: 1rem;
+}
+.health-management .info-container .value {
+  color: rgba(0, 0, 0, 0.7);
+  text-align: right;
+}
+.health-management .info-container .icon {
+  font-size: 3rem;
+}
+.health-management .info-container .risk-area {
+  padding-left: 1rem;
+  line-height: 2rem;
+}
+.health-management .info-container .risk-area .risk-area-item .risk-title {
+  font-size: 1rem;
+}
+.health-management .info-container .risk-area .risk-area-item .risk-info {
+  font-size: .8rem;
+  padding-left: 1rem;
+}
+.health-management .user-follow {
+  padding: 1rem 2rem;
+  font-size: 1.5rem;
+  margin-bottom: 5rem;
+}
+.health-management .user-follow a {
+  color: rgba(0, 0, 0, 0.5);
 }
 .user-info-edit .sidebar {
   width: 100%;

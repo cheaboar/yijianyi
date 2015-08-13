@@ -14,7 +14,7 @@ class HospitalModel extends Model
     protected $tableName = 'oa_hospital';
     protected $tablePrefix = '';
 
-    //��ȡҽԺȫ�ƣ��ݹ����
+    //��ȡҽԺȫ�ƣ��ݹ����
     function getHospitalById($wb_id){
         $condition = array(
            'wb_id' => $wb_id
@@ -31,6 +31,18 @@ class HospitalModel extends Model
             $stationary_name = $parent_name.$stationary_name;
 
         }
+
+        return $stationary_name;
+    }
+
+    //获取科室或医院名，返回数组
+    function getHospitalNameById($wb_id){
+        $condition = array(
+            'wb_id' => $wb_id
+        );
+
+        $result = $this->where($condition)->getField('wb_id, stationary_name, parent_id');
+        $stationary_name = $result[$wb_id]['stationary_name'];
 
         return $stationary_name;
     }

@@ -16,7 +16,7 @@ class WorkerModel extends Model{
     //获取用户的信息详情
     public function getWrokerInfo($worker_id){
         $condition = array(
-            'worker_id' => 1
+            'worker_id' => $worker_id
         );
 
         return $this->alias('w')->join('oa_areas as a1 on w.worker_domicile_province = a1.area_id', 'LEFT')

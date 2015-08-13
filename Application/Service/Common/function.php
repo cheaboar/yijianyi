@@ -118,11 +118,28 @@ function parse_worker_info($worker){
     $worker['worker_sex_str'] = $sexM[$worker['worker_sex']];
     $worker['worker_education_str'] = $educationM[$worker['worker_education']];
     $worker['worker_service_str'] = $serviceTypeM[$worker['worker_service']];
-
+    $worker['worker_icon'] = C('ICON_DIR').$worker['worker_icon'];
     return $worker;
 }
 
 
+function parse_customer_info($customer_info){
+    $sexM = C('SEX');
+    $serviceTypeM = C('SERVICE_TYPE');
+    $customerServiceLevelM = C('CUSTOMER_SERVICE_LEVEL');
+
+    $customer_info['customer_sex_str'] = $sexM[$customer_info['customer_sex']];
+    $customer_info['customer_service_type_str'] = $serviceTypeM[$customer_info['customer_service_type']];
+    $customer_info['customer_service_level_str'] = $customerServiceLevelM[$customer_info['customer_service_level']];
+
+    $hospitalM = new HospitalModel();
+
+    $customer_info['customer_hospital_str'] = $hospitalM->getHospitalNameById($customer_info['customer_hospital']);
+    $customer_info['customer_hospital_department_str'] = $hospitalM->getHospitalNameById($customer_info['customer_hospital_department']);
+
+
+    return $customer_info;
+}
 
 function get_wechat_user_info(){
     //判断是否缓存了用户信息

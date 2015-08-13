@@ -6,19 +6,57 @@
     <div class="order-detail-container"  order-id="{$order.order_id}">
         <div class="order-detail">
             <div class="customer-info detail-area">
-                <h4 class="ui header teal">
-                    客户信息
+                <h4 class="ui header teal container-fluid">
+                    <a href="customer_detail?customer_id={$order.customer_detail.customer_id}">
+                    <div class="row">
+                        <div class="col-xs-8 header-name">
+                            客户信息
+                        </div>
+                        <div class="col-xs-4 header-right-icon">
+                            <span class="icon-chevron_right"></span>
+                        </div>
+                    </div>
+                    </a>
                 </h4>
                 <div class="info-area">
-                    <div class="info-line">姓名：<a href="customer_detail?customer_id={order.customer_detail.customer_id}">{$order.customer_detail.customer_name}</a></div>
+                    <div class="info-line">姓名：{$order.customer_detail.customer_name}</div>
                     <div class="info-line">性别：{$order.customer_detail.customer_sex}</div>
                     <div class="info-line">年龄：{$order.customer_detail.customer_age}</div>
                     <div class="info-line">语言：{$order.customer_detail.customer_language}</div>
                 </div>
             </div>
+
+            <div class="customer-info detail-area">
+                <h4 class="ui header teal container-fluid">
+                    <a href="worker_info?worker_id={$worker.worker_id}">
+                        <div class="row">
+                            <div class="col-xs-8 header-name">
+                                护工信息
+                            </div>
+                            <div class="col-xs-4 header-right-icon">
+                                <span class="icon-chevron_right"></span>
+                            </div>
+                        </div>
+                    </a>
+                </h4>
+
+                <div class="info-area">
+                    <empty name="worker">
+                        <div class="info-line">未指派护工</div>
+                    </empty>
+                    <div class="info-line">姓名：{$worker.worker_name}</div>
+                    <div class="info-line">开始服务时间：{$worker.start_time_str}</div>
+                    <div class="info-line">终止服务时间：{$worker.end_time_str}</div>
+                </div>
+            </div>
+
             <div class="order-info detail-area">
-                <h4 class="ui header teal">
-                    订单信息
+                <h4 class="ui header teal container-fluid">
+                    <div class="row">
+                        <div class="col-xs-8 header-name">
+                            订单信息
+                        </div>
+                    </div>
                 </h4>
                 <div class="info-area">
                     <div class="info-line">订单号：{$order.order_no}</div>

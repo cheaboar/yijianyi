@@ -22,6 +22,7 @@ use Think\Exception;
 use Org\Util\YunPian;
 use Service\Model\HospitalModel;
 use Service\Model\CommentModel;
+use Service\Model\WorkerOrderModel;
 
 use JsSdk;
 use Think\Log;
@@ -797,7 +798,6 @@ class WechatController extends Controller {
     public function new_my_service(){
         $this->need_login();
         $user_id = $this->user_id();
-//        $user_id = 17;
         //获取订单列表
         $orderM = new OrderModel();
         $orders = $orderM->get_user_orders($user_id);
@@ -829,6 +829,15 @@ class WechatController extends Controller {
         $orderM = new OrderModel();
         $user_id = $this->user_id();
         $order_detail = $orderM->get_order_detail($order_id, $user_id);
+
+        //获取护工指派
+        $workerOrderM = new WorkerOrderModel();
+
+        $workerOrderInfo = $workerOrderM->get_worker_order($order_id);
+        $workerOrderInfo['start_time_str'] = time_stamp_to_str('Y-m-d H:i:s', $workerOrderInfo['start_time']);
+        $workerOrderInfo['end_time_str'] = time_stamp_to_str('Y-m-d H:i:s', $workerOrderInfo['end_time']);
+
+        $this->assign('worker', $workerOrderInfo);
 
         //获取支付列表
         $collectionM = new OrderCollectionModel();
@@ -890,11 +899,7 @@ class WechatController extends Controller {
         $this->display('service_info');
     }
 
-    //客户详细信息
-    public function customer_detail(){
-        $customer_id = $_GET['customer_id'];
-        echo '用户详细信息';
-    }
+
 
     //添加关注客户
     public function add_follows(){
@@ -1094,14 +1099,7 @@ class WechatController extends Controller {
             $attitude_level_sum += $value['attitude_level'];
             $profession_level_sum += $value['profession_level'];
             $discipline_level_sum += $value['discipline_level'];
-//            $avg_sum = 0;
-//            foreach($value as $k=> $v){
-//                $avg_sum += $v;
-//            }
-//
-//            $avg_level = $avg_sum/count($value);
-//
-//            $level_sum += $avg_level;
+
         }
         $attitude_level_avg = round($attitude_level_sum/$level_count, 2);
         $profession_level_avg = round($profession_level_sum/$level_count, 2);
@@ -1126,6 +1124,7 @@ class WechatController extends Controller {
         if(count($comments) < 5){
             $this->assign('display', 'none');
         }
+
 
         $this->assign('comments', $comments);
         $this->assign('worker', $worker);
@@ -1157,10 +1156,34 @@ class WechatController extends Controller {
         $this->display('home_page');
     }
 
-    public function health_management(){
+    //健康管理、需要验证查看者身份
+    public function customer_detail(){
         layout('Layout/new_layout');
+        $this->need_login();
+        $customer_id = $_GET['customer_id'];
 
+//        $user_id = $this->user_id();
+        $user_id = $this->user_id();
+
+        $followM = new FollowModel();
+        $exit_connection = $followM->exit_follow_connection($user_id, $customer_id);
+
+        if(!$exit_connection){
+            $this->redirect('customer_detail_no_right');
+        }
+
+        $customer_id = $_GET['customer_id'];
+        $customerM = new Customer();
+        $customer_info = parse_customer_info($customerM->get_customer_info($customer_id));
+
+        $this->assign('customer', $customer_info);
         $this->display('User:health-management');
+    }
+
+    //没有查看的权限跳转的页面
+    public function customer_detail_no_right(){
+        layout('Layout/new_layout');
+        echo '您没有权限查看该用户信息';
     }
 
     public function hospital_care(){
