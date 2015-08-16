@@ -5,12 +5,14 @@
 @second-text-color:rgba(0, 0, 0, 0.5);
 @orange-color:#ff5722;
 @shadow-color:#A9A9A9;
+@danger-color:#F44336;
 @background-color:#EEEEEE;
 @btn-color:rgba(255,255, 255, 0.87);
 @btn-primary-color:#009688;
 @border-color:rgba(0, 0, 0,0.1);
 @status-color:hsl(14,100%,57%);
 @light-blue:hsl(188,90%,51%);
+
 
 
 body, html{
@@ -32,6 +34,14 @@ body, html{
   -ms-border-radius: @radius;
   -o-border-radius: @radius;
   border-radius: @radius;
+}
+
+.transition(@prop, @time, @type:ease-in-out, @delay:0s){
+  -webkit-transition: @prop @time @type @delay;
+  -moz-transition: @prop @time @type @delay;
+  -ms-transition: @prop @time @type @delay;
+  -o-transition: @prop @time @type @delay;
+  transition: @prop @time @type @delay;
 }
 
 .test {
@@ -1051,5 +1061,174 @@ body, html{
   }
   .pusher{
     background-color: @background-color !important;
+  }
+}
+
+.my-coupon-container{
+  @basic-size:1rem;
+  .coupon-item{
+    color:@main-text-color;
+    background-color: #ffffff;
+    border-left: dotted 3px @orange-color;
+    margin-top: .5rem;
+    margin-left: .5rem;
+    margin-right: .5rem;
+    padding-top:  @basic-size;
+    padding-bottom: @basic-size;
+    .money-count{
+      padding-top:  @basic-size;
+      padding-bottom: @basic-size;
+      text-align: center;
+      border-right: 1px solid @border-color;
+      .money-icon{
+        font-size:@basic-size;
+      }
+      .money{
+        font-size: 3 * @basic-size;
+      }
+    }
+
+    .coupon-info{
+      padding-top:  @basic-size;
+      padding-bottom: @basic-size;
+      .coupon-title{
+        font-size: 2*@basic-size;
+      }
+
+      .coupon-dead-line{
+        font-size: @basic-size;
+      }
+
+    }
+  }
+
+  .out-of-date{
+    color:@second-text-color;
+    border-left: dotted 3px @border-color;
+  }
+}
+
+
+.user-address{
+  height:100%;
+  .pusher{
+    background-color: @background-color !important;
+    margin-bottom: 4rem !important;
+  }
+  .sidebar{
+    width: 100% !important;
+  }
+  .add-address-sidebar{
+    width: 100%;
+    .add-container{
+      background-color: #ffffff;
+      margin-top: 0rem;
+    }
+    .add-header{
+      padding-top: 1rem;
+      padding-bottom: 1rem;
+      background-color: #ffffff;
+      border-bottom: 1px solid @border-color;
+      .header-btn{
+        font-size: 1.5rem;
+        padding-top: .25rem;
+        padding-bottom: .25rem;
+        padding-left: .5rem;
+        padding-right: .5rem;
+        margin-left: auto;
+        margin-right: auto;
+        .center-align;
+        .rounded-corners(4px);
+      }
+      .cancel-btn{
+        border:1px solid @border-color;
+        color: @second-text-color;
+      }
+      .commit-btn{
+        background-color:@orange-color;
+        color:@btn-color;
+
+      }
+
+    }
+  }
+  .address-container{
+    background-color: #ffffff;
+    margin-top:.5rem;
+    padding:1rem;
+    width:100%;
+    .address-buttom{
+      text-align: center;
+      font-size: 1rem;
+      color:@second-text-color;
+      padding-top: 1rem;
+    }
+    .address-item{
+      padding-top: 1rem;
+      margin-bottom: 1rem;
+      .remove-div{
+        .remove-select-area{
+          display: none;
+          overflow: hidden;
+          width: 300px;
+          font-size: 1rem;
+          .remove-cancel{
+            color:@second-text-color;
+            border:1px solid @second-text-color;
+          }
+          .remove-commit{
+            background-color: @danger-color;
+            color:@btn-color;
+          }
+        }
+       .transition(width, 1s);
+
+      }
+      .address-div{
+        .transition(width, 1s);
+
+      }
+    }
+    .remove-btn-icon{
+      @icon-size:2rem;
+      text-align: center;
+      margin:.25rem auto .25rem auto;
+      font-size:@icon-size;
+      line-height: @icon-size;
+      border: 1px solid @second-text-color;
+      width: @icon-size;
+      height: @icon-size;
+      vertical-align: middle;
+      color:@second-text-color;
+    }
+
+  }
+  .add-address{
+    background-color: #ffffff;
+    border-top: 1px solid @border-color;
+//    padding-top: 1rem;
+    padding-bottom:.25rem;
+    text-align: center;
+    position: fixed;
+    z-index: 100;
+    bottom:0;
+    left:0;
+    width:100%;
+
+    .add-btn-icon{
+      @icon-size:2rem;
+      margin:.25rem auto .25rem auto;
+      font-size:@icon-size;
+      line-height: @icon-size;
+      border: 1px solid @orange-color;
+      width: @icon-size;
+      height: @icon-size;
+      vertical-align: middle;
+      color:@orange-color;
+
+    }
+    .add-text{
+      font-size: .5rem;
+    }
   }
 }

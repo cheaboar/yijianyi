@@ -21,11 +21,29 @@
 .icon-calendar:before {
   content: "\e600";
 }
+.icon-plus:before {
+  content: "\e602";
+}
+.icon-minus:before {
+  content: "\e603";
+}
 .icon-checkmark2:before {
   content: "\e601";
 }
 .icon-comment:before {
   content: "\e048";
+}
+.icon-add:before {
+  content: "\e069";
+}
+.icon-add_circle_outline:before {
+  content: "\e06c";
+}
+.icon-remove:before {
+  content: "\e07f";
+}
+.icon-remove_circle_outline:before {
+  content: "\e081";
 }
 .icon-chevron_right:before {
   content: "\e208";
@@ -80,6 +98,12 @@
 }
 .icon-star-full:before {
   content: "\e9d9";
+}
+.icon-plus2:before {
+  content: "\ea0a";
+}
+.icon-minus2:before {
+  content: "\ea0b";
 }
 .icon-checkmark:before {
   content: "\ea10";
@@ -970,4 +994,165 @@ html {
 }
 .user-info-edit .pusher {
   background-color: #eeeeee !important;
+}
+.my-coupon-container .coupon-item {
+  color: rgba(0, 0, 0, 0.7);
+  background-color: #ffffff;
+  border-left: dotted 3px #ff5722;
+  margin-top: .5rem;
+  margin-left: .5rem;
+  margin-right: .5rem;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+.my-coupon-container .coupon-item .money-count {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  text-align: center;
+  border-right: 1px solid rgba(0, 0, 0, 0.1);
+}
+.my-coupon-container .coupon-item .money-count .money-icon {
+  font-size: 1rem;
+}
+.my-coupon-container .coupon-item .money-count .money {
+  font-size: 3rem;
+}
+.my-coupon-container .coupon-item .coupon-info {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+.my-coupon-container .coupon-item .coupon-info .coupon-title {
+  font-size: 2rem;
+}
+.my-coupon-container .coupon-item .coupon-info .coupon-dead-line {
+  font-size: 1rem;
+}
+.my-coupon-container .out-of-date {
+  color: rgba(0, 0, 0, 0.5);
+  border-left: dotted 3px rgba(0, 0, 0, 0.1);
+}
+.user-address {
+  height: 100%;
+}
+.user-address .pusher {
+  background-color: #eeeeee !important;
+  margin-bottom: 4rem !important;
+}
+.user-address .sidebar {
+  width: 100% !important;
+}
+.user-address .add-address-sidebar {
+  width: 100%;
+}
+.user-address .add-address-sidebar .add-container {
+  background-color: #ffffff;
+  margin-top: 0rem;
+}
+.user-address .add-address-sidebar .add-header {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  background-color: #ffffff;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+.user-address .add-address-sidebar .add-header .header-btn {
+  font-size: 1.5rem;
+  padding-top: .25rem;
+  padding-bottom: .25rem;
+  padding-left: .5rem;
+  padding-right: .5rem;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center !important;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  -ms-border-radius: 4px;
+  -o-border-radius: 4px;
+  border-radius: 4px;
+}
+.user-address .add-address-sidebar .add-header .cancel-btn {
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  color: rgba(0, 0, 0, 0.5);
+}
+.user-address .add-address-sidebar .add-header .commit-btn {
+  background-color: #ff5722;
+  color: rgba(255, 255, 255, 0.87);
+}
+.user-address .address-container {
+  background-color: #ffffff;
+  margin-top: .5rem;
+  padding: 1rem;
+  width: 100%;
+}
+.user-address .address-container .address-buttom {
+  text-align: center;
+  font-size: 1rem;
+  color: rgba(0, 0, 0, 0.5);
+  padding-top: 1rem;
+}
+.user-address .address-container .address-item {
+  padding-top: 1rem;
+  margin-bottom: 1rem;
+}
+.user-address .address-container .address-item .remove-div {
+  -webkit-transition: width 1s ease-in-out 0s;
+  -moz-transition: width 1s ease-in-out 0s;
+  -ms-transition: width 1s ease-in-out 0s;
+  -o-transition: width 1s ease-in-out 0s;
+  transition: width 1s ease-in-out 0s;
+}
+.user-address .address-container .address-item .remove-div .remove-select-area {
+  display: none;
+  overflow: hidden;
+  width: 300px;
+  font-size: 1rem;
+}
+.user-address .address-container .address-item .remove-div .remove-select-area .remove-cancel {
+  color: rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(0, 0, 0, 0.5);
+}
+.user-address .address-container .address-item .remove-div .remove-select-area .remove-commit {
+  background-color: #f44336;
+  color: rgba(255, 255, 255, 0.87);
+}
+.user-address .address-container .address-item .address-div {
+  -webkit-transition: width 1s ease-in-out 0s;
+  -moz-transition: width 1s ease-in-out 0s;
+  -ms-transition: width 1s ease-in-out 0s;
+  -o-transition: width 1s ease-in-out 0s;
+  transition: width 1s ease-in-out 0s;
+}
+.user-address .address-container .remove-btn-icon {
+  text-align: center;
+  margin: .25rem auto .25rem auto;
+  font-size: 2rem;
+  line-height: 2rem;
+  border: 1px solid rgba(0, 0, 0, 0.5);
+  width: 2rem;
+  height: 2rem;
+  vertical-align: middle;
+  color: rgba(0, 0, 0, 0.5);
+}
+.user-address .add-address {
+  background-color: #ffffff;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  padding-bottom: .25rem;
+  text-align: center;
+  position: fixed;
+  z-index: 100;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+}
+.user-address .add-address .add-btn-icon {
+  margin: .25rem auto .25rem auto;
+  font-size: 2rem;
+  line-height: 2rem;
+  border: 1px solid #ff5722;
+  width: 2rem;
+  height: 2rem;
+  vertical-align: middle;
+  color: #ff5722;
+}
+.user-address .add-address .add-text {
+  font-size: .5rem;
 }

@@ -21,11 +21,29 @@
 .icon-calendar:before {
   content: "\e600";
 }
+.icon-plus:before {
+  content: "\e602";
+}
+.icon-minus:before {
+  content: "\e603";
+}
 .icon-checkmark2:before {
   content: "\e601";
 }
 .icon-comment:before {
   content: "\e048";
+}
+.icon-add:before {
+  content: "\e069";
+}
+.icon-add_circle_outline:before {
+  content: "\e06c";
+}
+.icon-remove:before {
+  content: "\e07f";
+}
+.icon-remove_circle_outline:before {
+  content: "\e081";
 }
 .icon-chevron_right:before {
   content: "\e208";
@@ -80,6 +98,12 @@
 }
 .icon-star-full:before {
   content: "\e9d9";
+}
+.icon-plus2:before {
+  content: "\ea0a";
+}
+.icon-minus2:before {
+  content: "\ea0b";
 }
 .icon-checkmark:before {
   content: "\ea10";

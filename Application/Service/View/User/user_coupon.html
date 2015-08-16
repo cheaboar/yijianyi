@@ -1,0 +1,32 @@
+<body class="my-coupon-container">
+<include file="Public:title_header" href="javascript:window.history.go(-1)" title="我的现金券"/>
+
+<div >
+    <volist name="coupons" id="vo">
+        <div class="coupon-item
+            <if condition='($vo.state eq 已使用) OR ($vo.state eq 已过期)'>
+            out-of-date
+            </if>
+            container-fluid">
+            <div class="col-xs-4 coupon-money">
+                <div class="money-count">
+                    <span class="money-icon">￥</span>
+                    <span class="money">{$vo.coupon_amount}</span>
+                </div>
+            </div>
+            <div class="col-xs-8">
+                <div class="coupon-info">
+                    <div class="coupon-title">一家依代金券</div>
+                    <div class="coupon-time">
+                        <span class="coupon-state">{$vo.state}</span>
+                        <span class="coupon-dead-line">有效期至 {$vo.expire}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </volist>
+
+
+</div>
+</body>
+</html>

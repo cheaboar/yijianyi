@@ -1,0 +1,148 @@
+<head>
+    <link rel="stylesheet" href="__STATIC__/css/sidebar.min.css"/>
+    <link rel="stylesheet" href="__STATIC__/css/modal.min.css"/>
+
+    <script type="text/javascript" src="__STATIC__/js/jquery.min.js"></script>
+
+    <script type="text/javascript" src="__STATIC__/js/sidebar.min.js"></script>
+    <script type="text/javascript" src="__STATIC__/js/modal.min.js"></script>
+
+</head>
+
+<body class="user-address">
+
+    <div class="ui sidebar right add-address-sidebar" >
+        <div class="sidebar-container">
+
+            <div class="add-header container-fluid">
+                <div class="row">
+                    <div class="col-xs-4">
+                        <div class="cancel-btn header-btn">取消</div>
+                    </div>
+                    <div class="col-xs-4"></div>
+                    <div class="col-xs-4">
+                        <div class="commit-btn header-btn">确定</div>
+                    </div>
+                </div>
+            </div>
+            <div class="add-container">
+                看不出来
+            </div>
+        </div>
+    </div>
+    <div class="pusher">
+        <include file="Public:title_header" href="javascript:window.history.go(-1)" title="我的地址"/>
+
+        <div class="address-container container-fluid">
+            <volist name="addresses" id="vo">
+                <div class="row address-item" id="address-item-{$vo.id}">
+                    <div class="col-xs-10 address-div">
+                        {$vo.address}
+                    </div>
+                    <div class="col-xs-1 remove-div">
+                        <div class="img-circle remove-btn-icon">
+                            <span class="icon-remove icon" address-id="{$vo.id}"></span>
+                        </div>
+
+                        <div class="remove-select-area">
+                            <div class="btn remove-cancel">取消</div>
+                            <div class="btn remove-commit" address-id="{$vo.id}">删除</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="divider" id="divider-{$vo.id}"></div>
+            </volist>
+            <div class="address-buttom">
+                用户地址
+            </div>
+        </div>
+
+
+
+    </div>
+
+    <div class="add-address">
+        <div class="add-btn-icon img-circle ">
+            <span class="icon-add icon"></span>
+        </div>
+        <div class="add-text">添加新地址</div>
+    </div>
+</body>
+<script>
+    $('.sidebar').sidebar(
+            {   onShow: function(){
+                    $('.add-address').hide();
+                },
+                onHide: function(){
+                    $('.add-address').show();
+                }
+            }
+    );
+
+
+    //添加删除响应UI
+    $('.remove-btn-icon').on('click', function(){
+        var remove_div = $(this).parent();
+        var address_div  = $($(this).parent()).siblings('.address-div');
+        var select_div = $(remove_div).find('.remove-select-area');
+
+        $(address_div).removeClass('col-xs-10');
+        $(address_div).addClass('col-xs-7');
+        $(remove_div).removeClass('col-xs-1');
+        $(remove_div).addClass('col-xs-4');
+        $(this).hide();
+        $(select_div).show();
+    });
+
+    //监听删除按钮
+    $('.remove-commit').on('click', function(){
+        var address_id = $(this).attr('address-id');
+        //删除
+        $.ajax({
+            url:'delete_my_address',
+            data: {id:address_id},
+            dataType: 'json',
+            success: function(data, status){
+                if(data.code == 200){
+                    //删除成功，隐藏该条目
+                    var address_id = data.id;
+
+                    //获取该条目id
+                    var item_id = '#address-item-' + address_id;
+
+                    $(item_id).hide(1000);
+
+                    var divider_id = '#divider-' + address_id;
+                    $(divider_id).hide(1000);
+                }
+            }
+        });
+    })
+
+    //监听取消删除按钮
+    $('.remove-cancel').on('click', function(){
+        var remove_div = $(this).parent().parent();
+        var address_div  = $(remove_div).siblings('.address-div');
+        var select_div = $(remove_div).find('.remove-select-area');
+        var remove_icon = $(remove_div).find('.remove-btn-icon');
+        $(address_div).removeClass('col-xs-7');
+        $(address_div).addClass('col-xs-10');
+        $(remove_div).removeClass('col-xs-4');
+        $(remove_div).addClass('col-xs-1');
+        $(remove_icon).show();
+        $(select_div).hide();
+    })
+
+
+
+    $('.icon-add').on('click', function(){
+        $('.sidebar').sidebar('toggle');
+        $('#sex-sidebar').sidebar('toggle');
+    })
+    $('.header-btn').on('click', function(){
+        $('.sidebar').sidebar('toggle');
+//        $('#sex-sidebar').sidebar('toggle');
+
+    })
+</script>
+</html>

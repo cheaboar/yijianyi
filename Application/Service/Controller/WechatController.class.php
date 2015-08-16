@@ -444,8 +444,8 @@ class WechatController extends Controller {
     }
 
     public function get_my_address(){
-        $this->need_login();
-        $user_id = $this->user_id();
+//        $this->need_login();
+        $user_id = 17;
 //        $addresses = $this->user_address->where('user_id='.$user_id.' AND status >= 0')->order('id desc')->select();
         $addresses = $this->address->get_user_address_string($user_id);
 //        $result = array();
@@ -470,9 +470,17 @@ class WechatController extends Controller {
     }
 
     public function my_address(){
-        $this->need_login();
-        layout('Layout/layout');
-        $this->display('my_address');
+//        $this->need_login();
+//        layout('Layout/layout');
+//        $this->display('my_address');
+        layout('Layout/new_layout');
+
+        $user_id = 17;
+        $addresses = $this->address->get_user_address_string($user_id);
+
+        $this->assign('addresses', $addresses);
+
+        $this->display('User:user_address');
     }
 
     public function delete_my_address(){
@@ -484,15 +492,19 @@ class WechatController extends Controller {
 
 //        $this->user_address->where('id='.$_GET['id'] .' AND user_id='.$user_id)->save($data);
         $this->address->delete_address($_GET['id']);
+        $result = array();
         if($this->user_address->getDbError() == ''){
-            return array(
-                'code' => 200
+             $result = array(
+                'code' => 200,
+                'id' => $_GET['id']
             );
         }else{
-            return array(
+            $result = array(
                 'code' => 500
             );
         }
+
+        $this->ajaxReturn($result);
 
 
     }
@@ -573,14 +585,51 @@ class WechatController extends Controller {
 
     public function my_coupon(){
         $this->need_login();
-        layout('Layout/layout');
-        $this->display('my_coupon');
+        $user_id = $this->user_id();
+        layout('Layout/new_layout');
+
+        //获取优惠券
+        $coupon = new CouponModel();
+        $results = $coupon->get_coupon($user_id);
+        $return = array();
+        foreach($results as $result){
+
+//            $result['coupon_expire'] = time();
+
+            $is_out_of_line = false;
+            if($result['coupon_expire'] < time()){
+                $today = getdate();
+                $expire_day = getdate($result['coupon_expire']);
+
+                if($today['year'] == $expire_day['year'] && $today['mon'] == $expire_day['mon'] && $today['mday'] == $expire_day['mday']){
+                    $is_out_of_line = false;
+                }
+
+                $is_out_of_line = true;
+            }
+
+            if(!$is_out_of_line && $result['has_used'] == 0){
+                $result['state'] = '未使用';
+            }elseif(!$is_out_of_line && $result['has_used'] == 1){
+                $result['state'] = '已使用';
+            }else if($is_out_of_line ){
+                $result['state'] = '已过期';
+            }
+
+            $result['expire'] = date('Y-m-d', $result['coupon_expire']);
+
+            $return[] = $result;
+        }
+
+        $this->assign('coupons', $return);
+
+        $this->display('User:user_coupon');
     }
 
     //获取我的优惠券
     public function get_my_coupon(){
-        $this->need_login();
-        $user_id = $this->user_id();
+//        $this->need_login();
+        $user_id = 17;
         $coupon = new CouponModel();
         $results = $coupon->get_coupon($user_id);
         $return = array();
