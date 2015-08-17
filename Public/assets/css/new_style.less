@@ -1113,7 +1113,7 @@ body, html{
   height:100%;
   .pusher{
     background-color: @background-color !important;
-    margin-bottom: 4rem !important;
+    padding-bottom: 4rem !important;
   }
   .sidebar{
     width: 100% !important;
@@ -1122,7 +1122,9 @@ body, html{
     width: 100%;
     .add-container{
       background-color: #ffffff;
-      margin-top: 0rem;
+      margin-top: .5rem;
+      padding-top: 2rem;
+      padding-bottom: 2rem;
     }
     .add-header{
       padding-top: 1rem;
@@ -1181,11 +1183,11 @@ body, html{
             color:@btn-color;
           }
         }
-       .transition(width, 1s);
+       .transition(width, .5s);
 
       }
       .address-div{
-        .transition(width, 1s);
+        .transition(width, .5s);
 
       }
     }
@@ -1205,14 +1207,14 @@ body, html{
   }
   .add-address{
     background-color: #ffffff;
-    border-top: 1px solid @border-color;
-//    padding-top: 1rem;
-    padding-bottom:.25rem;
+//    border-top: 1px solid @border-color;
+    padding-top: 1rem;
+    padding-bottom:1rem;
     text-align: center;
-    position: fixed;
-    z-index: 100;
-    bottom:0;
-    left:0;
+//    position: absolute;
+//    z-index: 100;
+//    bottom:0;
+//    left:0;
     width:100%;
 
     .add-btn-icon{
@@ -1228,7 +1230,7 @@ body, html{
 
     }
     .add-text{
-      font-size: .5rem;
+      font-size: 1rem;
     }
   }
 }

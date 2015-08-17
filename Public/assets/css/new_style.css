@@ -1036,7 +1036,7 @@ html {
 }
 .user-address .pusher {
   background-color: #eeeeee !important;
-  margin-bottom: 4rem !important;
+  padding-bottom: 4rem !important;
 }
 .user-address .sidebar {
   width: 100% !important;
@@ -1046,7 +1046,9 @@ html {
 }
 .user-address .add-address-sidebar .add-container {
   background-color: #ffffff;
-  margin-top: 0rem;
+  margin-top: .5rem;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
 }
 .user-address .add-address-sidebar .add-header {
   padding-top: 1rem;
@@ -1094,11 +1096,11 @@ html {
   margin-bottom: 1rem;
 }
 .user-address .address-container .address-item .remove-div {
-  -webkit-transition: width 1s ease-in-out 0s;
-  -moz-transition: width 1s ease-in-out 0s;
-  -ms-transition: width 1s ease-in-out 0s;
-  -o-transition: width 1s ease-in-out 0s;
-  transition: width 1s ease-in-out 0s;
+  -webkit-transition: width 0.5s ease-in-out 0s;
+  -moz-transition: width 0.5s ease-in-out 0s;
+  -ms-transition: width 0.5s ease-in-out 0s;
+  -o-transition: width 0.5s ease-in-out 0s;
+  transition: width 0.5s ease-in-out 0s;
 }
 .user-address .address-container .address-item .remove-div .remove-select-area {
   display: none;
@@ -1115,11 +1117,11 @@ html {
   color: rgba(255, 255, 255, 0.87);
 }
 .user-address .address-container .address-item .address-div {
-  -webkit-transition: width 1s ease-in-out 0s;
-  -moz-transition: width 1s ease-in-out 0s;
-  -ms-transition: width 1s ease-in-out 0s;
-  -o-transition: width 1s ease-in-out 0s;
-  transition: width 1s ease-in-out 0s;
+  -webkit-transition: width 0.5s ease-in-out 0s;
+  -moz-transition: width 0.5s ease-in-out 0s;
+  -ms-transition: width 0.5s ease-in-out 0s;
+  -o-transition: width 0.5s ease-in-out 0s;
+  transition: width 0.5s ease-in-out 0s;
 }
 .user-address .address-container .remove-btn-icon {
   text-align: center;
@@ -1134,13 +1136,9 @@ html {
 }
 .user-address .add-address {
   background-color: #ffffff;
-  border-top: 1px solid rgba(0, 0, 0, 0.1);
-  padding-bottom: .25rem;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
   text-align: center;
-  position: fixed;
-  z-index: 100;
-  bottom: 0;
-  left: 0;
   width: 100%;
 }
 .user-address .add-address .add-btn-icon {
@@ -1154,5 +1152,5 @@ html {
   color: #ff5722;
 }
 .user-address .add-address .add-text {
-  font-size: .5rem;
+  font-size: 1rem;
 }
