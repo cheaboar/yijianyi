@@ -1328,9 +1328,23 @@ body, html{
 
       }
     }
+    .comment-text{
+      margin-top: 2rem;
+      color: @main-text-color;
+      font-size: 1.5rem;
+      width: 90%;
+      margin-left: auto;
+      margin-right: auto;
+      .comment-content{
+        font-size: 1rem;
+        padding-left: 2rem;
+        color:@second-text-color;
+      }
+    }
 
     .evaluation-text{
       margin-top: 2rem;
+      display: none;
       .text-area{
         width: 90%;
         height: 10rem;
@@ -1341,6 +1355,7 @@ body, html{
     }
 
     .submit-area{
+      display: none;
       margin-top: 2rem;
       text-align: center;
       .submit-btn{

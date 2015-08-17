@@ -1,0 +1,201 @@
+<script type="application/javascript" src="__STATIC__/js/jquery.raty.js"></script>
+<body class="evaluation-container-body">
+<include file="Public:title_header" href="javascript:window.history.go(-1)" title="服务评价"/>
+
+<div class="header-img">
+    <img src="__STATIC__/img/Service/coupon-evaluation.png" alt=""/>
+</div>
+<div class="worker-info">
+    <div class="worker-img">
+        <img class="img-circle" src="{$worker.worker_icon}" alt=""/>
+    </div>
+    <div class="worker-text-info">
+        <div class="worker-name">{$worker.worker_name}</div>
+        <div class="worker-star">
+            <span>{$worker.worker_service_str}</span>
+            <span class="star worker-value" value="{$comment_level}"></span>
+            <span class="worker-score">{$comment_level}</span>
+        </div>
+    </div>
+</div>
+<div class="divider"></div>
+<div class="evaluation-container">
+    <div class="evaluation-item">
+        <span class="name">服务态度</span>
+        <span class="evaluation-color">
+            <span class="star serve-attitude evaluate-star" score="{$comment.attitude_level}" value="5"></span>
+            <span class="attitude"><span class="attitude-score">5</span>分 <span class="feeling">惊喜</span></span>
+        </span>
+    </div>
+    <div class="evaluation-item">
+        <span class="name">专业技能</span>
+        <span class="evaluation-color">
+            <span class="star serve-profession evaluate-star" score="{$comment.profession_level}" value="5"></span>
+        <span class="attitude"><span class="profession-score">5</span>分 <span class="feeling">惊喜</span></span>
+        </span>
+    </div>
+    <div class="evaluation-item">
+        <span class="name">劳动纪律</span>
+        <span class="evaluation-color">
+            <span class="star serve-discipline evaluate-star" score="{$comment.discipline_level}" value="5"></span>
+            <span class="attitude"><span class="discipline-score">5</span>分 <span class="feeling">惊喜</span></span>
+        </span>
+
+    </div>
+
+    <div class="comment-text">
+        <div class="comment-title">评论</div>
+        <div class="comment-content">{$comment.comment_content}</div>
+    </div>
+
+    <div class="evaluation-text">
+        <textarea class="text-area" placeholder="您的意见很重要！请来点评一下吧..."></textarea>
+    </div>
+
+    <div class="submit-area">
+        <div class="btn submit-btn" order-id="{$order_id}" worker-id="{$worker.worker_id}" is-commented="{$display_comment_input}">
+            提交评论
+        </div>
+    </div>
+</div>
+
+</body>
+<script>
+
+
+    $('.worker-value').raty({
+        score: $('.worker-value').attr('value'),
+        starType:'icon',
+        readOnly:true,
+        starHalf:'icon-star.half',
+        starOn:'icon-star.full',
+        starOff:'icon-star.empty'
+    });
+
+    //判断是否已经评论过了
+    var is_commented = $('.submit-btn').attr('is-commented')
+    if(is_commented == 'true'){
+        var starts = $('.evaluate-star');
+        starts.each(function(){
+            $(this).raty({
+                score: $(this).attr('score'),
+                starType:'icon',
+                readOnly:true,
+                starHalf:'icon-star.half',
+                starOn:'icon-star.full',
+                starOff:'icon-star.empty'
+            });
+            console.log($(this).next('span').find('span'));
+            var text_target = '.' + $($(this).next('span').find('span')).attr('class');
+            change_state(parseInt($(this).attr('score')), text_target);
+
+        });
+    }else{
+        var starts = $('.evaluate-star');
+        starts.each(function(){
+            $(this).raty({
+                score: $(this).attr('value'),
+                starType:'icon',
+                starHalf:'icon-star.half',
+                starOn:'icon-star.full',
+                starOff:'icon-star.empty'
+            });
+        });
+
+        $('.evaluation-text').show();
+        $('.submit-area').show();
+
+    }
+
+
+
+    var serve_attitude_score = 5;
+    var serve_discipline_score = 5;
+    var serve_profession_score = 5;
+
+    function change_state(score, selector){
+        var feeling = $(selector).next('.feeling');
+        var color = $(selector).parent().parent();
+        switch (score) {
+            case 1:
+                feeling.html('失望');
+                color.css('color', '#737373');
+                break;
+            case 2:
+                feeling.html('不满');
+                color.css('color', '#737373');
+                break;
+            case 3:
+                feeling.html('一般');
+                color.css('color', '#FAB54D');
+                break;
+            case 4:
+                feeling.html('满意');
+                color.css('color', '#FAB54D');
+                break;
+            case 5:
+                    feeling.html('惊喜');
+                color.css('color', '#ff5722');
+                break;
+            default :
+                break;
+
+        }
+
+        $(selector).html(score);
+
+    }
+    $('.serve-attitude').raty('set',{
+        click : function(score, evt){
+            //获取星星数
+            serve_attitude_score = score;
+            change_state(score, '.attitude-score');
+        }
+    });
+    $('.serve-profession').raty('set',{
+        click : function(score, evt){
+            //获取星星数
+            serve_profession_score = score;
+            change_state(score, '.profession-score');
+        }
+    })
+    $('.serve-discipline').raty('set',{
+        click : function(score, evt){
+            //获取星星数
+            serve_discipline_score = score;
+            change_state(score, '.discipline-score');
+        }
+    })
+
+    //提交评论
+    $('.submit-btn').on('click', function(){
+        var order_id = $(this).attr('order-id');
+        var worker_id = $(this).attr('worker-id');
+        var evaluate_text = $('.text-area').val();
+
+        $.ajax({
+            url:'commit_worker_evaluation',
+            data:{
+                order_id:order_id,
+                worker_id : worker_id,
+                evaluate_text : evaluate_text,
+                attitude : serve_attitude_score,
+                profession : serve_profession_score,
+                discipline : serve_discipline_score
+            },
+            dataType : 'json',
+            success : function(data, status){
+                console.log(data);
+                if(data.code == 200){
+                    alert('评论成功');
+                    //跳转到员工界面
+                    window.location.href = '';
+                }else if(data.code == 100){
+                    alert('已经评论过了');
+                    window.location.href = '';
+                }
+            }
+        })
+    })
+</script>
+</html>

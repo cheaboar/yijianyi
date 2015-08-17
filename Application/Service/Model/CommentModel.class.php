@@ -67,4 +67,16 @@ class CommentModel extends Model
         }
     }
 
+
+    /*
+     * 获取工作人员的评论
+     * */
+    public function get_comment_content($order_id, $worker_id){
+        $condition = array(
+            'comment_order_id' => $order_id,
+            'comment_worker_id' => $worker_id
+        );
+
+        return $this->where($condition)->find();
+    }
 }

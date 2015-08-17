@@ -1248,8 +1248,13 @@ class WechatController extends Controller {
     }
 
     public function service_evaluation(){
+        //需要登录验证
+//        $this->need_login();
         layout('Layout/new_layout');
         $worker_id = $_GET['worker_id'];
+        $order_id = $_GET['order_id'];
+
+        $user_id = 17;
 
         //获取员工的信息
         $workerM = new WorkerModel();
@@ -1277,8 +1282,24 @@ class WechatController extends Controller {
         $comment_level = round(($attitude_level_avg + $profession_level_avg + $discipline_level_avg)/3, 2);
         $worker = parse_worker_info($worker);
 
+
+        //判断是否已经评论过了，评论过的则显示评论内容
+        $is_commented = $commentM->is_commented($order_id, $worker_id, $user_id);
+        $is_commented_str = 'true';
+        $comment = array();
+        if(!$is_commented){
+            $is_commented_str = 'false';
+        }else{
+            //获取评论内容
+            $comment = $commentM->get_comment_content($order_id, $worker_id);
+        }
+
+
+        $this->assign('comment', $comment);
+        $this->assign('display_comment_input', $is_commented_str);
         $this->assign('comment_level', $comment_level);
         $this->assign('worker', $worker);
+        $this->assign('order_id', $order_id);
 
         $this->display('Service:service_evaluation');
     }

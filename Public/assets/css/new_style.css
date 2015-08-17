@@ -1233,8 +1233,22 @@ html {
 .evaluation-container-body .evaluation-container .evaluation-item .evaluation-color .attitude .feeling {
   margin-left: .2rem;
 }
+.evaluation-container-body .evaluation-container .comment-text {
+  margin-top: 2rem;
+  color: rgba(0, 0, 0, 0.7);
+  font-size: 1.5rem;
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+}
+.evaluation-container-body .evaluation-container .comment-text .comment-content {
+  font-size: 1rem;
+  padding-left: 2rem;
+  color: rgba(0, 0, 0, 0.5);
+}
 .evaluation-container-body .evaluation-container .evaluation-text {
   margin-top: 2rem;
+  display: none;
 }
 .evaluation-container-body .evaluation-container .evaluation-text .text-area {
   width: 90%;
@@ -1244,6 +1258,7 @@ html {
   border: 1px solid rgba(0, 0, 0, 0.1);
 }
 .evaluation-container-body .evaluation-container .submit-area {
+  display: none;
   margin-top: 2rem;
   text-align: center;
 }
