@@ -1234,3 +1234,121 @@ body, html{
     }
   }
 }
+
+.evaluation-container-body{
+  background-color: #ffffff;
+  min-height: 100%;
+  .header-img{
+    img{
+      width: 100%;
+    }
+  }
+  .worker-info{
+    padding-top:1.5rem;
+    padding-bottom: 1.5rem;
+    padding-left:2rem;
+    padding-right: 2rem;
+    display: -webkit-box;
+
+    .worker-img{
+      img{
+        width: 6rem;
+        height: 6rem;
+      }
+    }
+
+    .worker-text-info{
+      padding-top: 1rem;
+      padding-bottom: 1rem;
+      margin-left: 2rem;
+      .worker-name{
+        font-size: 2rem;
+
+      }
+
+      .worker-star{
+        font-size: 1.5rem;
+        margin-top: .5rem;
+        color:@second-text-color;
+        .worker-value{
+          font-size: 1rem;
+          padding-top: .5rem;
+          color:@orange-color;
+        }
+        .worker-score{
+          font-size: 1rem;
+          margin-top: .5rem;
+          .rounded-corners(2px);
+          color:@btn-color;
+          line-height: 1rem;
+          padding-left:.5rem;
+          padding-right: .5rem;
+          background-color:@orange-color;
+        }
+      }
+    }
+  }
+
+  .evaluation-container{
+    margin-top: 2rem;
+    padding-left: 2rem;
+    padding-right: 2rem;
+    padding-bottom: 2rem;
+    background-color: #ffffff;
+    font-size: 1.3rem;
+    line-height: 3rem;
+    vertical-align: middle;
+    color:@second-text-color;
+    .evaluation-item{
+      .name{
+        color:@second-text-color;
+        padding-right: .2rem;
+      }
+
+      .evaluation-color {
+        color: @orange-color;
+        .attitude{
+          font-size: 1rem;
+          line-height: 2rem;
+          vertical-align: middle;
+          padding-left: .5rem;
+          padding-right: .5rem;
+          border: 1px solid @border-color;
+
+          .score{
+          }
+          .feeling{
+            margin-left: .2rem;
+          }
+
+        }
+        .evaluate-star{
+
+        }
+
+      }
+    }
+
+    .evaluation-text{
+      margin-top: 2rem;
+      .text-area{
+        width: 90%;
+        height: 10rem;
+        font-size: 1.5rem;
+        margin:auto;
+        border: 1px solid @border-color;
+      }
+    }
+
+    .submit-area{
+      margin-top: 2rem;
+      text-align: center;
+      .submit-btn{
+        background-color: @primary_color;
+        color:@btn-color;
+        font-size: 1.5rem;
+        width: 80%;
+      }
+    }
+  }
+}

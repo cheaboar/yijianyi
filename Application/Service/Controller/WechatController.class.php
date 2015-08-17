@@ -445,7 +445,7 @@ class WechatController extends Controller {
 
     public function get_my_address(){
 //        $this->need_login();
-        $user_id = 17;
+        $user_id = $this->user_id();
 //        $addresses = $this->user_address->where('user_id='.$user_id.' AND status >= 0')->order('id desc')->select();
         $addresses = $this->address->get_user_address_string($user_id);
 //        $result = array();
@@ -470,12 +470,12 @@ class WechatController extends Controller {
     }
 
     public function my_address(){
-//        $this->need_login();
+        $this->need_login();
 //        layout('Layout/layout');
 //        $this->display('my_address');
         layout('Layout/new_layout');
 
-        $user_id = 17;
+        $user_id = $this->user_id();
         $addresses = $this->address->get_user_address_string($user_id);
 
         $this->assign('addresses', $addresses);
@@ -629,7 +629,7 @@ class WechatController extends Controller {
     //获取我的优惠券
     public function get_my_coupon(){
 //        $this->need_login();
-        $user_id = 17;
+        $user_id = $this->user_id();
         $coupon = new CouponModel();
         $results = $coupon->get_coupon($user_id);
         $return = array();
@@ -1054,7 +1054,7 @@ class WechatController extends Controller {
         $user_id = $this->user_id();
         $orderM = new OrderModel();
         $status_conf = C('ORDER.SATUS_R');
-        $orderM->change_order_satus($order_id, $user_id, $status_conf['进行中']);
+        $orderM->change_order_satus($order_id, $user_id, $status_conf['已确认']);
 
         $resutl = return_db_operation_result($orderM);
 
@@ -1245,6 +1245,98 @@ class WechatController extends Controller {
         layout('Layout/new_layout');
 
         $this->display('Service:home_care');
+    }
+
+    public function service_evaluation(){
+        layout('Layout/new_layout');
+        $worker_id = $_GET['worker_id'];
+
+        //获取员工的信息
+        $workerM = new WorkerModel();
+        $worker = $workerM->getWrokerInfo($worker_id);
+        $worker = $worker[$worker_id];
+
+
+
+        //获取工作人员评分
+        $commentM = new CommentModel();
+        $levels = $commentM->getWorkerCommentLevels($worker_id);
+        $level_count = count($levels);
+        $attitude_level_sum = 0;
+        $profession_level_sum = 0;
+        $discipline_level_sum = 0;
+        foreach($levels as $key => $value){
+            $attitude_level_sum += $value['attitude_level'];
+            $profession_level_sum += $value['profession_level'];
+            $discipline_level_sum += $value['discipline_level'];
+
+        }
+        $attitude_level_avg = round($attitude_level_sum/$level_count, 2);
+        $profession_level_avg = round($profession_level_sum/$level_count, 2);
+        $discipline_level_avg = round($discipline_level_sum/$level_count, 2);
+        $comment_level = round(($attitude_level_avg + $profession_level_avg + $discipline_level_avg)/3, 2);
+        $worker = parse_worker_info($worker);
+
+        $this->assign('comment_level', $comment_level);
+        $this->assign('worker', $worker);
+
+        $this->display('Service:service_evaluation');
+    }
+
+    //提交员工评论
+    public function commit_worker_evaluation(){
+        //评论人需要登录
+//        $this->need_login();
+//        $user_id = $this->user_id();
+        $user_id = 17;
+        $order_id = $_GET['order_id'];
+        $worker_id = $_GET['worker_id'];
+
+        $attitude = $_GET['attitude'];
+        $profession = $_GET['profession'];
+        $discipline = $_GET['discipline'];
+        $evaluate_text = $_GET['evaluate_text'];
+
+        $result = array();
+
+
+
+        //评论人必须有权限评论，评论人是订单的负责人
+        $orderM = new OrderModel();
+        $is_user_order_match = $orderM->is_user_order_match($order_id, $user_id);
+        if($is_user_order_match){
+            //工作人员与订单的指派相对应
+            $workerOrderM = new WorkerOrderModel();
+            $is_woker_order_match = $workerOrderM->is_order_worker_match($order_id, $worker_id);
+            if($is_woker_order_match){
+                //验证成功
+                //判断是否已经评论过了，如果评论过则退出
+
+                $commentM = new CommentModel();
+                $is_commented = $commentM->is_commented($order_id, $worker_id, $user_id);
+                if($is_commented){
+                    $result['code'] = 100;
+                    $result['error_msg'] = '已经评论过了';
+                }else{
+                    $commentM->addComment($order_id, $evaluate_text, $attitude, $profession, $discipline, $worker_id, $user_id);
+                    $error_msg = $commentM->getDbError();
+                    if(empty($error_msg)){
+                        $result['code'] = 200;
+                    }else{
+                        $result['code'] = 500;
+                        $result['error_msg'] = $error_msg;
+                    }
+
+                }
+
+            }
+
+        }else{
+            $result['code'] = 300;
+        }
+
+        $this->ajaxReturn($result);
+
     }
 
 }

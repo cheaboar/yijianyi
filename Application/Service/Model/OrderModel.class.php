@@ -168,4 +168,24 @@ class OrderModel extends Model
             $this->where($condition)->save($data);
         }
     }
+
+    /*
+     * 判断订单id和负责人id是否相符
+     * 相符返回：true，否则返回：false；
+     * */
+    public function is_user_order_match($order_id, $user_id){
+        $condition = array(
+            'order_id' => $order_id,
+            'user_id' => $user_id
+        );
+
+        $result = $this->where($condition)->select();
+
+        if(empty($result)){
+            return false;
+        }else{
+            return true;
+        }
+    }
+
 }

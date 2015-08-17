@@ -31,4 +31,40 @@ class CommentModel extends Model
             ->getField('c.comment_id, c.* ,c.attitude_level,u.user_nickname');
     }
 
+    /*
+     * 添加评论数据
+     * */
+    public function addComment($order_id, $content, $attitude, $profession, $discipline, $worker_id, $user_id){
+        $data = array(
+            'comment_order_id' => $order_id,
+            'comment_content' => $content,
+            'attitude_level' => $attitude,
+            'profession_level' => $profession,
+            'discipline_level' => $discipline,
+            'comment_worker_id' => $worker_id,
+            'comment_user_id' => $user_id,
+            'comment_time' => time(),
+        );
+
+        $this->add($data);
+    }
+
+    /*
+     * 判断是否已经评论过了
+     * */
+    public function is_commented($order_id, $worker_id, $user_id){
+        $condition = array(
+            'comment_order_id' => $order_id,
+            'comment_worker_id' => $worker_id,
+            'comment_user_id' => $user_id
+        );
+
+        $result = $this->where($condition)->find();
+        if(empty($result)){
+            return false;
+        }else{
+            return true;
+        }
+    }
+
 }

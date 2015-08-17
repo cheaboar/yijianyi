@@ -23,4 +23,23 @@ class WorkerOrderModel extends Model{
         return $result[$order_id];
     }
 
+    /*
+     * 判断单号和工作人员是否匹配，且为在服务人员(这里不清楚需不需要)TODO:讨论
+     * */
+    public function is_order_worker_match($order_id, $worker_id){
+        $condition = array(
+            'order_id' => $order_id,
+            'worker_id' => $worker_id,
+        );
+
+        $result = $this->where($condition)->find();
+
+        if(empty($result)){
+            return false;
+        }else{
+            return true;
+        }
+
+    }
+
 }
