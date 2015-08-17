@@ -89,13 +89,33 @@ class WechatController extends Controller {
         if (empty($_SESSION['logged_user'])) {
 //            $this->redirect('user_info_test');
             $user = $this->auth->authorize(); // 返回用户 Bag
-            $user_to_save = serialize($user);
+            $user_to_save = serialize($user['openid']);
             $_SESSION['logged_user'] = $user_to_save;
 
             // 跳转到其它授权才能访问的页面
             $user_id = $this->user->add_wechat_user($user);
             $this->set_log($user_id);
         }
+
+//        if (empty($_SESSION['logged_user'])) {
+////            $this->redirect('user_info_test');
+//            $user = $this->auth->authorize(null,'snsapi_base'); // 返回用户 Bag
+//            $user_to_save = serialize($user);
+//            $_SESSION['logged_user'] = $user_to_save;
+//            $user_id = null;
+//            //判断用户数据是否已经在数据库中了，如果存在数据库中了不需要更行数据库，如果不存在则发起详情页的授权
+//            if(!$this->user->is_user_info_exit($user['openid'])){
+//                $user = $this->auth->authorize(); // 返回用户 Bag
+//                $user_id = $this->user->add_wechat_user($user);
+//            }else{
+//                //获取用户的id
+//                $user_id = $this->user->get_user_id($user['openid']);
+//            }
+//            // 跳转到其它授权才能访问的页面
+//
+//            $this->set_log($user_id);
+//        }
+
 
 
         return unserialize($_SESSION['logged_user']);
@@ -1249,12 +1269,12 @@ class WechatController extends Controller {
 
     public function service_evaluation(){
         //需要登录验证
-//        $this->need_login();
+        $this->need_login();
         layout('Layout/new_layout');
         $worker_id = $_GET['worker_id'];
         $order_id = $_GET['order_id'];
 
-        $user_id = 17;
+        $user_id = $this->user_id();
 
         //获取员工的信息
         $workerM = new WorkerModel();
@@ -1307,9 +1327,9 @@ class WechatController extends Controller {
     //提交员工评论
     public function commit_worker_evaluation(){
         //评论人需要登录
-//        $this->need_login();
+        $this->need_login();
 //        $user_id = $this->user_id();
-        $user_id = 17;
+        $user_id = $this->user_id();
         $order_id = $_GET['order_id'];
         $worker_id = $_GET['worker_id'];
 

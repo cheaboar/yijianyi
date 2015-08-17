@@ -219,4 +219,30 @@ class UserModel extends Model {
 
         return $this->where($condition)->getField('user_weixin');
     }
+
+    public function get_user_id($open_id){
+        $condition = array(
+            'user_weixin' => $open_id,
+        );
+
+        return $this->where($condition)->getField('user_id');
+    }
+
+
+    /*
+     * 判断用户是否存在数据库中了
+     * */
+
+    public function is_user_info_exit($open_id){
+        $condition = array(
+            'user_weixin' => $open_id,
+        );
+        $result = $this->where($condition)->find();
+
+        if(empty($result)){
+            return false;
+        }else{
+            return true;
+        }
+    }
 }
