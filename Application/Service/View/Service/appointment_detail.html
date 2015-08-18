@@ -1,0 +1,38 @@
+<body class="appointment">
+<include file="Public:title_header" href="javascript:window.history.go(-1)" title="预约服务"/>
+
+<div class="appointment-info">
+    <div class="service-name">
+        服务预约：{$appointment.service_type_str}
+    </div>
+    <div class="info">
+        温馨提示：预约服务后工作人员将在1-2个工作日联系您了解详情，请耐心等候
+    </div>
+</div>
+
+<div class="user-info">
+    <div class="list-info container-fluid">
+        <div class="list-item row">
+            <div class="col-xs-4 item-key">联系人</div>
+            <div class="col-xs-8 item-value">{$appointment.name}</div>
+        </div>
+        <div class="divider"></div>
+        <div class="list-item row">
+            <div class="col-xs-4 item-key">联系手机</div>
+            <div class="col-xs-8 item-value">{$appointment.phone}</div>
+        </div>
+        <div class="divider"></div>
+        <div class="list-item row">
+            <div class="col-xs-4 item-key">服务地址</div>
+            <div class="col-xs-8 item-value">{$appointment.provinceName} {$appointment.cityName} {$appointment.areaName} {$appointment.stree}</div>
+        </div>
+        <div class="divider"></div>
+        <div class="list-item row">
+            <div class="col-xs-4 item-key">创建时间</div>
+            <div class="col-xs-8 item-value">{$appointment.create_time_str}</div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

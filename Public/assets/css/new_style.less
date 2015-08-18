@@ -1367,3 +1367,217 @@ body, html{
     }
   }
 }
+
+.user-appointment{
+  .appointment-list{
+    background-color: #ffffff;
+    margin-top: 1rem;
+    width:100%;
+    .info-text{
+      width: 100%;
+      color:@second-text-color;
+      font-size: 1.5rem;
+      line-height: 2rem;
+      padding-top:1rem;
+      vertical-align: middle;
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    .appointment-item{
+      line-height: 5rem;
+      font-size: 1.5rem;
+      vertical-align: middle;
+      .service-name{
+        .transition(width, .5s);
+
+        .state{
+          font-size: 1rem;
+          color:@primary_color;
+          padding-left: 2rem;
+        }
+      }
+      .remove-div{
+        .remove-select-area{
+          display: none;
+          overflow: hidden;
+          width: 300px;
+          font-size: 1rem;
+          .remove-cancel{
+            color:@second-text-color;
+            border:1px solid @second-text-color;
+          }
+          .remove-commit{
+            background-color: @danger-color;
+            color:@btn-color;
+          }
+        }
+        .transition(width, .5s);
+
+      }
+    }
+
+    .appointment-buttom{
+      text-align: center;
+      position: fixed;
+      left:0;
+      bottom:0;
+      line-height: 3rem;
+      width: 100%;
+      background-color: #ffffff;
+      color:@second-text-color;
+      padding-top: .75rem;
+      padding-bottom: .75rem;
+      .add-appointment{
+
+        .add-btn-icon{
+//          width: 2rem;
+//          height: 2rem;
+//          border: 1px solid @border-color;
+          margin-left: auto;
+          margin-right: auto;
+
+          text-align: center;
+          .icon{
+            font-size: 2rem;
+            line-height: 2rem;
+            vertical-align: middle;
+          }
+
+        }
+        .add-text{
+          background-color: @primary_color;
+          color: @btn-color;
+        }
+      }
+    }
+
+  }
+}
+
+.appointment{
+  .appointment-info{
+    width: 90%;
+    margin-top:2rem;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 1rem;
+    background-color: #ffffff;
+    .service-name{
+      color:@primary_color;
+      font-size: 1.5rem;
+      border-bottom: dotted 1px @border-color;
+    }
+    .info{
+      font-size: 1rem;
+      color:@second-text-color;
+    }
+
+  }
+
+  .user-info{
+    background-color: #ffffff;
+    color:@main-text-color;
+    width:100%;
+    padding:2rem 1.5rem;
+    margin-top:1rem;
+    margin-bottom: 2rem;
+
+    .address-title{
+      padding-left: 0;
+    }
+
+    .selected_address{
+      margin-top: 1rem;
+      margin-bottom: 1rem;
+      padding-left: 2rem;
+      color:@primary_color;
+    }
+
+    .submit-container{
+      border-top: 1px solid @border-color;
+      padding-top: 2rem;
+      padding-bottom: 2rem;
+      text-align: center;
+      .submit-btn{
+        margin: auto;
+        background-color: @orange-color;
+        color: @btn-color;
+      }
+    }
+
+    .errer-msg-container{
+      border-top:1px solid @danger-color;
+      color:@danger-color;
+      line-height: 3rem;
+      font-size: 1rem;
+      padding-left: 2rem;
+      display: none;
+      .error-item{
+        display: none;
+      }
+    }
+
+    .user-address-container{
+      border-top: 1px dotted @border-color;
+      padding-top: 1rem;
+      padding-bottom: 1rem;
+      padding-left: 1rem;
+
+      .address-item{
+        margin-top: 2rem;
+        color:@second-text-color;
+      }
+      .new{
+        color:@primary_color;
+      }
+      .add-address-btn-container{
+        margin-left: auto;
+        margin-right: auto;
+        text-align: center;
+        .add-address-btn{
+          background-color: @primary_color;
+          color:@btn-color;
+          margin-top: 2rem;
+          margin-bottom: 2rem;
+
+        }
+      }
+
+      .add-address-form{
+        display: none;
+        border-top: 1px dotted @border-color;
+        .add-address-footer{
+          margin-top: 2rem;
+          margin-bottom: 2rem;
+          text-align: center;
+          .cancel{
+            color:@second-text-color;
+            border: 1px solid @border-color;
+            margin-left: auto;
+            margin-right: auto;
+          }
+          .submit{
+            background-color: @orange-color;
+            color:@btn-color;
+          }
+        }
+      }
+
+
+    }
+
+    .list-info{
+      font-size: 1rem;
+      .list-item{
+        padding-top: 1rem;
+        padding-bottom: 1rem;
+        .item-key{
+          color:@second-text-color;
+        }
+        .item-value{
+          color:@main-text-color;
+        }
+      }
+    }
+  }
+}

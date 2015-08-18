@@ -1,0 +1,158 @@
+<head>
+
+    <script type="text/javascript" src="__STATIC__/js/jquery.min.js"></script>
+
+</head>
+
+<body class="user-appointment">
+
+    <include file="Public:title_header" href="javascript:window.history.go(-1)" title="我的地址"/>
+
+    <div class="appointment-list container-fluid">
+            <volist name="appointments" id="vo">
+                    <div class="row appointment-item" id="appointment-item-{$vo.id}">
+                        <a href="appointment_detail?appointment_id={$vo.id}">
+                            <div class="col-xs-10 service-name">
+                                <span class="name">{$vo.service_type_str}</span>
+                                <span class="state">{$vo.state_str}</span>
+                                <!--<span class="state">{$vo.state_str}</sapn>-->
+                            </div>
+                        </a>
+                        <div class="col-xs-1 remove-div" style="display:
+                            <if condition='$vo.state eq 1000'>inherit
+                                <else/>
+                                none
+                            </if>
+                        ">
+                            <div class="img-circle remove-btn-icon">
+                                <span class="icon-remove icon" address-id="{$vo.id}"></span>
+                            </div>
+
+                            <div class="remove-select-area">
+                                <div class="btn remove-cancel">取消</div>
+                                <div class="btn remove-commit" appointment-id="{$vo.id}">删除</div>
+                            </div>
+                        </div>
+                    </div>
+
+            </volist>
+
+            <div class="divider" id="divider-{$vo.id}"></div>
+            <div class="info-text">
+                点击服务名称可查看详情
+            </div>
+            <div class="appointment-buttom">
+                <div class="add-appointment">
+                    <div class="add-btn-icon img-circle ">
+                        <span class="add_circle_outline icon"></span>
+                    </div>
+                    <a href="new_service_info">
+                        <div class="add-text btn">预约服务</div>
+                    </a>
+                </div>
+            </div>
+    </div>
+
+    </div>
+
+
+
+</body>
+<script>
+
+    //添加删除响应UI
+    $('.remove-btn-icon').on('click', function(){
+        var remove_div = $(this).parent();
+        var service_name  = $(remove_div).siblings('a').find('.service-name');
+        var select_div = $(remove_div).find('.remove-select-area');
+
+        $(service_name).removeClass('col-xs-10');
+        $(service_name).addClass('col-xs-7');
+        $(remove_div).removeClass('col-xs-1');
+        $(remove_div).addClass('col-xs-4');
+        $(this).hide();
+        $(select_div).show();
+    });
+
+    //监听删除按钮
+    $('.remove-commit').on('click', function(){
+        var appointment_id = $(this).attr('appointment-id');
+        var appointment = $($(this).parent().parent().parent());
+        console.log(appointment);
+
+        //删除
+        $.ajax({
+            url:'delete_appointment',
+            data: {id:appointment_id},
+            dataType: 'json',
+            success: function(data, status){
+                if(data.code == 200){
+                    //删除成功，隐藏
+                    appointment.hide(500);
+                    var address_id = data.id;
+
+                    //获取该条目id
+                    var item_id = '#address-item-' + address_id;
+
+                    $(item_id).hide(1000);
+
+                    var divider_id = '#divider-' + address_id;
+                    $(divider_id).hide(1000);
+                }
+            }
+        });
+    })
+
+    //监听取消删除按钮
+    $('.remove-cancel').on('click', function(){
+        var remove_div = $(this).parent().parent();
+        var service_name  = $(remove_div).siblings('a').find('.service-name');
+        var select_div = $(remove_div).find('.remove-select-area');
+        var remove_icon = $(remove_div).find('.remove-btn-icon');
+        $(service_name).removeClass('col-xs-7');
+        $(service_name).addClass('col-xs-10');
+        $(remove_div).removeClass('col-xs-4');
+        $(remove_div).addClass('col-xs-1');
+        $(remove_icon).show();
+        $(select_div).hide();
+    })
+
+
+
+    $('.icon-add').on('click', function(){
+        $('.sidebar').sidebar('toggle');
+        $('#sex-sidebar').sidebar('toggle');
+    })
+    $('.cancel-btn').on('click', function(){
+        $('.sidebar').sidebar('toggle');
+//        $('#sex-sidebar').sidebar('toggle');
+
+    })
+
+    //确定添加新地址
+    $('.commit-btn').on('click', function(){
+        var address_stree = $('#address_stree').val();
+
+        //更新地址
+        $.ajax({
+            url:'save_address',
+            data : {
+                province_id : province_id,
+                city_id: city_id,
+                zone_id : zone_id,
+                stree : address_stree
+            },
+            dataType: 'json',
+            success : function(data, status){
+                console.log(data);
+                if(data.code == 200){
+                    //更新地址成功
+                    window.location.href = '';
+                }
+            }
+        })
+        $(this).html('更新中');
+    })
+
+</script>
+</html>

@@ -33,7 +33,7 @@ class ServiceAppointmentModel extends Model{
         $condition['user_id'] = $user_id;
         $condition['state'] = $state;
         $my_appointments =  $this->where($condition)->order('id desc')->select();
-//        dump($this->getLastSql());
+
         foreach($my_appointments as $appointment){
             $address = $addressM->get_address($appointment['address_id']);
 
@@ -60,5 +60,57 @@ class ServiceAppointmentModel extends Model{
 
         $this->where($condition)->save($data);
 
+    }
+
+    /*
+     * 获取所有未删除的服务
+     * */
+    public function get_my_appointment($user_id){
+//        $stateR = C('APPOINTMENT_STATE_R');
+
+//        $delete_state = $stateR['删除'];
+        $condition = array(
+            'state' => array('NEQ', -1),
+            'user_id' => $user_id
+        );
+
+        return $this->where($condition)->order('id desc')->select();
+    }
+
+    /*
+     * 添加服务预约
+     * 返回新增的id
+     * */
+    public function add_appointment($user_id, $address_id, $name, $phone, $service_type){
+        $data = array(
+            'user_id'       => $user_id,
+            'address_id'    => $address_id,
+            'name'          => $name,
+            'phone'         => $phone,
+            'service_type'  => $service_type,
+            'state'         => 1000,
+            'create_time'   => time(),
+        );
+
+        $id = $this->add($data);
+        return $id;
+    }
+
+    /*
+     * 获取预约细节
+     * */
+    public function get_appointment_detail($appointment_id){
+        $condition = array(
+            'id' => $appointment_id,
+//            'user_id' => $user_id
+        );
+
+        $result =  $this->alias('appointment')->join('oa_address as address on appointment.address_id = address.address_id', 'LEFT')
+            ->join('oa_areas as a1 on address.province = a1.area_id', 'LEFT')
+            ->join('oa_areas as a2 on address.city = a2.area_id', 'LEFT')
+            ->join('oa_areas as a3 on address.area = a3.area_id', 'LEFT')
+            ->where($condition)->getField('appointment.*, a1.area_name as provinceName, a2.area_name as cityName, a3.area_name as areaName, address.address as stree');
+
+        return $result[$appointment_id];
     }
 }

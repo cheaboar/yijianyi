@@ -1,0 +1,461 @@
+<head>
+    <link rel="stylesheet" href="__STATIC__/css/fancySelect.css"/>
+    <script type="text/javascript" src="__STATIC__/js/jquery.min.js"></script>
+    <script type="text/javascript" src="__STATIC__/js/fancySelect.js"></script>
+    <script type="text/javascript" src="__STATIC__/js/service.js"></script>
+
+</head>
+<body class="appointment">
+<include file="Public:title_header" href="javascript:window.history.go(-1)" title="预约服务"/>
+
+<div class="appointment-info">
+    <div class="service-name">
+        服务预约：{$service_type_str}
+    </div>
+    <div class="info">
+        温馨提示：预约服务后工作人员将在1-2个工作日联系您了解详情，请耐心等候
+    </div>
+</div>
+
+<div class="user-info">
+    <form>
+        <div class="form-group">
+            <label for="contact_name">联系人</label>
+            <input type="text" class="form-control" id="contact_name" placeholder="联系人姓名">
+        </div>
+        <div class="form-group">
+            <label for="contact_phone">手机</label>
+            <input type="text" class="form-control" id="contact_phone" placeholder="联系人手机">
+        </div>
+
+        <div class="form-group">
+            <div class="container-fluid">
+                <div class="row" role="button" data-toggle="collapse" data-parent="#accordion" href="#content" aria-expanded="true" aria-controls="collapseOne">
+                    <div class="col-xs-10 address-title">
+                        <label for="contact_phone">服务地址</label>
+                    </div>
+                    <div class="col-xs-1">
+                        <span class="icon icon-expand_more" id="content-expand-icon"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="selected_address" role="button" data-toggle="collapse" data-parent="#accordion" href="#content" aria-expanded="true" aria-controls="collapseOne">点击选择地址</div>
+
+            <div id="content" class="collapse"  aria-labelledby="headingOne" connect-icon="#content-expand-icon">
+                <div class="collapse-container">
+
+                    <div class="user-address-container">
+                        <div class="address-title-info">选择我的地址</div>
+                        <div class="address-list">
+                            <volist name="addresses" id="vo">
+                                <div class="address-item" address-id="{$vo.id}">
+                                    {$vo.address}
+                                </div>
+                            </volist>
+                        </div>
+
+                        <div class="add-address-btn-container">
+                            <div class="add-address-btn btn">
+                                添加新地址
+                            </div>
+                        </div>
+
+                        <div class="add-address-form">
+                            <form>
+                                <div class="form-group">
+                                    <label >省份</label>
+                                    <select class="provinceSelect">
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label >城市</label>
+                                    <select class="citySelect">
+
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label >区</label>
+                                    <select class="zoneSelect">
+
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="address_stree">地址</label>
+                                    <input type="text" class="form-control" id="address_stree" placeholder="街道地址">
+                                </div>
+
+                                <div class="add-address-footer container-fluid">
+                                    <div class="row">
+                                        <div class="col-xs-4">
+                                            <div class="btn cancel">取消</div>
+                                        </div>
+                                        <div class="col-xs-4"></div>
+                                        <div class="col-xs-4">
+                                            <div class="btn submit">确定</div>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+
+                            </form>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="submit-container">
+                <div class="submit-btn btn" service-type="{$service_type}">提交预约</div>
+            </div>
+
+            <div class="errer-msg-container">
+                <div class="contact_name_error error-item">联系人不能为空</div>
+                <div class="contact_phone_error error-item">手机号码格式不正确</div>
+                <div class="address_error error-item">还没有选择地址</div>
+            </div>
+        </div>
+
+
+    </form>
+</div>
+</body>
+<script type="application/javascript" src="__STATIC__/js/bootstrap.min.js"></script>
+
+<script>
+    var selected_address_id = 0;
+    $('.collapse').on('hidden.bs.collapse', function(){
+
+        var icon_id = $(this).attr('connect-icon');
+        $(icon_id).removeClass('icon-expand_less').addClass('icon-expand_more');
+    })
+    $('.collapse').on('shown.bs.collapse', function(){
+
+        var icon_id = $(this).attr('connect-icon');
+        $(icon_id).removeClass('icon-expand_more').addClass('icon-expand_less');
+    })
+    $('.address-item').on('click', function(){
+        var address = $(this).html();
+        selected_address_id = $(this).attr('address-id');
+        $('.selected_address').html(address);
+    })
+
+    $('.add-address-btn').on('click', function(){
+        $('.add-address-form').show(500);
+    })
+
+    $('.btn.cancel').on('click', function(){
+        $('.add-address-form').hide(500);
+    })
+
+    //添加地址
+    var adding = false;//判断是否已经有在添加地址
+    $('.btn.submit').on('click', function(){
+
+        var address_stree = $('#address_stree').val();
+        if(adding){
+
+        }else{
+            //更新地址
+            adding = true;
+            $.ajax({
+                url:'save_address',
+                data : {
+                    province_id : province_id,
+                    city_id: city_id,
+                    zone_id : zone_id,
+                    stree : address_stree
+                },
+                dataType: 'json',
+                success : function(data, status){
+                    if(data.code == 200){
+                        //更新地址成功，新地址添加到地址铺中提供选择
+                        var address = province + ' ' + city + '' + zone + ' ' + address_stree;
+                        var html = '<div class="address-item new" address-id=' + data.address_id + '>' + address + '</div>';
+                        $('.address-list').prepend(html);
+//                        更新监听事件
+                        $('.address-item').on('click', function(){
+                            var address = $(this).html();
+                            selected_address_id = $(this).attr('address-id');
+                            $('.selected_address').html(address);
+                        })
+                        adding = false;
+                        $('.btn.submit').html('更新');
+                        $('.add-address-form').hide(500);
+                    }
+                }
+            })
+            $(this).html('更新中');
+        }
+
+
+    })
+
+
+    //选择的城市，省份
+    var city_id;
+    var province_id;
+    var zone_id;
+    var city;
+    var zone;
+    var province;
+
+
+    $(function(){
+        var provinceSelect = $('.provinceSelect');
+        var citySelect = $('.citySelect');
+        var zoneSelect = $('.zoneSelect');
+
+        //配置selection
+        provinceSelect.fancySelect({
+            forceiOS:true,
+            optionTemplate: function(optionEl) {
+                return  optionEl.text();
+            },
+            triggerTemplate: function(optionEl) {
+                return  optionEl.text() + '<span style="display: none" id="' + optionEl.data('id')+'">' + optionEl.data('id') + '</span>';
+            }
+        });
+        citySelect.fancySelect({
+            forceiOS:true,
+            optionTemplate: function(optionEl) {
+                return  optionEl.text();
+            },
+            triggerTemplate: function(optionEl) {
+                return  optionEl.text() + '<span style="display: none" id="' + optionEl.data('id')+'">' + optionEl.data('id') + '</span>';
+            }
+        });
+        zoneSelect.fancySelect({
+            forceiOS:true,
+            optionTemplate: function(optionEl) {
+                return  optionEl.text();
+            },
+            triggerTemplate: function(optionEl) {
+                return  optionEl.text() + '<span style="display: none" id="' + optionEl.data('id')+'">' + optionEl.data('id') + '</span>';
+            }
+        });
+
+
+        //激活
+        provinceSelect.trigger('enable.fs');
+        citySelect.trigger('enable.fs');
+        zoneSelect.trigger('enable.fs');
+
+
+        //监听省份选择事件
+        provinceSelect.fancySelect().on('change.fs', function(e) {
+            $(this).trigger('change.$');
+            //获取选择的area_id
+            var selected_id = $($(e.result[0]).find('span')).attr('id');
+            province = e.result[0].innerText;
+            province_id = selected_id;
+            //更新城市列表
+            $.ajax({
+                url:'get_cities',
+                data : {province_id:selected_id},
+                dataType:'json',
+                success: function(data, status){
+                    //默认选择第一项
+                    city_id = data[0].area_id;
+                    city = data[0].area_name;
+                    //清除原有的options
+                    citySelect.children('option').remove();
+                    //添加新的额options
+                    data.forEach(function(x){
+                        citySelect.append('<option data-id="' + x.area_id + '">' + x.area_name+'</option>');
+                    });
+                    //更新
+                    citySelect.trigger('update');
+
+                    //更新区
+                    $.ajax({
+                        url:'get_zones',
+                        data : {city_id:city_id},
+                        dataType:'json',
+                        success: function(data, status){
+                            //默认选择第一项
+//                            console.log(data);
+                            zone_id = data[0].area_id;
+                            zone = data[0].area_name;
+                            //清除原有的options
+                            zoneSelect.children('option').remove();
+                            //添加新的额options
+                            data.forEach(function(x){
+                                zoneSelect.append('<option data-id="' + x.area_id + '">' + x.area_name+'</option>');
+                            });
+                            //更新
+                            zoneSelect.trigger('update');
+
+                        }
+                    });
+
+                }
+            });
+        });
+
+        //监听城市选择事件
+        citySelect.fancySelect().on('change.fs', function(e){
+            $(this).trigger('change.$');
+            //获取选择的area_id
+            var selected_id = $($(e.result[0]).find('span')).attr('id');
+            city_id = selected_id;
+            city = e.result[0].innerText;
+
+            //更新区
+            $.ajax({
+                url:'get_zones',
+                data : {city_id:city_id},
+                dataType:'json',
+                success: function(data, status){
+                    //默认选择第一项
+//                    console.log(data);
+                    zone_id = data[0].area_id;
+                    zone = data[0].area_name;
+                    //清除原有的options
+                    zoneSelect.children('option').remove();
+                    //添加新的额options
+                    data.forEach(function(x){
+                        zoneSelect.append('<option data-id="' + x.area_id + '">' + x.area_name+'</option>');
+                    });
+                    //更新
+                    zoneSelect.trigger('update');
+
+                }
+            });
+        });
+
+
+        //监听地区选择
+        zoneSelect.fancySelect().on('change.fs', function(e){
+            $(this).trigger('change.$');
+            //获取选择的area_id
+            var selected_id = $($(e.result[0]).find('span')).attr('id');
+            zone_id = selected_id;
+            zone = e.result[0].innerText;
+        })
+        //获取省份,并添加到选择项中
+        $.ajax({
+            url:'get_province',
+            dataType:'json',
+            success: function(data, status){
+                //默认选择了第一项
+                province_id = data[0].area_id;
+                province = data[0].area_name;
+//                console.log(province_id);
+                data.forEach(function(x){
+                    provinceSelect.append('<option data-id="' + x.area_id + '">' + x.area_name+'</option>');
+                });
+                provinceSelect.trigger('update');
+
+                //加载城市，更新城市列表
+                $.ajax({
+                    url:'get_cities',
+                    data : {province_id:province_id},
+                    dataType:'json',
+                    success: function(data, status){
+                        //默认选择第一项
+                        city_id = data[0].area_id;
+                        city = data[0].area_name;
+                        //清除原有的options
+                        citySelect.children('option').remove();
+                        //添加新的额options
+                        data.forEach(function(x){
+                            citySelect.append('<option data-id="' + x.area_id + '">' + x.area_name+'</option>');
+                        });
+                        //更新
+                        citySelect.trigger('update');
+
+                        //更新区
+                        $.ajax({
+                            url:'get_zones',
+                            data : {city_id:city_id},
+                            dataType:'json',
+                            success: function(data, status){
+                                //默认选择第一项
+                                zone_id = data[0].area_id;
+                                zone = data[0].area_name;
+                                //清除原有的options
+                                zoneSelect.children('option').remove();
+                                //添加新的额options
+                                data.forEach(function(x){
+                                    zoneSelect.append('<option data-id="' + x.area_id + '">' + x.area_name+'</option>');
+                                });
+                                //更新
+                                zoneSelect.trigger('update');
+
+                            }
+                        });
+
+                    }
+                });
+            }
+        })
+
+//
+
+
+    });
+
+    //提交服务
+    $('.submit-btn').on('click', function(){
+        console.log(2);
+        //检查联系人
+        var contact_name = $('#contact_name').val();
+        if(contact_name == ''){
+            //显示错误信息
+            $('.errer-msg-container').show();
+            $('.contact_name_error').show();
+            return;
+        }else{
+            $('.contact_name_error').hide();
+        }
+
+        //检查手机
+        var phone = $('#contact_phone').val();
+        var is_phone = formValid.isPhone(phone);
+        if(!is_phone){
+            $('.errer-msg-container').show();
+            $('.contact_phone_error').show();
+            return;
+        }else{
+            $('.contact_phone_error').hide();
+        }
+        //检查地址
+        if(selected_address_id == 0){
+            $('.errer-msg-container').show();
+            $('.address_error').show();
+            return;
+        }else{
+            $('.address_error').hide();
+        }
+
+        $('.errer-msg-container').hide();
+
+        var service_type = $(this).attr('service-type');
+        //检查通过，提交预约
+        $(this).html('正在提交预约');
+        $.ajax({
+            url:'add_appointment',
+            data : {
+                address_id  : selected_address_id,
+                phone       : phone,
+                name        : contact_name,
+                service_type: service_type
+            },
+            dataType : 'json',
+            success : function(data, status){
+                if(data.code == 200){
+                    //更新成功，跳转到订单展示页面
+                    window.location.href = 'appointment_detail?appointment_id=' + data.id;
+                }else{
+                    console.log(data);
+                }
+            }
+        })
+
+    })
+
+</script>
+</html>

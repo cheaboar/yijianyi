@@ -263,10 +263,24 @@ class WechatController extends Controller {
 
     public function my_appointment(){
         $this->need_login();
-        layout('Layout/layout');
+        layout('Layout/new_layout');
         $title = '我的预约';
         $this->assign('title', $title);
-        $this->display('my_appointment');
+
+
+        $user_id  = $this->user_id();
+        //获取所有的预约列表
+        $my_appointments = $this->service_appointment->get_my_appointment($user_id);
+        $result = array();
+        foreach($my_appointments as $appointment){
+            $result[] = parse_appointment($appointment);
+        }
+
+
+
+        $this->assign('appointments', $result);
+
+        $this->display('User:user_appointment');
     }
 
     public function my_signed_appointment(){
@@ -565,8 +579,8 @@ class WechatController extends Controller {
         $city = $_GET['city_id'];
         $zone = $_GET['zone_id'];
         $stree = $_GET['stree'];
-
-        $result = $this->address->save_address($this->user_id(), $province, $city, $zone, $stree);
+        $user_id = $this->user_id();
+        $result = $this->address->save_address($user_id, $province, $city, $zone, $stree);
         $this->ajaxReturn($result);
     }
 
@@ -1380,4 +1394,72 @@ class WechatController extends Controller {
 
     }
 
+
+    public function new_appointment(){
+        $service_type = $_GET['service_type'];
+
+        $service_typeM = C('SERVICE_TYPE');
+
+        $service_type_str = $service_typeM[$service_type];
+
+        //获取所有的地址
+        $this->need_login();
+        $user_id = $this->user_id();
+        $addresses = $this->address->get_user_address_string($user_id);
+
+        $this->assign('addresses', $addresses);
+
+        $title = '预约服务';
+        $this->assign('service_type_str', $service_type_str);
+        $this->assign('service_type', $service_type);
+        $this->assign('title', $title);
+        layout('Layout/new_layout');
+        $this->display('Service:appointment');
+    }
+
+    public function add_appointment(){
+        //需要验证
+//        $this->need_login();
+
+        $user_id = $this->user_id();
+        //获取参数
+        $address_id = $_GET['address_id'];
+        $phone = $_GET['phone'];
+        $name = $_GET['name'];
+        $service_type = $_GET['service_type'];
+
+        $id = $this->service_appointment->add_appointment($user_id, $address_id, $name, $phone, $service_type);
+
+        $result = array();
+        if(!empty($id)){
+            $result['code'] = 200;
+            $result['id'] = $id;
+        }else{
+            $result['code'] = 500;
+            $result['error_msg'] = $this->service_appointment->getDbError();
+        }
+
+        $this->ajaxReturn($result);
+    }
+
+    public  function appointment_detail(){
+        $appointment_id = $_GET['appointment_id'];
+
+        //需要验证用户id
+        $user_id = $this->user_id();
+
+        $appointment = $this->service_appointment->get_appointment_detail($appointment_id);
+
+        if($user_id == $appointment['user_id']){
+            $appointment = parse_appointment($appointment);
+            $this->assign('appointment', $appointment);
+        }else{
+            //用户不相干，没有权限查看，不返回数据
+        }
+        $title = '预约详情';
+        $this->assign('title', $title);
+        layout('Layout/new_layout');
+
+        $this->display('Service:appointment_detail');
+    }
 }

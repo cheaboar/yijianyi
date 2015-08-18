@@ -48,10 +48,11 @@ class AddressModel  extends Model{
             'address' => $address,
         );
 
-        $this->add($data);
+        $address_id = $this->add($data);
         if($this->getDbError() == ''){
             return array(
                 'code' => 200,
+                'address_id' => $address_id
             );
         }else{
             return array(

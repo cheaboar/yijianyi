@@ -215,6 +215,13 @@
             });
         });
 
+        //监听地区选择
+        zoneSelect.fancySelect().on('change.fs', function(e){
+            $(this).trigger('change.$');
+            //获取选择的area_id
+            var selected_id = $($(e.result[0]).find('span')).attr('id');
+            zone_id = selected_id;
+        })
         //获取省份,并添加到选择项中
         $.ajax({
             url:'get_province',
