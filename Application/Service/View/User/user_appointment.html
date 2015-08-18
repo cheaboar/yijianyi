@@ -129,30 +129,7 @@
 
     })
 
-    //确定添加新地址
-    $('.commit-btn').on('click', function(){
-        var address_stree = $('#address_stree').val();
 
-        //更新地址
-        $.ajax({
-            url:'save_address',
-            data : {
-                province_id : province_id,
-                city_id: city_id,
-                zone_id : zone_id,
-                stree : address_stree
-            },
-            dataType: 'json',
-            success : function(data, status){
-                console.log(data);
-                if(data.code == 200){
-                    //更新地址成功
-                    window.location.href = '';
-                }
-            }
-        })
-        $(this).html('更新中');
-    })
 
 </script>
 </html>

@@ -141,6 +141,16 @@ function parse_customer_info($customer_info){
     return $customer_info;
 }
 
+
+function parse_appointment($appointment){
+    $serviceTypeM = C('SERVICE_TYPE');
+    $stateM = C('APPOINTMENT_STATE');
+    $appointment['service_type_str'] = $serviceTypeM[$appointment['service_type']];
+    $appointment['state_str'] = $stateM[$appointment['state']];
+    $appointment['create_time_str'] = time_stamp_to_str('Y-m-d H:i:s', $appointment['create_time']);
+    return $appointment;
+}
+
 function get_wechat_user_info(){
     //判断是否缓存了用户信息
 

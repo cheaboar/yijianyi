@@ -723,18 +723,18 @@ class WechatController extends Controller {
 
     public function advice(){
         $this->need_login();
-        $user_id = $this->user_id();
-        layout('Layout/layout');
-        $this->display('advice');
+        layout('Layout/new_layout');
+
+        $this->assign('title', '吐槽建议');
+        $this->display('Service:advice');
     }
 
     public function add_advice(){
         $this->need_login();
         $user_id = $this->user_id();
         $adviceR = new AdviceModel();
-        $params = json_decode(file_get_contents('php://input'), true);
 
-        $result = $adviceR->add_advice($user_id, $params['advice_str']);
+        $result = $adviceR->add_advice($user_id, $_POST['advice_str']);
 
         $this->ajaxReturn($result);
     }
@@ -937,7 +937,6 @@ class WechatController extends Controller {
 
 
         //预处理一下支付列表，使用公共函数，因为其他地方有可能会使用到
-
         $this->assign('payments', $paymet_list);
         $this->assign('order', $order_detail);
         $this->assign('title', '订单');

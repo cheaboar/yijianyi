@@ -24,7 +24,7 @@ class OrderModel extends Model
         $order_status = C('ORDER.STATUS');
         $order_detail['order_status_code'] = $order_detail['order_status'];
 
-        $order_detail['order_status'] = $order_status[$order_detail['order_status']];
+        $order_detail['order_status_str'] = $order_status[$order_detail['order_status']];
 
         $order_service_mode = C('ORDER.SERVICE_MODE');
         $order_detail['service_mode'] = $order_service_mode[$order_detail['service_mode']];

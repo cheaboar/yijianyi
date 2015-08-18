@@ -47,7 +47,15 @@
                     <div class="info-line">姓名：{$worker.worker_name}</div>
                     <div class="info-line">开始服务时间：{$worker.start_time_str}</div>
                     <div class="info-line">终止服务时间：{$worker.end_time_str}</div>
+
                 </div>
+                <if condition="$order.order_status eq 4">
+                    <div class="comment-btn-contaier">
+                        <a href="service_evaluation?worker_id={$worker.worker_id}&order_id={$order.order_id}">
+                            <div class="btn comment-btn">评价护工</div>
+                        </a>
+                    </div>
+                </if>
             </div>
 
             <div class="order-info detail-area">
@@ -81,7 +89,7 @@
                             {$order.order_total_cost}
                         </empty>
                         元</div>
-                    <div class="info-line" >订单转态：<span id="order-status">{$order.order_status}</span></div>
+                    <div class="info-line" >订单转态：<span id="order-status">{$order.order_status_str}</span></div>
 
                 </div>
             </div>
