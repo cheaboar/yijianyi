@@ -78,31 +78,54 @@ class UserModel extends Model {
 
         $area = new AreasModel();
 
-        $data = array(
-//            'wechat_name' => $user['nickname'],
-            'user_nickname' => $user['nickname'],
-            'wechat_head_image' => $user['headimgurl'],
-            'user_icon' => $user['headimgurl'],
-            'wechat_openid' => $user['openid'],
-            'user_weixin' => $user['openid'],
-            'user_sex' => $user['sex'],
-            'user_province' => $area->get_area_id($user['province']),
-            'user_city' => $area->get_area_id($user['city']),
-            'user_country' => $user['country'],
-            'wechat_privilege' => $user['privilege'],
-            'wechat_unionid' => $user['unionid'],
-            'user_last_visit_time' => time()
+//        $data = array(
+////            'wechat_name' => $user['nickname'],
+//            'user_nickname' => $user['nickname'],
+//            'wechat_head_image' => $user['headimgurl'],
+//            'user_icon' => $user['headimgurl'],
+//            'wechat_openid' => $user['openid'],
+//            'user_weixin' => $user['openid'],
+//            'user_sex' => $user['sex'],
+//            'user_province' => $area->get_area_id($user['province']),
+//            'user_city' => $area->get_area_id($user['city']),
+//            'user_country' => $user['country'],
+//            'wechat_privilege' => $user['privilege'],
+//            'wechat_unionid' => $user['unionid'],
+//            'user_last_visit_time' => time()
+//
+//        );
 
-        );
+        $user_in_db = $this->where($condition)->find();
 
-        $user = $this->where($condition)->find();
-
-        if(empty($user)){
+        if(empty($user_in_db)){
             //创建新用户
+            $data = array(
+//            'wechat_name' => $user['nickname'],
+                'user_nickname' => $user['nickname'],
+//                'wechat_head_image' => $user['headimgurl'],
+                'user_icon' => $user['headimgurl'],
+                'wechat_openid' => $user['openid'], //这两个字段还不确定要哪个，目前，使用了user_weixin
+                'user_weixin' => $user['openid'],   //
+                'user_sex' => $user['sex'],
+                'user_province' => $area->get_area_id($user['province']),
+                'user_city' => $area->get_area_id($user['city']),
+                'user_country' => $user['country'],
+                'wechat_privilege' => $user['privilege'],
+                'wechat_unionid' => $user['unionid'],
+                'user_last_visit_time' => time()
+
+            );
             $this->add($data);
 
         }else{
-            //更新用户信息
+            //更新用户信息,性别、地区不更新，因为在用户中心那里用户可以修改自己的性别和地区
+            $data = array(
+                'user_nickname' => $user['nickname'],
+//                'wechat_head_image' => $user['headimgurl'],//这个字段确定不用了
+                'user_icon' => $user['headimgurl'],
+                'user_last_visit_time' => time()
+
+            );
             $this->where($condition)->save($data);
         }
 

@@ -130,6 +130,14 @@ html {
   background-color: #eeeeee;
   margin: 0;
 }
+html.ios {
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+}
+html.ios,
+html.ios body {
+  height: initial !important;
+}
 .title-header {
   margin-bottom: 1rem;
   margin-top: 1rem;
@@ -408,7 +416,8 @@ html {
   color: rgba(255, 255, 255, 0.87);
 }
 .user-info img {
-  width: 4rem;
+  width: 6rem;
+  height: 6rem;
   margin-left: auto;
   margin-right: auto;
   margin-top: 1rem;
@@ -421,14 +430,14 @@ html {
 }
 .user-info .info-area {
   vertical-align: middle;
-  height: 6rem;
-  padding-top: 1.5rem;
+  height: 8rem;
+  padding-top: 2.5rem;
 }
 .user-info .info-area .name {
-  font-size: 1.7rem;
+  font-size: 1.5rem;
 }
 .user-info .info-area .phone {
-  font-size: 1.3rem;
+  font-size: 1rem;
 }
 .nav-container {
   background-color: #eeeeee;
@@ -473,6 +482,7 @@ html {
 }
 .user-info-contaner {
   color: rgba(0, 0, 0, 0.7);
+  min-height: 100rem;
 }
 .user-info-contaner .area {
   margin-top: 1.5rem;
@@ -488,6 +498,7 @@ html {
   font-size: 1.5rem;
   font-stretch: condensed;
   vertical-align: middle;
+  line-height: 4rem;
 }
 .user-info-contaner .area .item .user-icon-name {
   line-height: 3rem;
@@ -1049,12 +1060,15 @@ html {
 .user-address .pusher {
   background-color: #eeeeee !important;
   padding-bottom: 4rem !important;
+  height: 100rem;
 }
 .user-address .sidebar {
   width: 100% !important;
 }
 .user-address .add-address-sidebar {
   width: 100%;
+  min-height: 100%;
+  z-index: 9999;
 }
 .user-address .add-address-sidebar .add-container {
   background-color: #ffffff;
@@ -1106,6 +1120,7 @@ html {
 .user-address .address-container .address-item {
   padding-top: 1rem;
   margin-bottom: 1rem;
+  line-height: 4rem;
 }
 .user-address .address-container .address-item .remove-div {
   -webkit-transition: width 0.5s ease-in-out 0s;

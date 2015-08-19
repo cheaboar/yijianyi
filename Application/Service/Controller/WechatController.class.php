@@ -505,8 +505,7 @@ class WechatController extends Controller {
 
     public function my_address(){
         $this->need_login();
-//        layout('Layout/layout');
-//        $this->display('my_address');
+
         layout('Layout/new_layout');
 
         $user_id = $this->user_id();
