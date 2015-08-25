@@ -117,7 +117,7 @@ html.ios body {
 
 
   .service-sub-container{
-    padding-top: 1rem;
+    padding-top: 2rem;
 //    min-height: 100%;
     width: 100%;
     display: none;
@@ -221,13 +221,32 @@ html.ios body {
 
 
 }
+.on-right-order-detail-container{
+  .no-right-access{
+    margin-top: 1rem;
+    background-color: #ffffff;
+    font-size: 2rem;
+    line-height: 6rem;
+    vertical-align: middle;
+    text-align: center;
+    color: @second-text-color;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
 
+    .home-btn{
+      margin:auto;
+      color:@btn-color;
+      background-color: @primary_color;
+    }
+  }
+}
 .order-detail-container {
   background-color: @background-color;
   color: @main-text-color;
   min-height: 100%;
   line-height: 2rem;
   padding: 2rem 2.5%;
+
   .teal{
     color: @primary_color;
   }
@@ -293,6 +312,10 @@ html.ios body {
           .payment-btn{
             background-color: @status-color;
             color: @btn-color;
+            &:active{
+              background-color: @danger-color;
+              color:@primary_color;
+            }
           }
         }
       }
@@ -1047,7 +1070,7 @@ html.ios body {
       font-size: 1.8rem;
     }
     .key{
-      font-size: 1rem;
+      font-size: 1.4rem;
     }
     .value{
       color:@main-text-color;
@@ -1059,14 +1082,16 @@ html.ios body {
 
     .risk-area{
       padding-left: 1rem;
-      line-height: 2rem;
+      line-height: 4rem;
       .risk-area-item{
         .risk-title{
-          font-size: 1rem;
+          font-size: 1.3rem;
         }
         .risk-info{
-          font-size: .8rem;
+          color:@main-text-color;
+          font-size: 1.3rem;
           padding-left: 1rem;
+          text-align: right;
         }
       }
     }
@@ -1328,7 +1353,7 @@ html.ios body {
     padding-right: 2rem;
     padding-bottom: 2rem;
     background-color: #ffffff;
-    font-size: 1.3rem;
+    font-size: 1.8rem;
     line-height: 3rem;
     vertical-align: middle;
     color:@second-text-color;
@@ -1369,7 +1394,7 @@ html.ios body {
       margin-left: auto;
       margin-right: auto;
       .comment-content{
-        font-size: 1rem;
+        font-size: 1.5rem;
         padding-left: 2rem;
         color:@second-text-color;
       }
@@ -1605,9 +1630,11 @@ html.ios body {
         padding-top: 1rem;
         padding-bottom: 1rem;
         .item-key{
+          font-size: 1.5rem;
           color:@second-text-color;
         }
         .item-value{
+          font-size: 1.8rem;
           color:@main-text-color;
         }
       }
@@ -1631,7 +1658,7 @@ html.ios body {
 
     .text{
       margin-top: 2rem;
-      font-size: 1rem;
+      font-size: 1.5rem;
       textarea{
         width: 100%;
         height: 10rem;

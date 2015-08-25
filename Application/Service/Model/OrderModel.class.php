@@ -42,7 +42,7 @@ class OrderModel extends Model
         return $order_detail;
     }
 
-    //获取订单的细节
+    //获取订单的细节,需要验证
     public function get_order_detail($order_id, $user_id)
     {
         $customerM = new Customer();
@@ -57,6 +57,8 @@ class OrderModel extends Model
             $customer = $customerM->get_customer($order_detail['customer_id']);
 
             $order_detail['customer_detail'] = $customer;
+        }else{
+            return false;
         }
 
         $order_detail = $this->format_order_detail($order_detail);
@@ -64,6 +66,33 @@ class OrderModel extends Model
 
         return $order_detail;
     }
+
+    /*
+     * 获取订单详情，不需要user_id验证
+     * */
+    public function get_order_detail_new($order_id)
+    {
+        $customerM = new Customer();
+        $condition = array(
+            'order_id' => $order_id,
+        );
+        $order_detail = $this->where($condition)->find();
+
+        if (!empty($order_detail)) {
+            //获取病人信息
+            $customer = $customerM->get_customer($order_detail['customer_id']);
+
+            $order_detail['customer_detail'] = $customer;
+        }else{
+            return false;
+        }
+
+        $order_detail = $this->format_order_detail($order_detail);
+
+
+        return $order_detail;
+    }
+
 
     //获取客户的所有订单,返回order_id列表
     public function get_customer_orders($customer_id)
@@ -150,23 +179,24 @@ class OrderModel extends Model
         $total_cost = $fees['order_total_cost'];
         $end_payment = $advance_payment + $fee;
 
-        if($end_payment < $total_cost){
-            //只更新预付款
-            $data = array(
-                'order_advance_payment' => $end_payment,
-            );
 
-            $this->where($condition)->save($data);
-        }else{
+//        if($end_payment < $total_cost){
+            //只更新预付款
+//            $data = array(
+//                'order_advance_payment' => $end_payment,
+//            );
+
+//            $this->where($condition)->save($data);
+//        }else{
             //更新预付款并且更行订单状态
             $status_r = C('ORDER.STATUS_R');
             $data = array(
                 'order_advance_payment' => $end_payment,
-                'order_status' => $status_r['已完成']
+                'order_status' => 4
             );
 
             $this->where($condition)->save($data);
-        }
+//        }
     }
 
     /*

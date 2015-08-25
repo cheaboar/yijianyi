@@ -9,6 +9,7 @@
 namespace Service\Model;
 use Think\Model;
 use Service\Model\OrderModel;
+use Service\Model\WorkerOrderModel;
 
 class OrderCollectionModel extends Model{
     protected $tableName = 'oa_order_collection';
@@ -44,7 +45,7 @@ class OrderCollectionModel extends Model{
     }
 
     //标志订单为支付了,并且更新order的收款选项
-    public function set_collection_paid($collection_id, $out_trade_no, $total_fee){
+    public function set_collection_paid($collection_id, $out_trade_no, $total_fee, $openid){
         $condition = array(
             'collection_id' => $collection_id,
             'out_trade_no' => $out_trade_no,
@@ -84,6 +85,22 @@ class OrderCollectionModel extends Model{
             //TODO:结算，改变订单转态
             $this->where($condition)->save($data);
             $orderM->pay_for_order($collection['order_id'], $total_fee);
+
+            //获取订单信息
+            $workerOrderM = new WorkerOrderModel();
+            $orderInfo = $workerOrderM->get_worker_order($collection['order_id']);
+            $templateUrl = 'http://subcribe.ecare-easy.com/Service/wechat/service_evaluation?worker_id='.$orderInfo['worker_id'].'&order_id='.$orderInfo['order_id'];
+
+            $orderDetail = $orderM->get_order_detail_new($collection['order_id']);
+
+            //发送template通知
+            $data = array(
+                'first' => '您好，您的服务订单已完成。请您对我们的服务作出评价。',
+                'keyword1' => $orderDetail['service_type'].'\n客户名称：'.$orderDetail['customer_detail']['customer_name'].'\n护工名字：'.$orderInfo['worker_name'],
+                'keyword2' => date('Y-m-d H:i:s', time()),
+                'remark' => '感谢您的支持，我们将会做得更好，提供更优质地服务!'
+            );
+            templateSend($openid, 'In11qPyTxu9yapDLbIwx_hSQL2bIMHlPJOEQidmN2FU', $templateUrl, $data);
         }
 
 

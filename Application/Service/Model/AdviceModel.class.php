@@ -21,7 +21,8 @@ class AdviceModel extends  Model{
     function add_advice($user_id, $advice){
         $data = array(
             'user_id' => $user_id,
-            'advice' => $advice
+            'advice' => $advice,
+            'create_time' => time()
         );
 
         $this->add($data);

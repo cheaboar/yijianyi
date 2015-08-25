@@ -195,6 +195,11 @@ return array(
         'SECRET' => 'f52a587fefed285df9244f310eee8a34',
     ),
 
+    'MERCHANT' => array(
+         'MCHID' => '1244739002',
+	     'KEY' => 'e10adc3949ba59abbe56e057f20f883e',
+    ),
+
 
     'URL_ROUTE_RULES' =>array(
 //        'service_info' => 'Service/Index/service_info'

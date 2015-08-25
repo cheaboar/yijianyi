@@ -181,7 +181,7 @@ html.ios body {
   background: #eeeeee;
 }
 .service-container .service-sub-container {
-  padding-top: 1rem;
+  padding-top: 2rem;
   width: 100%;
   display: none;
 }
@@ -263,6 +263,22 @@ html.ios body {
 .service-container .front {
   display: inherit;
 }
+.on-right-order-detail-container .no-right-access {
+  margin-top: 1rem;
+  background-color: #ffffff;
+  font-size: 2rem;
+  line-height: 6rem;
+  vertical-align: middle;
+  text-align: center;
+  color: rgba(0, 0, 0, 0.5);
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+}
+.on-right-order-detail-container .no-right-access .home-btn {
+  margin: auto;
+  color: rgba(255, 255, 255, 0.87);
+  background-color: #5dd486;
+}
 .order-detail-container {
   background-color: #eeeeee;
   color: rgba(0, 0, 0, 0.7);
@@ -331,6 +347,10 @@ html.ios body {
 .order-detail-container .order-payment-history .order-payment-list .payment-info .payment-btn-item .payment-btn {
   background-color: #ff5724;
   color: rgba(255, 255, 255, 0.87);
+}
+.order-detail-container .order-payment-history .order-payment-list .payment-info .payment-btn-item .payment-btn:active {
+  background-color: #f44336;
+  color: #5dd486;
 }
 .order-detail-bottom {
   text-align: right;
@@ -984,7 +1004,7 @@ html.ios body {
   font-size: 1.8rem;
 }
 .health-management .info-container .key {
-  font-size: 1rem;
+  font-size: 1.4rem;
 }
 .health-management .info-container .value {
   color: rgba(0, 0, 0, 0.7);
@@ -995,14 +1015,16 @@ html.ios body {
 }
 .health-management .info-container .risk-area {
   padding-left: 1rem;
-  line-height: 2rem;
+  line-height: 4rem;
 }
 .health-management .info-container .risk-area .risk-area-item .risk-title {
-  font-size: 1rem;
+  font-size: 1.3rem;
 }
 .health-management .info-container .risk-area .risk-area-item .risk-info {
-  font-size: .8rem;
+  color: rgba(0, 0, 0, 0.7);
+  font-size: 1.3rem;
   padding-left: 1rem;
+  text-align: right;
 }
 .health-management .user-follow {
   padding: 1rem 2rem;
@@ -1237,7 +1259,7 @@ html.ios body {
   padding-right: 2rem;
   padding-bottom: 2rem;
   background-color: #ffffff;
-  font-size: 1.3rem;
+  font-size: 1.8rem;
   line-height: 3rem;
   vertical-align: middle;
   color: rgba(0, 0, 0, 0.5);
@@ -1269,7 +1291,7 @@ html.ios body {
   margin-right: auto;
 }
 .evaluation-container-body .evaluation-container .comment-text .comment-content {
-  font-size: 1rem;
+  font-size: 1.5rem;
   padding-left: 2rem;
   color: rgba(0, 0, 0, 0.5);
 }
@@ -1481,9 +1503,11 @@ html.ios body {
   padding-bottom: 1rem;
 }
 .appointment .user-info .list-info .list-item .item-key {
+  font-size: 1.5rem;
   color: rgba(0, 0, 0, 0.5);
 }
 .appointment .user-info .list-info .list-item .item-value {
+  font-size: 1.8rem;
   color: rgba(0, 0, 0, 0.7);
 }
 .advice-container .text-area {
@@ -1500,7 +1524,7 @@ html.ios body {
 }
 .advice-container .text-area .text {
   margin-top: 2rem;
-  font-size: 1rem;
+  font-size: 1.5rem;
 }
 .advice-container .text-area .text textarea {
   width: 100%;

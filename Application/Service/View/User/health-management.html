@@ -80,11 +80,7 @@
         <div class="col-xs-6 value">{$customer.customer_state}</div>
     </div>
 
-    <div class="divider"></div>
-    <div class="row">
-        <div class="col-xs-6 key">服务级别</div>
-        <div class="col-xs-6 value">{$customer.customer_service_level_str}</div>
-    </div>
+
     <div class="divider"></div>
     <div class="row">
         <div class="col-xs-6 key">自理能力</div>
@@ -94,32 +90,37 @@
     <div class="row">
         <div class="col-xs-12">风险因素</div>
     </div>
-    <div class="risk-area">
-        <div class="risk-area-item">
-            <div class="risk-title">心脑血管</div>
-            <div class="risk-info">{$customer.customer_risk_xnxg}</div>
+    <div class="risk-area container-fluid">
+        <div class="risk-area-item row">
+            <div class="risk-title col-xs-4">心脑血管</div>
+            <div class="risk-info col-xs-8">{$customer.customer_risk_xnxg}</div>
         </div>
-        <div class="risk-area-item">
-            <div class="risk-title">呼吸系统</div>
-            <div class="risk-info">{$customer.customer_risk_hxxt}</div>
+        <div class="risk-area-item row">
+            <div class="risk-title col-xs-4">呼吸系统</div>
+            <div class="risk-info col-xs-8">{$customer.customer_risk_hxxt}</div>
         </div>
-        <div class="risk-area-item">
-            <div class="risk-title">消化系统</div>
-            <div class="risk-info">{$customer.customer_risk_xhxt}</div>
+        <div class="risk-area-item row">
+            <div class="risk-title col-xs-4">消化系统</div>
+            <div class="risk-info col-xs-8">{$customer.customer_risk_xhxt}</div>
         </div>
-        <div class="risk-area-item">
-            <div class="risk-title">神经系统</div>
-            <div class="risk-info">{$customer.customer_risk_sjxt}</div>
+        <div class="risk-area-item row">
+            <div class="risk-title col-xs-4">神经系统</div>
+            <div class="risk-info col-xs-8">{$customer.customer_risk_sjxt}</div>
         </div>
-        <div class="risk-area-item">
-            <div class="risk-title">其他问题</div>
-            <div class="risk-info">{$customer.customer_risk_other}</div>
+        <div class="risk-area-item row">
+            <div class="risk-title col-xs-4">其他问题</div>
+            <div class="risk-info col-xs-8">{$customer.customer_risk_other}</div>
         </div>
+
+        <!--<div class="divider"></div>-->
 
     </div>
-
 </div>
 <div class="user-follow info-container container-fluid">
+    <div class="row">
+        <div class="col-xs-6 key">服务级别</div>
+        <div class="col-xs-6 value">{$customer.customer_service_level_str}</div>
+    </div>
     <!--<a href="">-->
         <!--<div class="row">-->
             <!--<div class="col-xs-6 ">关注我的用户</div>-->

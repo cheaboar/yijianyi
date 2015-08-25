@@ -38,6 +38,7 @@ use Overtrue\Wechat\Server;
 use Overtrue\Wechat\Auth;
 use Overtrue\Wechat\Js;
 use Overtrue\Wechat\Utils\XML;
+use Overtrue\Wechat\Payment\Notify;
 
 require LIB_PATH.'Org/Util/wechat-master/autoload.php';
 require_once LIB_PATH."Org/Util/WxpayAPI_php_v3/lib/WxPay.Data.php";
@@ -607,8 +608,13 @@ class WechatController extends Controller {
     }
 
     public function test(){
-        dump($this->user_address->get_address_string(18));
-        dump($this->user_address->get_address(18));
+        $data = array(
+            'first' => '您好，您的服务订单已完成。请您对我们的服务作出评价。',
+            'keyword1' => 'dds',
+            'keyword2' => date('Y-m-d H:i:s', time()),
+            'remark' => '感谢您的支持，我们将会做得更好，提供更优质地服务!'
+        );
+        templateSend('o2DIYuBqdKzF316FXZxZZc2tjsM0', 'In11qPyTxu9yapDLbIwx_hSQL2bIMHlPJOEQidmN2FU', '', $data);
 //        dump($this->service_appointment->get_my_appointments(103));
 
         layout('Layout/layout');
@@ -829,16 +835,23 @@ class WechatController extends Controller {
     //关注的订单详情
     public function order_detail(){
         $this->need_login();
+        $this->assign('title', '订单');
+
         $order_id = $_GET['order_id'];
         $orderM = new OrderModel();
         $user_id = $this->user_id();
+        //如果user_id跟order里面的user_id不相同，怎返回空
         $order_detail = $orderM->get_order_detail($order_id, $user_id);
 
 
+        if(empty($order_detail)){
+            layout('Layout/new_layout');
+            $this->display('Order:no_right_watch_order');
+        }
         $this->assign('order', $order_detail);
-        $this->assign('title', '订单');
         $this->display('Order:order_detail');
     }
+
 
 
     //我关注的订单
@@ -908,39 +921,47 @@ class WechatController extends Controller {
         $this->need_login();
         //此处除了需要验证登录外还需要确认user_id
         $order_id = $_GET['order_id'];
+        $this->assign('title', '订单');
+
         $orderM = new OrderModel();
         $user_id = $this->user_id();
         $order_detail = $orderM->get_order_detail($order_id, $user_id);
 
-        //获取护工指派
-        $workerOrderM = new WorkerOrderModel();
+        if(empty($order_detail)){
+            layout('Layout/new_layout');
+            $this->display('Order:no_right_watch_order');
+        }else{
+            //获取护工指派
+            $workerOrderM = new WorkerOrderModel();
 
-        $workerOrderInfo = $workerOrderM->get_worker_order($order_id);
-        $workerOrderInfo['start_time_str'] = time_stamp_to_str('Y-m-d H:i:s', $workerOrderInfo['start_time']);
-        $workerOrderInfo['end_time_str'] = time_stamp_to_str('Y-m-d H:i:s', $workerOrderInfo['end_time']);
+            $workerOrderInfo = $workerOrderM->get_worker_order($order_id);
+            $workerOrderInfo['start_time_str'] = time_stamp_to_str('Y-m-d H:i:s', $workerOrderInfo['start_time']);
+            $workerOrderInfo['end_time_str'] = time_stamp_to_str('Y-m-d H:i:s', $workerOrderInfo['end_time']);
 
-        $this->assign('worker', $workerOrderInfo);
+            $this->assign('worker', $workerOrderInfo);
 
-        //获取支付列表
-        $collectionM = new OrderCollectionModel();
-        $paymet_list_temp = $collectionM->get_order_payment($order_id);
+            //获取支付列表
+            $collectionM = new OrderCollectionModel();
+            $paymet_list_temp = $collectionM->get_order_payment($order_id);
 
-        $paymet_list = array();
+            $paymet_list = array();
 
 
-        foreach($paymet_list_temp as $collection){
-            $item = parse_order_collection($collection);
-            $paymet_list[] = $item;
+            foreach($paymet_list_temp as $collection){
+                $item = parse_order_collection($collection);
+                $paymet_list[] = $item;
+            }
+
+
+
+            //预处理一下支付列表，使用公共函数，因为其他地方有可能会使用到
+            $this->assign('payments', $paymet_list);
+            $this->assign('order', $order_detail);
+            layout('Layout/new_layout');
+            $this->display('Order:my_order_detail');
         }
 
 
-
-        //预处理一下支付列表，使用公共函数，因为其他地方有可能会使用到
-        $this->assign('payments', $paymet_list);
-        $this->assign('order', $order_detail);
-        $this->assign('title', '订单');
-        layout('Layout/new_layout');
-        $this->display('Order:my_order_detail');
     }
 
     //获取collection的支付验证
@@ -968,7 +989,13 @@ class WechatController extends Controller {
         //生成验证信息并以json的形式返回
         //获取服务预约名称
         $body = $collectionM->get_service_type_str($collection_id);
-        $paySignInfo = get_pay_sign_info($body, 1, $out_trade_no, $openId, $attach);
+//        $paySignInfo = null;
+//        if($openId == 'o2DIYuBqdKzF316FXZxZZc2tjsM0'){
+            //测试使用
+            $paySignInfo = get_pay_sign_info($body, 1, $out_trade_no, $openId, $attach);
+//        }else{
+//            $paySignInfo = get_pay_sign_info($body, $collection_fee, $out_trade_no, $openId, $attach);
+//        }
         Log::write($paySignInfo['paySign'], 'INFO');
         $this->ajaxReturn($paySignInfo);
 
@@ -1131,10 +1158,29 @@ class WechatController extends Controller {
         $total_fee = $postArr['total_fee'] /100;
         $result_code = $postArr['result_code'];
 
+//        $appid = C('SERVICE.APPID');
+//        $secret = C('SERVICE.SECRET');
+//        $mchid = C('MERCHANT.MCHID');
+//        $key = C('MERCHANT.KEY');
+//        $notify = new Notify(
+//            $appid,
+//            $secret,
+//            $mchid,
+//            $key
+//        );
+
+//        $transaction = $notify->verify();
+
+//        if (!$transaction) {
+//            $notify->reply('FAIL', 'verify transaction error');
+//        }
+
+//        var_dump($transaction);
+
         if($result_code == 'SUCCESS'){
             //更新数据库
             $collectionM = new OrderCollectionModel();
-            $collectionM->set_collection_paid($collection_id, $out_trade_no, $total_fee);
+            $collectionM->set_collection_paid($collection_id, $out_trade_no, $total_fee, $postArr['openid']);
         }
 
         //返回给服务器，表示已经处理
@@ -1146,6 +1192,7 @@ class WechatController extends Controller {
         $return_data_xml = XML::build($return_data);
 
         echo $return_data_xml;
+//        $notify->reply();
 
     }
 
