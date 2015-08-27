@@ -10,6 +10,7 @@ namespace Service\Model;
 use Think\Model;
 use Service\Model\AreasModel;
 
+
 class UserModel extends Model {
     protected $tablePrefix = '';
     protected $tableName = 'oa_user';
@@ -18,17 +19,9 @@ class UserModel extends Model {
     //不能匹配相同的，否则不返回，只能返回时的映射，不能用直接用于查询。
     protected $_map = array(
         'id' => 'user_id',
-//        'nick_name' => 'user_nickname',
-//        'login_name' => 'wechat_name',
-//        'password' => 'password',
-//        'email' => 'email',
-//        'wechat_name' => 'wechat_name',
-//        'wechat_openid' => 'wechat_openid',
-//        'wechat_head_image' => 'user_icon',
         'phone' => 'user_phone',
         'sex' => 'user_sex',
         'wechat_openid' => 'user_weixin',
-//        'head_image' => 'head_image'
       );
 
     //更新数据库
@@ -78,29 +71,12 @@ class UserModel extends Model {
 
         $area = new AreasModel();
 
-//        $data = array(
-////            'wechat_name' => $user['nickname'],
-//            'user_nickname' => $user['nickname'],
-//            'wechat_head_image' => $user['headimgurl'],
-//            'user_icon' => $user['headimgurl'],
-//            'wechat_openid' => $user['openid'],
-//            'user_weixin' => $user['openid'],
-//            'user_sex' => $user['sex'],
-//            'user_province' => $area->get_area_id($user['province']),
-//            'user_city' => $area->get_area_id($user['city']),
-//            'user_country' => $user['country'],
-//            'wechat_privilege' => $user['privilege'],
-//            'wechat_unionid' => $user['unionid'],
-//            'user_last_visit_time' => time()
-//
-//        );
-
         $user_in_db = $this->where($condition)->find();
 
         if(empty($user_in_db)){
             //创建新用户
             $data = array(
-//            'wechat_name' => $user['nickname'],
+                'user_name' => $user['nickname'],
                 'user_nickname' => $user['nickname'],
 //                'wechat_head_image' => $user['headimgurl'],
                 'user_icon' => $user['headimgurl'],
@@ -168,7 +144,63 @@ class UserModel extends Model {
         return $result;
     }
 
+    //将微信用户号码绑定如果系统有原来的号码，则将原来的信息保存，微信账户删除，删除之前应该把涉及到的user_id的表给更新一下
+    //TODO:长久的TODO，因为用户表设计的缺陷导致的在合并用户信息的时候需要更新相关的表。
+    private function user_merge($persist_user_id, $delete_user_id){
+
+        $model = new Model();
+
+        $update_sql = array(
+            'oa_address' => 'user_id',
+            'oa_advice' => 'user_id',
+            'oa_coupon' => 'user_id',
+            'oa_evaluate' => 'user_id',
+            'oa_follow' => 'user_id',
+            'oa_order' => 'user_id',
+            'yjy_service_appointment' => 'user_id',
+        );
+
+        foreach($update_sql as $key => $value){
+            $sql = 'update '.$key.' set '.$value. '=' .$persist_user_id. ' where '.$value .'='.$delete_user_id;
+            $model->execute($sql);
+        }
+
+
+    }
+
+    //需要判断数据库中是否已经有此手机号码了，如果有，则将用户合并用户
     public function update_phone($user_id, $phone){
+        $condition = array(
+            'user_phone' => $phone
+        );
+
+        $temp_user = $this->where($condition)->find();
+
+        if(!empty($temp_user)){
+            //如果号码存在，那么微信用户信息要更新到原有的用户中，并将微信账户的信息删除，变化部分应该封装起来
+            //将微信信息更新到原有用户中去
+            $new_condition = array(
+                'user_id' => $user_id,
+            );
+
+            $wechat_user_data = $this->where($new_condition)->getField('user_id, user_icon, user_nickname, user_weixin');
+            $wechat_user_data = $wechat_user_data[$user_id];
+            $update_data = array(
+                'user_icon' => $wechat_user_data['user_icon'],
+                'user_weixin' => $wechat_user_data['user_weixin'],
+                'user_nickname' => $wechat_user_data['user_nickname'],
+            );
+            $this->where($condition)->save($update_data);
+            //封装变化
+            $this->user_merge($temp_user['id'], $user_id);
+
+            //删除微信账户信息
+            $this->where($new_condition)->delete();
+
+            //更新session
+            session('login', $temp_user['id']);
+        }
+
         $this->where('user_id='.$user_id)->save(array(
             user_phone => $phone
         ));

@@ -7,11 +7,11 @@ use Service\Model\AddressModel;
 use Service\Model\OrderCollectionModel;
 use Think\Controller;
 use Think\Crypt\Driver\Think;
-use Service\Model\ServiceInfoModel;
+//use Service\Model\ServiceInfoModel;
 use Service\Model\CouponModel;
 use Service\Model\FollowModel;
 use Service\Model\Customer;
-use Service\Model\UserAddressModel;
+//use Service\Model\UserAddressModel;
 use Service\Model\AdviceModel;
 use Service\Model\UserModel;
 use Service\Model\AreasModel;
@@ -57,9 +57,9 @@ class WechatController extends Controller {
 
     public function __construct(){
         parent::__construct();
-        $this->service_info = new ServiceInfoModel();
+//        $this->service_info = new ServiceInfoModel();
         $this->user = new UserModel();
-        $this->user_address = new UserAddressModel();
+//        $this->user_address = new UserAddressModel();
         $this->service_appointment = new ServiceAppointmentModel();
         $this->areas = new AreasModel();
         $this->address = new AddressModel();
@@ -127,67 +127,67 @@ class WechatController extends Controller {
         layout('Layout/layout_home');
         $title = '一家依服务平台';
 
-        $result = $this->service_info->order('priority')->select();
+//        $result = $this->service_info->order('priority')->select();
 //        dump($result);
-        $this->assign('services', $result);
+//        $this->assign('services', $result);
         $this->assign('title', $title);
         $this->display('index');
     }
 
-    public function service_detail(){
-        layout('Layout/layout');
-        $id = $_GET['id'];
-        $service = $this->service_info->where('id='.$id)->find();
-        $this->assign('service_id', $id);
-        if($service['type'] >= 1000 and $service['type'] < 2000){
-            layout('Layout/layout');
-            $title = '月嫂服务详情';
-            $this->assign('title', $title);
-            $this->assign('main_image', $service['main_image']);
-            $this->assign('max_price', $service['price_per_unit_max']);
-            $this->assign('min_price', $service['price_per_unit_min']);
-            $this->display('babysitter');
-        }elseif($service['type'] >= 2000 and $service['type'] < 3000){
-            $title = '服务详情';
-            $service_name = '';
-            $this->assign('title', $title);
-            $this->assign('service_name', $service['name']);
-            $this->assign('service_id', $id);
-            $this->display('nurse_detail');
-        
-        }elseif($service['type'] >= 3000 and $service['type'] < 4000){
-            $title = '服务详情';
-            $service_name = '';
-            $this->assign('title', $title);
-            $this->assign('service_name', $service['name']);
-            $this->assign('service_id', $id);
-            $this->display('hospital_nurse_detail');
-        }
+//    public function service_detail(){
+//        layout('Layout/layout');
+//        $id = $_GET['id'];
+//        $service = $this->service_info->where('id='.$id)->find();
+//        $this->assign('service_id', $id);
+//        if($service['type'] >= 1000 and $service['type'] < 2000){
+//            layout('Layout/layout');
+//            $title = '月嫂服务详情';
+//            $this->assign('title', $title);
+//            $this->assign('main_image', $service['main_image']);
+//            $this->assign('max_price', $service['price_per_unit_max']);
+//            $this->assign('min_price', $service['price_per_unit_min']);
+//            $this->display('babysitter');
+//        }elseif($service['type'] >= 2000 and $service['type'] < 3000){
+//            $title = '服务详情';
+//            $service_name = '';
+//            $this->assign('title', $title);
+//            $this->assign('service_name', $service['name']);
+//            $this->assign('service_id', $id);
+//            $this->display('nurse_detail');
+//
+//        }elseif($service['type'] >= 3000 and $service['type'] < 4000){
+//            $title = '服务详情';
+//            $service_name = '';
+//            $this->assign('title', $title);
+//            $this->assign('service_name', $service['name']);
+//            $this->assign('service_id', $id);
+//            $this->display('hospital_nurse_detail');
+//        }
 
-    }
+//    }
 
-    public function appointment(){
-//        $user = $this->get_user_info();
-//        $this->need_login();
-        $this->need_bind_phone();
-//        $user_id = $this->user_id($user['openid']);
-//        $this->assign('user_id', $user_id);
-        layout('Layout/layout');
-        $service_id = $_GET['service_id'];
-        $title = '预约服务';
-        $service = $this->service_info->where('id='.$service_id)->find();
-        $service_name = $service['name'];
-        $service_price_per_unit = $service['price_per_unit'];
-        $service_unit = $service['unit'];
-
-        $this->assign('service_name', $service_name);
-        $this->assign('service_price_per_unit', $service_price_per_unit);
-        $this->assign('service_unit', $service_unit);
-        $this->assign('title', $title);
-        $this->assign('service_id', $service_id);
-
-        $this->display('appointment');
-    }
+//    public function appointment(){
+////        $user = $this->get_user_info();
+////        $this->need_login();
+//        $this->need_bind_phone();
+////        $user_id = $this->user_id($user['openid']);
+////        $this->assign('user_id', $user_id);
+//        layout('Layout/layout');
+//        $service_id = $_GET['service_id'];
+//        $title = '预约服务';
+//        $service = $this->service_info->where('id='.$service_id)->find();
+//        $service_name = $service['name'];
+//        $service_price_per_unit = $service['price_per_unit'];
+//        $service_unit = $service['unit'];
+//
+//        $this->assign('service_name', $service_name);
+//        $this->assign('service_price_per_unit', $service_price_per_unit);
+//        $this->assign('service_unit', $service_unit);
+//        $this->assign('title', $title);
+//        $this->assign('service_id', $service_id);
+//
+//        $this->display('appointment');
+//    }
 
     public function address_test(){
         $user_id = $this->user_id();
@@ -302,6 +302,10 @@ class WechatController extends Controller {
     }
 
     private function user_id(){
+        return session('login');
+    }
+
+    private function get_user_id(){
         return session('login');
     }
 
@@ -527,7 +531,7 @@ class WechatController extends Controller {
 //        $this->user_address->where('id='.$_GET['id'] .' AND user_id='.$user_id)->save($data);
         $this->address->delete_address($_GET['id']);
         $result = array();
-        if($this->user_address->getDbError() == ''){
+        if($this->address->getDbError() == ''){
              $result = array(
                 'code' => 200,
                 'id' => $_GET['id']
@@ -620,6 +624,8 @@ class WechatController extends Controller {
         layout('Layout/layout');
         $this->display('test');
     }
+
+
 
 
     public function my_coupon(){
