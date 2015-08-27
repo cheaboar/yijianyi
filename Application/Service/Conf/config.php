@@ -5,7 +5,7 @@ return array(
 	//数据库连接
 	'DB_TYPE'   => 'mysql', // 数据库类型
 	'DB_HOST'   => 'yijianyi.mysql.rds.aliyuncs.com', // 服务器地址
-	'DB_NAME'   => 'yijiayi', // 数据库名
+	'DB_NAME'   => 'yijianyi', // 数据库名
 	'DB_USER'   => 'yijianyi', // 用户名
 	'DB_PWD'    => 'yijianyi2015', // 密码
 	'DB_PORT'   => 3306, // 端口
