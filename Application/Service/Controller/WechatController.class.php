@@ -1029,7 +1029,13 @@ class WechatController extends Controller {
 
         //获取所有的省份
         $provinces = $this->areas->get_provinces();
-
+        $show_phone = $_GET['show_phone'];
+        if($show_phone == 1){
+            $show_phone = 'true';
+        }else{
+            $show_phone = 'false';
+        }
+        $this->assign('show_phone', $show_phone);
         $this->assign('provinces', $provinces);
 
 //        $app_id = C('SERVICE.APPID');

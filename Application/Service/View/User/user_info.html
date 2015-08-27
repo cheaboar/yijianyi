@@ -196,6 +196,10 @@
 
 <script>
 
+    if({$show_phone} == true){
+        $('#phone-sidebar').sidebar('show');
+    }
+
     $('#name-sidebar-btn').on('click', function(){
         $('#name-sidebar').sidebar('toggle');
     })
@@ -203,6 +207,7 @@
     $('#phone-sidebar-btn').on('click', function(){
         $('#phone-sidebar').sidebar('toggle');
     })
+
 
     $('#area-sidebar-btn').on('click', function(){
         $('#province-sidebar').sidebar('toggle');
