@@ -21,7 +21,7 @@ class UserModel extends Model {
         'id' => 'user_id',
         'phone' => 'user_phone',
         'sex' => 'user_sex',
-        'wechat_openid' => 'user_weixin',
+//        'wechat_openid' => 'user_weixin',
       );
 
     //更新数据库
@@ -183,11 +183,12 @@ class UserModel extends Model {
                 'user_id' => $user_id,
             );
 
-            $wechat_user_data = $this->where($new_condition)->getField('user_id, user_icon, user_nickname, user_weixin');
+            $wechat_user_data = $this->where($new_condition)->getField('user_id, user_icon, user_nickname, user_weixin, wechat_openid');
             $wechat_user_data = $wechat_user_data[$user_id];
             $update_data = array(
                 'user_icon' => $wechat_user_data['user_icon'],
                 'user_weixin' => $wechat_user_data['user_weixin'],
+                'wechat_openid' => $wechat_user_data['wechat_openid'],
                 'user_nickname' => $wechat_user_data['user_nickname'],
             );
             $this->where($condition)->save($update_data);

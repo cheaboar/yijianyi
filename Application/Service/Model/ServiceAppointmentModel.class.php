@@ -95,6 +95,39 @@ class ServiceAppointmentModel extends Model{
         $id = $this->add($data);
         return $id;
     }
+    /*
+     * 添加居家服务预约
+     * 返回新怎的id
+     * */
+    public function add_hospital_address($user_id, $hospital_id, $department_id, $other_address, $name, $phone, $service_type){
+        $data = array(
+            'user_id'       => $user_id,
+            'name'          => $name,
+            'phone'         => $phone,
+            'service_type'  => $service_type,
+            'state'         => 1000,
+            'create_time'   => time(),
+        );
+        if(empty($hospital_id)){
+            //没有选中医院
+            $temp_array = array(
+                'other_address' => $other_address
+            );
+            $data = array_merge($data, $temp_array);
+
+        }else{
+            //选中医院
+            $temp_array = array(
+                'hospital_id' => $hospital_id,
+                'department_id' => $department_id
+            );
+            $data =  array_merge($data, $temp_array);
+        }
+
+
+        $id = $this->add($data);
+        return $id;
+    }
 
     /*
      * 获取预约细节
@@ -109,7 +142,9 @@ class ServiceAppointmentModel extends Model{
             ->join('oa_areas as a1 on address.province = a1.area_id', 'LEFT')
             ->join('oa_areas as a2 on address.city = a2.area_id', 'LEFT')
             ->join('oa_areas as a3 on address.area = a3.area_id', 'LEFT')
-            ->where($condition)->getField('appointment.*, a1.area_name as provinceName, a2.area_name as cityName, a3.area_name as areaName, address.address as stree');
+            ->join('oa_hospital as h1 on appointment.hospital_id = h1.wb_id', 'LEFT')
+            ->join('oa_hospital as h2 on appointment.department_id = h2.wb_id', 'LEFT')
+            ->where($condition)->getField('appointment.*, h1.stationary_name as hospitalName, h2.stationary_name as departmentName, a1.area_name as provinceName, a2.area_name as cityName, a3.area_name as areaName, address.address as stree');
 
         return $result[$appointment_id];
     }

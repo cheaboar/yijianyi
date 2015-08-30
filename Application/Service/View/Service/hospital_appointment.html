@@ -1,0 +1,361 @@
+<head>
+    <link rel="stylesheet" href="__STATIC__/css/fancySelect.css"/>
+    <script type="text/javascript" src="__STATIC__/js/jquery.min.js"></script>
+    <script type="text/javascript" src="__STATIC__/js/fancySelect.js"></script>
+    <script type="text/javascript" src="__STATIC__/js/service.js"></script>
+
+</head>
+<body class="appointment">
+<include file="Public:title_header" href="javascript:window.history.go(-1)" title="预约服务"/>
+
+<div class="appointment-info">
+    <div class="service-name">
+        服务预约：{$service_type_str}
+    </div>
+    <div class="info">
+        温馨提示：预约服务后工作人员将在1-2个工作日联系您了解详情，请耐心等候
+    </div>
+</div>
+
+<div class="user-info">
+    <form>
+        <div class="form-group">
+            <label for="contact_name">联系人</label>
+            <input type="text" class="form-control" id="contact_name" placeholder="联系人姓名">
+        </div>
+        <div class="form-group">
+            <label for="contact_phone">手机</label>
+            <input type="text" class="form-control" id="contact_phone" placeholder="联系人手机">
+        </div>
+
+        <div class="form-group">
+            <div class="container-fluid">
+                <div class="row" role="button" data-toggle="collapse" data-parent="#accordion" href="#content" aria-expanded="true" aria-controls="collapseOne">
+                    <div class="col-xs-10 address-title">
+                        <label for="contact_phone">服务地址</label>
+                    </div>
+                    <div class="col-xs-1">
+                        <span class="icon icon-expand_more" id="content-expand-icon"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="selected_address" role="button" data-toggle="collapse" data-parent="#accordion" href="#content" aria-expanded="true" aria-controls="collapseOne">点击选择医院</div>
+
+            <div id="content" class="collapse"  aria-labelledby="headingOne" connect-icon="#content-expand-icon">
+                <div class="collapse-container">
+
+                    <div class="user-address-container">
+                        <div class="address-title-info">选择医院</div>
+                        <div class="address-list">
+                            <volist name="addresses" id="vo">
+                                <div class="address-item" address-id="{$vo.id}">
+                                    {$vo.address}
+                                </div>
+                            </volist>
+                        </div>
+
+                        <!--<div class="add-address-btn-container">-->
+                            <!--<div class="add-address-btn btn">-->
+                                <!--添加新地址-->
+                            <!--</div>-->
+                        <!--</div>-->
+
+                        <div class="add-address-form" style="display: inherit">
+                            <form>
+                                <div class="form-group">
+                                    <label >医院</label>
+                                    <select class="hospitalSelect">
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label >科室</label>
+                                    <select class="departmentSelect">
+
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="address_stree">其他</label>
+                                    <input type="text" class="form-control" id="hospital-others" placeholder="如果上面没有您要预约的医院，可自己填写医院科室">
+                                </div>
+
+                                <div class="add-address-footer container-fluid">
+                                    <div class="row">
+                                        <div class="col-xs-4">
+                                            <div class="btn cancel">取消</div>
+                                        </div>
+                                        <div class="col-xs-4"></div>
+                                        <div class="col-xs-4">
+                                            <div class="btn submit">确定</div>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+
+                            </form>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="submit-container">
+                <div class="submit-btn btn" service-type="{$service_type}">提交预约</div>
+            </div>
+
+            <div class="errer-msg-container">
+                <div class="contact_name_error error-item">联系人不能为空</div>
+                <div class="contact_phone_error error-item">手机号码格式不正确</div>
+                <div class="address_error error-item">还没有选择地址</div>
+            </div>
+        </div>
+
+
+    </form>
+</div>
+</body>
+<script type="application/javascript" src="__STATIC__/js/bootstrap.min.js"></script>
+
+<script>
+    var selected_address_id = 0;
+    $('.collapse').on('hidden.bs.collapse', function(){
+
+        var icon_id = $(this).attr('connect-icon');
+        $(icon_id).removeClass('icon-expand_less').addClass('icon-expand_more');
+    })
+    $('.collapse').on('shown.bs.collapse', function(){
+
+        var icon_id = $(this).attr('connect-icon');
+        $(icon_id).removeClass('icon-expand_more').addClass('icon-expand_less');
+    })
+    $('.address-item').on('click', function(){
+        var address = $(this).html();
+        selected_address_id = $(this).attr('address-id');
+        $('.selected_address').html(address);
+    })
+
+    $('.add-address-btn').on('click', function(){
+        $('.add-address-form').show(500);
+    })
+
+    $('.btn.cancel').on('click', function(){
+        $('.collapse').collapse('hide');
+    })
+
+    //选择医院
+    $('.btn.submit').on('click', function(){
+
+        $('.selected_address').html(selected_hospital);
+        $('.collapse').collapse('hide');
+
+    })
+
+
+    //选择的医院科室
+    var department_id;
+    var hospital_id;
+    var department;
+    var hospital_name;
+    var selected_hospital;
+
+
+    $(function(){
+        var hospitalSelect = $('.hospitalSelect');
+        var departmentSelect = $('.departmentSelect');
+
+        //配置selection
+        hospitalSelect.fancySelect({
+            forceiOS:true,
+            optionTemplate: function(optionEl) {
+                return  optionEl.text();
+            },
+            triggerTemplate: function(optionEl) {
+                return  optionEl.text() + '<span style="display: none" id="' + optionEl.data('id')+'">' + optionEl.data('id') + '</span>';
+            }
+        });
+        departmentSelect.fancySelect({
+            forceiOS:true,
+            optionTemplate: function(optionEl) {
+                return  optionEl.text();
+            },
+            triggerTemplate: function(optionEl) {
+                return  optionEl.text() + '<span style="display: none" id="' + optionEl.data('id')+'">' + optionEl.data('id') + '</span>';
+            }
+        });
+
+
+
+        //激活
+        hospitalSelect.trigger('enable.fs');
+        departmentSelect.trigger('enable.fs');
+
+
+
+        //监听医院选择事件
+        hospitalSelect.fancySelect().on('change.fs', function(e) {
+            $(this).trigger('change.$');
+            //获取选择的area_id
+            var selected_id = $($(e.result[0]).find('span')).attr('id');
+            hospital_name = e.result[0].innerText;
+            selected_hospital = hospital_name;
+            hospital_id = selected_id;
+            $('.address-title-info').html(selected_hospital);
+            //更新城市列表
+            $.ajax({
+                url:'get_hospital_departments',
+                data : {hospital_id:selected_id},
+                dataType:'json',
+                success: function(data, status){
+                    //默认选择第一项
+                    department_id = data[0].wb_id;
+                    department = data[0].stationary_name;
+                    //清除原有的options
+                    departmentSelect.children('option').remove();
+                    //添加新的额options
+                    data.forEach(function(x){
+                        departmentSelect.append('<option data-id="' + x.wb_id + '">' + x.stationary_name+'</option>');
+                    });
+                    //更新
+                    departmentSelect.trigger('update');
+
+
+                }
+            });
+        });
+
+        //监听科室选择事件
+        departmentSelect.fancySelect().on('change.fs', function(e){
+            $(this).trigger('change.$');
+            //获取选择的area_id
+            var selected_id = $($(e.result[0]).find('span')).attr('id');
+            department_id = selected_id;
+            department = e.result[0].innerText;
+            selected_hospital = hospital_name + department;
+            $('.address-title-info').html(selected_hospital);
+
+        });
+
+
+
+        //获取医院,并添加到选择项中
+        $.ajax({
+            url:'get_hospitals',
+            dataType:'json',
+            success: function(data, status){
+                //默认选择了第一项
+                hospital_id = data[0].wb_id;
+                hospital_name = data[0].stationary_name;
+                selected_hospital = hospital_name;
+                $('.address-title-info').html(selected_hospital);
+//                console.log(hospital_id);
+                data.forEach(function(x){
+                    hospitalSelect.append('<option data-id="' + x.wb_id + '">' + x.stationary_name+'</option>');
+                });
+                hospitalSelect.trigger('update');
+
+                //加载科室，更新科室列表
+                $.ajax({
+                    url:'get_hospital_departments',
+                    data : {hospital_id:hospital_id},
+                    dataType:'json',
+                    success: function(data, status){
+                        //默认选择第一项
+                        department_id = data[0].wb_id;
+                        department = data[0].stationary_name;
+                        selected_hospital = hospital_name + department;
+                        $('.address-title-info').html(selected_hospital);
+                        //清除原有的options
+                        departmentSelect.children('option').remove();
+                        //添加新的额options
+                        data.forEach(function(x){
+                            departmentSelect.append('<option data-id="' + x.wb_id + '">' + x.stationary_name+'</option>');
+                        });
+                        //更新
+                        departmentSelect.trigger('update');
+
+
+                    }
+                });
+            }
+        })
+
+//
+
+
+    });
+
+
+    //监听其他的变化
+    $('#hospital-others').change(function(){
+        selected_hospital = $(this).val();
+        department_id = null;
+        hospital_id = null;
+        $('.address-title-info').html(selected_hospital);
+    });
+
+
+    //提交服务
+    $('.submit-btn').on('click', function(){
+        //检查联系人
+        var contact_name = $('#contact_name').val();
+        if(contact_name == ''){
+            //显示错误信息
+            $('.errer-msg-container').show();
+            $('.contact_name_error').show();
+            return;
+        }else{
+            $('.contact_name_error').hide();
+        }
+
+        //检查手机
+        var phone = $('#contact_phone').val();
+        var is_phone = formValid.isPhone(phone);
+        if(!is_phone){
+            $('.errer-msg-container').show();
+            $('.contact_phone_error').show();
+            return;
+        }else{
+            $('.contact_phone_error').hide();
+        }
+        //检查地址
+//        if(selected_address_id == 0){
+//            $('.errer-msg-container').show();
+//            $('.address_error').show();
+//            return;
+//        }else{
+//            $('.address_error').hide();
+//        }
+
+        $('.errer-msg-container').hide();
+
+        var service_type = $(this).attr('service-type');
+        //检查通过，提交预约
+        $(this).html('正在提交预约');
+        $.ajax({
+            url:'add_hospital_appointment',
+            data : {
+                hospital_id     : hospital_id,
+                department_id   : department_id,
+                other_address   : selected_hospital,
+                phone           : phone,
+                name            : contact_name,
+                service_type    : service_type
+            },
+            dataType : 'json',
+            success : function(data, status){
+                if(data.code == 200){
+                    //更新成功，跳转到订单展示页面
+                    window.location.href = 'appointment_detail?appointment_id=' + data.id;
+                }else{
+                    console.log(data);
+                }
+            }
+        })
+
+    })
+
+</script>
+</html>

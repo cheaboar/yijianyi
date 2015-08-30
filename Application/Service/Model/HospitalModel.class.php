@@ -17,7 +17,7 @@ class HospitalModel extends Model
     //��ȡҽԺȫ�ƣ��ݹ����
     function getHospitalById($wb_id){
         $condition = array(
-           'wb_id' => $wb_id
+            'wb_id' => $wb_id
         );
 
         $result = $this->where($condition)->getField('wb_id, stationary_name, parent_id');
@@ -45,5 +45,27 @@ class HospitalModel extends Model
         $stationary_name = $result[$wb_id]['stationary_name'];
 
         return $stationary_name;
+    }
+
+    //返回医院列表
+    function getHospitals(){
+        $condition = array(
+            'parent_id' => 0
+        );
+
+        $result = $this->where($condition)->select();
+
+        return $result;
+    }
+
+    //返回科室
+    function getDepartments($hospital_id){
+        $condition = array(
+            'parent_id' => $hospital_id
+        );
+
+        $result = $this->where($condition)->select();
+
+        return $result;
     }
 }

@@ -3,26 +3,26 @@ namespace Service\Controller;
 
 
 
-use Service\Model\AddressModel;
-use Service\Model\OrderCollectionModel;
+use Service1\Model\AddressModel;
+use Service1\Model\OrderCollectionModel;
 use Think\Controller;
 use Think\Crypt\Driver\Think;
-//use Service\Model\ServiceInfoModel;
-use Service\Model\CouponModel;
-use Service\Model\FollowModel;
-use Service\Model\Customer;
-//use Service\Model\UserAddressModel;
-use Service\Model\AdviceModel;
-use Service\Model\UserModel;
-use Service\Model\AreasModel;
-use Service\Model\WorkerModel;
-use Service\Model\OrderModel;
-use Service\Model\ServiceAppointmentModel;
+//use Service1\Model\ServiceInfoModel;
+use Service1\Model\CouponModel;
+use Service1\Model\FollowModel;
+use Service1\Model\Customer;
+//use Service1\Model\UserAddressModel;
+use Service1\Model\AdviceModel;
+use Service1\Model\UserModel;
+use Service1\Model\AreasModel;
+use Service1\Model\WorkerModel;
+use Service1\Model\OrderModel;
+use Service1\Model\ServiceAppointmentModel;
 use Think\Exception;
 use Org\Util\YunPian;
-use Service\Model\HospitalModel;
-use Service\Model\CommentModel;
-use Service\Model\WorkerOrderModel;
+use Service1\Model\HospitalModel;
+use Service1\Model\CommentModel;
+use Service1\Model\WorkerOrderModel;
 
 use JsSdk;
 use Think\Log;
@@ -532,7 +532,7 @@ class WechatController extends Controller {
         $this->address->delete_address($_GET['id']);
         $result = array();
         if($this->address->getDbError() == ''){
-             $result = array(
+            $result = array(
                 'code' => 200,
                 'id' => $_GET['id']
             );
@@ -571,6 +571,21 @@ class WechatController extends Controller {
         $zones = $this->areas->get_zones($_GET['city_id']);
         $this->ajaxReturn($zones);
     }
+
+    public function get_hospitals(){
+        $hospitalM = new HospitalModel();
+        $hospitals = $hospitalM->getHospitals();
+        $this->ajaxReturn($hospitals);
+    }
+
+    public function get_hospital_departments(){
+        $hospitalM = new HospitalModel();
+        $hosiptial_id = $_GET['hospital_id'];
+        $departments = $hospitalM->getDepartments($hosiptial_id);
+
+        $this->ajaxReturn($departments);
+    }
+
 
     public function save_address(){
         $this->need_login();
@@ -997,8 +1012,8 @@ class WechatController extends Controller {
         $body = $collectionM->get_service_type_str($collection_id);
 //        $paySignInfo = null;
 //        if($openId == 'o2DIYuBqdKzF316FXZxZZc2tjsM0'){
-            //测试使用
-            $paySignInfo = get_pay_sign_info($body, 1, $out_trade_no, $openId, $attach);
+        //测试使用
+        $paySignInfo = get_pay_sign_info($body, $collection_fee, $out_trade_no, $openId, $attach);
 //        }else{
 //            $paySignInfo = get_pay_sign_info($body, $collection_fee, $out_trade_no, $openId, $attach);
 //        }
@@ -1474,9 +1489,31 @@ class WechatController extends Controller {
         $this->display('Service:appointment');
     }
 
+    public function hospital_appointment(){
+        $service_type = $_GET['service_type'];
+
+        $service_typeM = C('SERVICE_TYPE');
+
+        $service_type_str = $service_typeM[$service_type];
+
+        //获取所有的地址
+        $this->need_login();
+//        $user_id = $this->user_id();
+//        $addresses = $this->address->get_user_address_string($user_id);
+
+//        $this->assign('addresses', $addresses);
+
+        $title = '预约服务';
+        $this->assign('service_type_str', $service_type_str);
+        $this->assign('service_type', $service_type);
+        $this->assign('title', $title);
+        layout('Layout/new_layout');
+        $this->display('Service:hospital_appointment');
+    }
+
     public function add_appointment(){
         //需要验证
-//        $this->need_login();
+        $this->need_login();
 
         $user_id = $this->user_id();
         //获取参数
@@ -1485,7 +1522,36 @@ class WechatController extends Controller {
         $name = $_GET['name'];
         $service_type = $_GET['service_type'];
 
+
         $id = $this->service_appointment->add_appointment($user_id, $address_id, $name, $phone, $service_type);
+
+        $result = array();
+        if(!empty($id)){
+            $result['code'] = 200;
+            $result['id'] = $id;
+        }else{
+            $result['code'] = 500;
+            $result['error_msg'] = $this->service_appointment->getDbError();
+        }
+
+        $this->ajaxReturn($result);
+    }
+
+
+    public function add_hospital_appointment(){
+        //需要验证
+        $this->need_login();
+
+        $user_id = $this->user_id();
+        //获取参数
+        $phone = $_GET['phone'];
+        $name = $_GET['name'];
+        $service_type = $_GET['service_type'];
+        $hospital_id   = $_GET['hospital_id'];
+        $department_id = $_GET['department_id'];
+        $other_address = $_GET['other_address'];
+
+        $id = $this->service_appointment->add_hospital_address($user_id, $hospital_id, $department_id, $other_address, $name, $phone, $service_type);
 
         $result = array();
         if(!empty($id)){
@@ -1519,4 +1585,6 @@ class WechatController extends Controller {
 
         $this->display('Service:appointment_detail');
     }
+
+
 }
