@@ -1528,6 +1528,8 @@ class WechatController extends Controller {
         $result = array();
         if(!empty($id)){
             $result['code'] = 200;
+            //通知用户
+
             $result['id'] = $id;
         }else{
             $result['code'] = 500;
@@ -1556,6 +1558,7 @@ class WechatController extends Controller {
         $result = array();
         if(!empty($id)){
             $result['code'] = 200;
+            //通知用户
             $result['id'] = $id;
         }else{
             $result['code'] = 500;
