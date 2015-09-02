@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<!-- 推荐用户信息填写 -->
+<html>
+<head lang="en">
+  <meta charset="UTF-8">
+  <title>一家依</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="format-detection" content="telephone=no">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-siteapp"/>
+  <script src="http://ttsstatic.qiniudn.com/jquery/jquery-2.1.1.min.js"></script>
+  <script type="text/javascript" src="__STATIC__/js/md5.js"></script>
+  <link rel="alternate icon" type="image/png" href="__STATIC__/img/logo.png">
+  <link rel="stylesheet" href="__STATIC__/css/amazeui.min.css"/>
+  <link rel="stylesheet" href="__STATIC__/css/common.css"/>
+</head>
+<body>
+<div class="intorduction_body">
+  <div class="header header_title" style="margin-bottom:15px;"> 
+  <h2>填写你的简历信息</h2>
+  </div>
+  <div class="am-g">
+    <div class="am-u-lg-6 am-u-md-8 am-u-sm-centered">
+      <form class="am-form am-form-horizontal">
+        <div class="am-input-group">
+          <span class="am-input-group-label">*姓&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名</span>
+          <input type="email" id="name" class="am-form-field" placeholder="输入被推荐人姓名">
+        </div>
+        </br>
+        <div class="am-input-group">
+          <span class="am-input-group-label">*手机号码</span>
+          <input type="tel" id="phone" class="am-form-field" placeholder="输入被推荐人手机号码">
+        </div>
+        </br>
+        <div class="am-input-group">
+          <span class="am-input-group-label">邮件地址</span>
+          <input type="email" id="email" class="am-form-field" placeholder="输入被推荐人电子邮件（可不填）">
+        </div>
+        </br>
+        <div class="am-input-group">
+          <span class="am-input-group-label">*年&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;龄</span>
+          <input type="number" id="age" class="am-form-field" placeholder="被推荐人年龄">
+        </div>
+        <div class="am-form-group">
+          <label for="doc-select-1">被推荐人性别</label>
+          <select id="sex">
+            <option value="1">男</option>
+            <option value="2">女</option>      
+          </select>       
+        </div>
+        <div class="am-form-group">
+          <label for="doc-select-1">*选择被推荐人学历</label>
+          <select id="degree">
+            <option value="1">中专以下</option>
+            <option value="2">中专</option>
+            <option value="3">大专</option>
+            <option value="4">本科</option>
+            <option value="5">本科以上</option>          
+          </select>       
+        </div>
+
+        <div class="am-form-group">
+          <label for="doc-ta-1">被推荐人简介（可不填）</label>
+          <textarea class="" rows="5" id="about"></textarea>
+        </div>
+      </form>
+      <hr>
+      <p style="text-align:center">© 2015 版权所有 一家依</p>
+    </div>
+  </div>
+  <div data-am-widget="navbar" class="am-navbar am-cf am-navbar-default" >
+    <div class="am-list-news-ft">
+      <a class="am-btn am-btn-success am-round" id="recommend" style="color:#fff" href="###">提&nbsp;&nbsp;交&nbsp;&nbsp;信&nbsp;&nbsp;息</a>
+    </div>
+  </div>
+</div>
+</body>
+<script type="text/javascript">    
+  
+
+  function isMobile(phonenumber){  
+    var mobileReg =/^1[358]\d{9}$/;            
+    if (!mobileReg.test(phonenumber)){  
+        return false;  
+    }else{  
+        return true;  
+    }  
+  }
+  function recommend(){
+    var name        =document.getElementById("name").value;
+    var phone       =document.getElementById("phone").value;
+    var email       =document.getElementById("email").value;
+    var age         =document.getElementById("age").value;
+    var degree      =$("#degree option:selected").text();
+    var about       =document.getElementById("about").value;
+    var sex         =$("#sex option:selected").text();
+    var position_id = {$position_id};
+
+    if(phone==''){
+      alert("手机号码不能为空");
+    }
+    else if(isMobile(phone)==''){
+      alert("请输入正确的手机号码");
+    }
+    else if(name==''||phone==''||age==''||degree==''){
+      alert('请完整填写信息，带*为必填项');
+    }else{
+      $.post('/Admin/job/recommend_create', {
+          'name'        : name,
+          'phone'       : phone,
+          'email'       : email,
+          'age'         : age,
+          'degree'      : degree,
+          'about'       : about,
+          'position_id' : position_id,
+          'sex'         : sex,
+        }, function(response) {
+          if (response.msg == 'having') {
+              alert('该用户以存在')
+          }
+          else if (response.msg == 'ok') {
+              window.location.href="/admin/usercenter/user_center";
+          }
+          else{
+            alert('系统繁忙，请稍后再试');
+          }
+        }, "json").always(function() {});
+        return false;
+    }
+    
+  }
+  $(document).ready(function() {
+  });
+  document.addEventListener('WeixinJSBridgeReady', function onBridgeReady() {
+    WeixinJSBridge.call('hideOptionMenu');
+  });
+  $("#recommend").on("click", recommend);
+</script>
+</html >

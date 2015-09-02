@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+
+    <link rel="stylesheet" href="http://cdn.amazeui.org/amazeui/2.2.1/css/amazeui.min.css">
+    <link rel="stylesheet" href="__STATIC_CSS__/style.css">
+    <script src="http://cdn.bootcss.com/jquery/2.1.3/jquery.min.js"></script>
+    <script src="http://cdn.amazeui.org/amazeui/2.2.1/js/amazeui.min.js"></script>
+    <link rel="alternate icon" type="image/png" href="__STATIC_IMG__/logo.png">
+    <title>应聘管理</title>
+</head>
+<body>
+    <div class="application-header">应聘管理</div>
+    <div class="application-content am-g">
+        <div class="am-u-sm-2 padding-left-zero ">
+            <div class="type-tag" type="unprocessed">未处理</div>
+            <div class="type-tag" type="waiting">待面试</div>
+            <div class="type-tag" type="done">已处理</div>
+        </div>
+        <div class="am-u-sm-10" id="tag-content">
+
+        </div>
+
+    </div>
+
+
+    <!--模态窗口，询问是否要面试-->
+    <div class="am-modal am-modal-confirm" tabindex="-1" id="interview-confirm">
+        <div class="am-modal-dialog">
+            <div class="am-modal-hd">面试</div>
+            <div class="am-modal-bd">
+                确定已经通知面试？
+            </div>
+            <div class="am-modal-footer">
+                <span class="am-modal-btn" data-am-modal-cancel>取消</span>
+                <span class="am-modal-btn" data-am-modal-confirm>确定</span>
+            </div>
+        </div>
+    </div>
+
+    <!--模态窗口，询问是否要不面试-->
+    <div class="am-modal am-modal-confirm" tabindex="-1" id="no-interview-confirm">
+        <div class="am-modal-dialog">
+            <div class="am-modal-hd">不通知面试</div>
+            <div class="am-modal-bd">
+                确定不通知面试？
+            </div>
+            <div class="am-modal-footer">
+                <span class="am-modal-btn" data-am-modal-cancel>取消</span>
+                <span class="am-modal-btn" data-am-modal-confirm>确定</span>
+            </div>
+        </div>
+    </div>
+
+    <!--模态窗口，询问是否要面试合格，待入职-->
+    <div class="am-modal am-modal-prompt" tabindex="-1" id="waiting-for-work">
+        <div class="am-modal-dialog">
+            <div class="am-modal-hd">待入职</div>
+            <div class="am-modal-bd">
+                选择入职日期
+                <input type="text" class="am-form-field am-modal-prompt-input" placeholder="YYYY-MM-DD"
+                       data-am-datepicker="{locale: 'en_US'}" readonly/>
+            </div>
+            <div class="am-modal-footer">
+                <span class="am-modal-btn" data-am-modal-cancel>取消</span>
+                <span class="am-modal-btn" data-am-modal-confirm>提交</span>
+            </div>
+        </div>
+    </div>
+
+    <!--模态窗口，询问是否面试不合格-->
+    <div class="am-modal am-modal-confirm" tabindex="-1" id="not-fit">
+        <div class="am-modal-dialog">
+            <div class="am-modal-hd">不合格</div>
+            <div class="am-modal-bd">
+                面试不合格？
+            </div>
+            <div class="am-modal-footer">
+                <span class="am-modal-btn" data-am-modal-cancel>取消</span>
+                <span class="am-modal-btn" data-am-modal-confirm>确定</span>
+            </div>
+        </div>
+    </div>
+
+    <!--模态窗口，询问是否不入职-->
+    <div class="am-modal am-modal-confirm" tabindex="-1" id="no-working">
+        <div class="am-modal-dialog">
+            <div class="am-modal-hd">不入职</div>
+            <div class="am-modal-bd">
+                员工是否不来入职了？
+            </div>
+            <div class="am-modal-footer">
+                <span class="am-modal-btn" data-am-modal-cancel>取消</span>
+                <span class="am-modal-btn" data-am-modal-confirm>确定</span>
+            </div>
+        </div>
+    </div>
+
+
+    <!--模态窗口，录入正真入职日期和生日-->
+    <div class="am-modal am-modal-prompt" tabindex="-1" id="on-work">
+        <div class="am-modal-dialog">
+            <div class="am-modal-hd">入职</div>
+
+            <div class="am-modal-bd">
+
+            </div>
+            <div class="am-modal-bd">
+                选择入职日期
+                <input type="date" class="am-modal-prompt-input" placeholder="YYYY-MM-DD"
+                       />
+                输入入职者身份证
+                <input type="text" class="am-form-field am-modal-prompt-input" placeholder="身份号码"/>
+            </div>
+            <div class="am-modal-footer">
+                <span class="am-modal-btn" data-am-modal-cancel>取消</span>
+                <span class="am-modal-btn" data-am-modal-confirm>提交</span>
+            </div>
+        </div>
+    </div>
+
+
+</body>
+<script>
+    //显示加载页面
+    function loading(selector){
+        $(selector).html(
+                '<div class="loading">' +
+                '<i class="am-icon-spinner am-icon-spin "></i>' +
+                '<div style="font-size: 30px">拼老命加载中</div>' +
+                '</div>'
+        )
+    }
+
+//    改变application的转态
+//    @satus：新的status的值
+    function sign_application_status(target, status, application_id, date, ID){
+        $.ajax({
+            url:'/admin/usercenter/sign_application_status',
+            data:{status:status,
+                  application_id:application_id,
+                  date:date,
+                  ID:ID
+            },
+            async:false,
+            success:function(result){
+                console.log(result);
+                if(result.code == 1){
+                    target.fadeOut();
+                }else if(result.code == -1){
+                    alert('不是管理员或者登录过期，请重新登录！');
+                }
+                return result.status;
+            },
+            error:function(request, status, erroe){
+
+            }
+        })
+    }
+
+
+    //加载内容
+    //@type:区分类型，标志要加载什么内容
+    //@selector:加载后内容的显示容器的选择器
+    function load_content(type, selector){
+        $.ajax({
+            url:'load_application',
+            data:{
+                type:type
+            },
+            type:'GET',
+            dataType:'json',
+            async:true,
+            success:function(data){
+                console.log(data);
+                var html = '<ul class="am-list">'
+                if(data != null){
+                    var i = 0;
+                    for(i; i < data.length; i++){
+                        html +=  '<li class="am-list-item-desced">'+
+                        '<a  class="am-list-item-hd" target="_blank">'+
+                        data[i].user_name +
+                        '</a>'+
+                        '<div class="am-list-item-text am-g">'+
+                        '<div class="am-u-sm-9">' +
+                        '<div>申请职位：' + data[i].job + '</div>' +
+                        '<div>自我描述：' + data[i].self_describe + '</div>' +
+                        '<div>电话号码：' + data[i].telephone + '</div>' +
+                        '</div>' +
+                        '<div class="am-u-sm-3" position_id='+ data[i].position_id +' application_id='+ data[i].application_id +'>'
+                        if(type=='unprocessed'){
+                            html += '<button class="am-btn  am-btn-secondary interview-btn">面试</button>' +
+                            '<button class="am-btn  am-btn-danger no-interview-btn">不面试</button>'
+                        }else if(type == 'waiting'){
+                            html += '<button class="am-btn  am-btn-secondary wait-for-work-btn">待入职</button>' +
+                            '<button class="am-btn  am-btn-danger not-fit-btn">不合格</button>'
+                        }else if(type == 'done'){
+                            if(data[i].status == 2){
+                                html += '<button class="am-btn  am-btn-secondary on-work-btn">入职</button>' +
+                                '<button class="am-btn  am-btn-danger no-working-btn">不入职</button>'
+                            }else if(data[i].status == 3){
+                                html += '<button class="am-btn  am-btn-secondary am-disabled">简历不通过</button>'
+                            }else if(data[i].status == 4){
+                                html += '<button class="am-btn  am-btn-secondary am-disabled">面试不通过</button>'
+                            }else if(data[i].status == 5){
+                                html += '<button class="am-btn  am-btn-primary leave-working-btn am-disabled">上岗中</button>'
+                            }else if(data[i].status == 6){
+                                html += '<button class="am-btn  am-btn-primary leave-working-btn am-disabled">不入职</button>'
+                            }
+
+                        }
+                        html += '' +
+                        '</div>' +
+                        '</div>'+
+                        '</li>'
+                    }
+
+                    html += '</ul>'
+
+                }else{
+                    html =  '<ul class="am-list">' +
+                            '<li class="am-list-item-desced">'+
+                            '<a href="#" class="am-list-item-hd" target="_blank">'+
+                            '没有数据' +
+                            '</a>'+
+                            '<div class="am-list-item-text">'+
+                            '</div>'+
+                            '</li>'+
+                            '</ul>'
+                }
+
+
+
+                //添加到显示的div中
+                $(selector).html(html);
+
+                //绑定按钮监听事件
+                $('.interview-btn').on('click', function(){
+                    $('#interview-confirm').modal({
+                        relatedTarget: this,
+                        onConfirm: function(options) {
+                            var position_id = this.relatedTarget.parentElement.getAttribute('position_id')
+                            var application_id = this.relatedTarget.parentElement.getAttribute('application_id')
+                            console.log(position_id);
+                            //将其标记为等待面试
+                            var target = $(this.relatedTarget.parentElement.parentElement.parentElement);
+                            var status = sign_application_status(target, 'waiting', application_id);
+//                            $(this.relatedTarget.parentElement.parentElement.parentElement).fadeOut();
+
+                        },
+                        onCancel: function() {
+                            console.log('取消');
+                        }
+                    });
+                });
+                //绑定按钮监听事件
+                $('.no-interview-btn').on('click', function(){
+                    $('#no-interview-confirm').modal({
+                        relatedTarget: this,
+                        onConfirm: function(options) {
+                            var position_id = this.relatedTarget.parentElement.getAttribute('position_id')
+                            var application_id = this.relatedTarget.parentElement.getAttribute('application_id')
+                            console.log(position_id);
+                            //将其标记为等待面试
+                            var target = $(this.relatedTarget.parentElement.parentElement.parentElement);
+                            sign_application_status(target, 'no_interview', application_id);
+//                            $(this.relatedTarget.parentElement.parentElement.parentElement).fadeOut();
+                        },
+                        onCancel: function() {
+
+                            console.log('取消');
+                        }
+                    });
+                });
+
+                //面试不合格
+                $('.not-fit-btn').on('click', function(){
+                    $('#not-fit').modal({
+                        relatedTarget: this,
+                        onConfirm: function(options) {
+                            var position_id = this.relatedTarget.parentElement.getAttribute('position_id')
+                            var application_id = this.relatedTarget.parentElement.getAttribute('application_id')
+                            console.log(position_id);
+                            //将其标记为等待面试
+                            var target = $(this.relatedTarget.parentElement.parentElement.parentElement);
+                            sign_application_status(target, 'not-fit', application_id);
+//                            $(this.relatedTarget.parentElement.parentElement.parentElement).fadeOut();
+                        },
+                        onCancel: function() {
+                            console.log('取消');
+                        }
+                    });
+                });
+
+                //是否待入职
+                $('.wait-for-work-btn').on('click', function() {
+                    console.log('wait-for-work')
+                    $('#waiting-for-work').modal({
+                        relatedTarget: this,
+                        onConfirm: function(e) {
+                            var application_id = this.relatedTarget.parentElement.getAttribute('application_id')
+                            var target = $(this.relatedTarget.parentElement.parentElement.parentElement);
+                            sign_application_status(target, 'waiting-for-work',application_id, date=e.data[1]);
+//                            $(this.relatedTarget.parentElement.parentElement.parentElement).fadeOut();
+                            console.log('你输入的是：' + e.data || '')
+                        },
+                        onCancel: function(e) {
+                            console.log('不想说!');
+                        }
+                    });
+                });
+
+                //是否不入职了
+                $('.no-working-btn').on('click', function() {
+                    console.log('no-working')
+                    $('#no-working').modal({
+                        relatedTarget: this,
+                        onConfirm: function(e) {
+                            var application_id = this.relatedTarget.parentElement.getAttribute('application_id')
+                            var target = $(this.relatedTarget.parentElement.parentElement.parentElement);
+                            sign_application_status(target, 'no-working',application_id);
+//                            $(this.relatedTarget.parentElement.parentElement.parentElement).fadeOut();
+                            console.log('你输入的是：' + e.data || '')
+                        },
+                        onCancel: function(e) {
+                            console.log('不想说!');
+                        }
+                    });
+                });
+
+//                输入入职日期和身份证号
+                $('.on-work-btn').on('click', function(){
+                    console.log('on-work')
+                    $('#on-work').modal({
+                        relatedTarget: this,
+                        onConfirm: function(e) {
+                            var application_id = this.relatedTarget.parentElement.getAttribute('application_id')
+                            var target = $(this.relatedTarget.parentElement.parentElement.parentElement);
+                            sign_application_status(target, 'on-work',application_id, e.data[0], e.data[1]);
+//                            $(this.relatedTarget.parentElement.parentElement.parentElement).fadeOut();
+                            console.log('你输入的是：' + e.data|| '')
+                        },
+                        onCancel: function(e) {
+                            console.log('不想说!');
+                        }
+                    });
+                })
+
+            },
+            error:function(request, status, error){
+                var error_html =  '<ul class="am-list">' +
+                        '<li class="am-list-item-desced">'+
+                        '<a href="#" class="am-list-item-hd" target="_blank">'+
+                        '发生错误' +
+                        '</a>'+
+                        '<div class="am-list-item-text">'+
+                        '<div>错误描述：' + error + '</div>' +
+                        '</div>'+
+                        '</li>'+
+                        '</ul>'
+
+                $(selector).html(html);
+            }
+        })
+    }
+
+
+    $('.type-tag').on('click', function(){
+        $('.type-tag-active').removeClass('type-tag-active');
+        $(this).addClass('type-tag-active');
+
+        //显示加载页面
+        loading('#tag-content');
+
+        //请求加载内容
+        var type = this.getAttribute('type');
+        load_content(type, '#tag-content');
+
+    })
+    load_content('unprocessed', '#tag-content');
+    $("[type='unprocessed']").addClass('type-tag-active');
+</script>
+
+</html>

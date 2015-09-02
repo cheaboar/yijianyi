@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<!-- 发布招聘职位 -->
+<html>
+<head lang="en">
+  <meta charset="UTF-8">
+  <title>一家依</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="format-detection" content="telephone=no">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-siteapp"/>
+  <script src="http://ttsstatic.qiniudn.com/jquery/jquery-2.1.1.min.js"></script>
+  <link rel="alternate icon" type="image/png" href="__STATIC__/img/logo.png">
+  <link rel="stylesheet" href="__STATIC__/css/amazeui.min.css"/>
+  <link rel="stylesheet" href="__STATIC__/css/common.css"/>
+</head>
+<body>
+<div class="header"> 
+  <hr />
+</div>
+<div class="am-g">
+  <div class="am-u-lg-6 am-u-md-8 am-u-sm-centered">
+    <h3>发布最新招聘信息</h3>
+    <hr>
+
+    <form class="am-form am-form-horizontal">
+      <div class="am-input-group">
+        <span class="am-input-group-label">职位名称</span>
+        <input type="text" id="job" class="am-form-field" placeholder="职位名称">
+      </div>
+      </br>     
+      <div class="am-input-group">
+        <span class="am-input-group-label">年龄需求</span>
+        <input type="text" id="age" class="am-form-field" placeholder="年龄需求">
+      </div>
+      </br>
+       <div class="am-input-group">
+        <span class="am-input-group-label">工资范围</span>
+        <input type="text" id="salary" class="am-form-field" placeholder="工资范围">
+      </div>
+      </br>
+      <div class="am-input-group">
+        <span class="am-input-group-label">招聘人数</span>
+        <input type="text" id="number" class="am-form-field" placeholder="招聘人数">
+      </div>
+      </br>
+      <div class="am-input-group">
+        <span class="am-input-group-label">经验要求</span>
+        <input type="text" id="experience" class="am-form-field" placeholder="经验要求">
+      </div>
+      </br>    
+      <div class="am-form-group">
+        <label for="doc-select-1">工作地方</label>
+        <select id="work_place">
+          <option value="1">全广州</option>
+          <option value="2">越秀</option>
+          <option value="3">海珠</option>
+          <option value="4">天河</option>
+          <option value="5">白云</option>
+          <option value="6">黄埔</option>
+          <option value="7">荔湾</option> 
+          <option value="8">南沙</option> 
+          <option value="9">番禺</option> 
+          <option value="10">花都</option>
+          <option value="11">化市</option>
+          <option value="12">增城</option>
+          <option value="13">罗岗</option>           
+        </select>
+      </div>
+      <div class="am-form-group">
+        <label for="doc-select-1">学历要求</label>
+        <select id="degree">
+          <option value="0">都可以</option>
+          <option value="1">中专以下</option>
+          <option value="2">中专</option>
+          <option value="3">大专</option>
+          <option value="4">本科</option>
+          <option value="5">本科以上</option>          
+        </select>       
+      </div>
+      <div class="am-form-group">
+        <label for="doc-ta-1">工作范围描述</label>
+        <textarea class="" rows="5" id="describe"></textarea>
+      </div>
+      <div class="am-form-group">
+        <label for="doc-ta-1">技能要求</label>
+        <textarea class="" rows="5" id="need"></textarea>
+      </div>
+      <div class="am-form-group">
+        <div class="am-u-sm-10 am-u-sm-offset-2">
+          <button type="button" id="create_publish" class="am-btn am-btn-default">提交信息</button>
+        </div>
+      </div>
+    </form>
+    <hr>
+    <p style="text-align:center">© 2015 版权所有 一家依</p>
+  </div>
+</div>
+</body> 
+<script type="text/javascript">    
+ function publish(){
+    var job         =document.getElementById("job").value;
+    //var territory   =document.getElementById("territory").value;
+    var age         =document.getElementById("age").value;
+    var salary      =document.getElementById("salary").value;
+    var number      =document.getElementById("number").value;
+    var experience  =document.getElementById("experience").value;
+    var describe    =document.getElementById("describe").value;
+    var need        =document.getElementById("need").value;
+    var work_place  =$("#work_place option:selected").text();
+    var degree      =$("#degree option:selected").text();
+    
+    if(job==''||age==''||salary==''||number==''||experience==''||describe==''||need==''||work_place==''||degree==''){
+      alert('请完整填写信息');
+    }else{
+      $.post('/admin/job/create_publish', {
+          'describe'    : describe,
+          'job'         : job,
+          //'territory'   : territory,
+          'salary'      : salary,
+          'age'         : age,
+          'number'      : number,
+          'experience'  : experience,
+          'need'        : need,
+          'work_place'  : work_place,
+          'degree'      : degree,
+        }, function(response) {
+          if (response.msg == 'ok') {
+            window.location.href = '/admin/job/index/id<?php echo(session('id'));?>';
+          }
+          else if (response.msg == 'false') {
+            alert('操作失败');
+          }
+          else{
+            alert('系统繁忙，请稍后再试');
+          }
+        }, "json").always(function() {});
+        return false;
+    }
+  }
+  $(document).ready(function() {
+  });
+  $("#create_publish").on("click", publish);
+</script>  
+</html >

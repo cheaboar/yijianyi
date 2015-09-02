@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<!-- 一家依首页 -->
+<html>
+<head lang="en">
+  <meta charset="UTF-8">
+  <title>一家依合伙人</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="format-detection" content="telephone=no">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-siteapp"/>
+  <script src="http://ttsstatic.qiniudn.com/jquery/jquery-2.1.1.min.js"></script>
+  <script src="__STATIC__/js/amazeui.js"></script>
+  <link rel="alternate icon" type="image/png" href="__STATIC__/img/logo.png">
+  <link rel="stylesheet" href="__STATIC__/css/amazeui.min.css"/>
+  <link rel="stylesheet" href="__STATIC__/css/common.css"/>
+  <link rel="stylesheet" href="__STATIC__/css/style.css"/>
+</head>
+<body>
+
+<div class="header"> 
+  <img class="yijiayi_img_width" src="__STATIC__/img/yijianyi.jpg">
+</div>
+<div class="yijiayi_width">
+  <div class="am-g">
+    <div>   
+      <hr>
+      <div class="am-panel-group" id="accordion">
+        <div class="am-panel am-panel-default">
+          <div class="am-panel-hd" style="background-color:filter:alpha(opacity=50); opacity: 0.50;">
+            <h4 class="am-panel-title" data-am-collapse="{parent: '#accordion', target: '#do-not-say-1'}">
+              <p style="text-align:center;">合伙人详情<span class="am-icon-caret-down"></span></p>
+            </h4>
+          </div>
+          <div id="do-not-say-1" class="am-panel-collapse am-collapse ">
+            <div class="am-panel-bd">
+              <p style="text-indent:2em">
+                “一家依合伙人”是一家依养老服务公司推出的新型招聘平台，采用的是推荐人者共建、推荐人推广的新型招聘模式，以下简称为平台。申请参与建设与推广“一家依合伙人”的推荐人，我们称之为“一家依合伙人”，以下简称合伙人。</p>
+              <p style="text-indent:2em">
+                移动互联网时代，用户口碑是最具价值的传播媒介。而一家依合伙人平台的传播正是依赖于合伙人的口碑传播。一家依合伙人本质是微营销（全员营销），人人均可向朋友推荐一家依公司招聘职位，获取佣金。</p>
+              <dl>
+                <dt>推荐特权：</dt>
+                <dd><p style="text-indent:2em">只有合伙人才有资格在合伙人平台推荐应聘者。</p></dd>
+                <dt>分享特权：</dt>
+                <dd><p style="text-indent:2em">成为合伙人后，可以吸收普通应聘者成为自己的粉丝，可以把自己的推荐特权分享给他们使用，让他们也享受合伙人佣金；</p></dd>
+                <dt>佣金特权:</dt>
+                <dd><p style="text-indent:2em">合作人在平台上推荐应聘者，合伙人将根据推荐成功应聘人数分得佣金。如何合伙人吸收的粉丝也在平台上推荐应聘者，合伙人将根据推荐成功应聘人数分得额外佣金。</p></dd>
+              </dl>
+
+            </div>
+          </div>
+        </div>
+      </div>
+      <!----<div><a href="/partner/index/regist/id/<?php echo session('authed');?>">成为合伙人</a></div>------>
+      <hr>
+    </div>
+  </div>
+</div>
+<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript" charset="utf-8">
+    wx.config({$wechat_config});
+
+    wx.ready(function () {
+        wx.onMenuShareTimeline({
+            title: "一家依赚钱计划", // 分享标题
+            desc: "100块，真的100块，马上抢吧！", // 分享描述
+            link: "http://subcribe.ecare-easy.com/partner/index/index/partnerId/<?php echo session('authed');?>", // 分享链接
+            imgUrl: "http://subcribe.ecare-easy.com/Public/assets/img/yijianyi.jpg", // 分享图标
+            success: function () {
+            },
+            cancel: function () {
+            }
+        });
+        wx.onMenuShareAppMessage({
+            title: "一家依赚钱计划", // 分享标题
+            desc: "100块，真的100块，马上抢吧！", // 分享描述
+            link: "http://subcribe.ecare-easy.com/partner/index/index/partnerId/<?php echo session('authed');?>", // 分享链接
+            imgUrl: "http://subcribe.ecare-easy.com/Public/assets/img/yijianyi.jpg", // 分享图标
+            type: '', // 分享类型,music、video或link，不填默认为link
+            dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
+            success: function () {
+            },
+            cancel: function () {
+            }
+        });
+        wx.onMenuShareQQ({
+            title: "一家依赚钱计划", // 分享标题
+            desc: "100块，真的100块，马上抢吧！", // 分享描述
+            link: "http://subcribe.ecare-easy.com/partner/index/index/partnerId/<?php echo session('authed');?>", // 分享链接
+            imgUrl: "http://subcribe.ecare-easy.com/Public/assets/img/yijianyi.jpg", // 分享图标
+            success: function () {
+            },
+            cancel: function () {
+            }
+        });
+        wx.onMenuShareWeibo({
+            title: "一家依赚钱计划", // 分享标题
+            desc: "100块，真的100块，马上抢吧！", // 分享描述
+            link: "http://subcribe.ecare-easy.com/partner/index/index/partnerId/<?php echo session('authed');?>", // 分享链接
+            imgUrl: "http://subcribe.ecare-easy.com/Public/assets/img/yijianyi.jpg", // 分享图标
+            success: function () {
+                // 用户确认分享后执行的回调函数
+            },
+            cancel: function () {
+                // 用户取消分享后执行的回调函数
+            }
+        });
+    });
+</script>
+<include file="public/footer"/>

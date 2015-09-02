@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta http-equiv="x-ua-compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width initial-scale=1.0 minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <script src="http://ttsstatic.qiniudn.com/jquery/jquery-2.1.1.min.js"></script>
+
+    <!--<script type="text/javascript" src="__STATIC__/js/jquery.masonry.min.js"></script>-->
+    <link rel="alternate icon" type="image/png" href="__STATIC__/img/logo.png">
+    <link rel="stylesheet" href="__STATIC__/css/amazeui.min.css"/>
+    <link rel="stylesheet" href="__STATIC__/css/style.css"/>
+    <title>一家依-应聘简历详情</title>
+</head>
+<body class="job-list-container">
+    <div class="job-list-container">
+        <div class="job-list-header">简历详情</div>
+        <div class="job-list-content">
+                <div class="job-list-line">
+                    <div class="job-list-title">{$result.job}</div>
+                    <div class="job-list-info">
+                        <pre>
+                            <div class="job-list-need">工资：{$result.salary}</div>
+                            <div class="job-list-need">描述：{$result.describe}</div>
+                            <div class="job-list-need">需求：{$result.need}</div>
+                            <div class="job-list-need">工作经验：{$result.experience}</div>
+                        </pre>
+
+                    </div>
+
+                    <div class="job-list-info">
+                        <div class="job-list-need">申请日期:{$result.date_of_create}</div>
+                    </div>
+                    <div class="job-list-info">
+                        <div class="job-list-need">姓名:{$result.user_name}</div>
+                    </div>
+                    <div class="job-list-info">
+                        <div class="job-list-need">手机:{$result.phone}</div>
+                    </div>
+                    <div class="job-list-info">
+                        <div class="job-list-need">邮箱:{$result.email}</div>
+                    </div>
+                    <div class="job-list-info">
+                        <div class="job-list-need">自我描述:{$result.about}</div>
+                    </div>
+                    <div class="job-list-info">
+                        <div class="job-list-need application_status" status="{$result.status}"></div>
+                    </div>
+
+                    <div class="job-list-detail-btn">
+                        <button class="am-btn am-btn-success am-round"><a href="/admin/usercenter/my_application">返回我的职位申请</a></button>
+                    </div>
+                </div>
+        </div>
+
+    <div class="job-list-footer">
+
+    </div>
+</div>
+<include file="public/footer"/>
+</body>
+
+<script>
+    $('.application_status').each(function(index){
+        var status = parseInt(this.getAttribute('status'));
+        console.log(status)
+        var status_str = '';
+
+        switch(status){
+            case 0:
+                status_str = '正在申请中'
+                break;
+            case 1:
+                status_str = '待面试'
+                break;
+            case 2:
+                status_str = '等待入职'
+                break;
+            case 3:
+                status_str = '简历通过'
+                break;
+            case 4:
+                status_str = '面试不通过'
+                break;
+            case 5:
+                status_str = '上岗中'
+                break;
+            case 6:
+                status_str = '不上班了'
+                break;
+
+        }
+        $(this).html('状态：' + status_str)
+    })
+</script>
+</html>
