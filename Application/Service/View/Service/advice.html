@@ -1,10 +1,15 @@
-
 <body class="advice-container">
 <include file="Public:title_header" href="new_my_service" title="吐槽建议"/>
 <div class="text-area">
     <div class="title">
         吐槽建议
     </div>
+    <label>选择类型</label>
+    <select id="mySelect">
+        <option value="1">功能建议</option>
+        <option value="2">员工投诉</option>
+    </select>
+
     <div class="text">
         <textarea id="advice" placeholder="你的宝贵意见对我们很重要..."></textarea>
     </div>
@@ -12,9 +17,18 @@
         <div class="btn commit-btn">提交</div>
     </div>
 </div>
+
+
 </body>
 
 <script>
+
+    var advice_type = $('#mySelect').val();
+    $('#mySelect').change(function(){
+        advice_type = $(this).val();
+    })
+
+
     $('.commit-btn').on('click', function(){
         var advice = $('#advice').val();
         $(this).html('提交中');
@@ -22,7 +36,8 @@
         $.ajax({
             url         : 'add_advice',
             data        : {
-                advice_str : advice
+                advice_str      : advice,
+                advice_type     : advice_type
             },
             type        : 'POST',
             dataType    : 'json',

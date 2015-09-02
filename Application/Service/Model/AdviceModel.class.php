@@ -18,10 +18,11 @@ class AdviceModel extends  Model{
         return $this->where('id > 0')->select();
     }
 
-    function add_advice($user_id, $advice){
+    function add_advice($user_id, $advice, $advice_type){
         $data = array(
             'user_id' => $user_id,
             'advice' => $advice,
+            'type' => $advice_type,
             'create_time' => time()
         );
 

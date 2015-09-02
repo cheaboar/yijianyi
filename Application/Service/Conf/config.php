@@ -200,6 +200,10 @@ return array(
 	     'KEY' => 'e10adc3949ba59abbe56e057f20f883e',
     ),
 
+    'ADVICE_TYPE' => array(
+        '1' => '功能吐槽建议',
+        '2' => '员工投诉'
+    ),
 
     'URL_ROUTE_RULES' =>array(
 //        'service_info' => 'Service/Index/service_info'

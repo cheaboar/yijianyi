@@ -760,7 +760,7 @@ class WechatController extends Controller {
         $user_id = $this->user_id();
         $adviceR = new AdviceModel();
 
-        $result = $adviceR->add_advice($user_id, $_POST['advice_str']);
+        $result = $adviceR->add_advice($user_id, $_POST['advice_str'], $_POST['advice_type']);
 
         $this->ajaxReturn($result);
     }
@@ -1529,6 +1529,30 @@ class WechatController extends Controller {
         if(!empty($id)){
             $result['code'] = 200;
             //通知用户
+            $openid = $this->user->get_user_openid($user_id);
+            $templateId = 'bhoTxXO6u9zNBeWpI8zyTziYcUf1KyLO0arm-7cuOQ4';
+            $addressObj = $this->address->get_address_info($address_id);
+            $address = $addressObj['provinceName'] . $addressObj['cityName'] . $addressObj['areaName'] . $addressObj['address'];
+            $now = date('Y-m-d H:i:s', time());
+            $url = 'http://' . $_SERVER['HTTP_HOST']. '/Service/wechat/' . 'appointment_detail?appointment_id=' . $id;
+            $data = array(
+                'first' => '您好，您已成功预约。',
+                'examuser' => $name,
+                'regdate' => $now,
+                'address' => $address,
+                'hosptel' => $phone,
+                'remark' => '请您留意电话，到时会有工作人员联系您！',
+
+            );
+            templateSend($openid, $templateId, $url, $data);
+
+            //获取服务类型
+            $serviceTypeM = C('SERVICE_TYPE');
+            $service_type_str = $serviceTypeM[$service_type];
+            $tmp_value = '#name#=' . $name . '&#type#=' . $service_type_str . '&#detail#=预约成功。请您留意电话，到时会有工作人员联系您！';
+            $tmp_id = '936939';
+            $yunpian = new YunPian();
+            $yunpian->tpl_send_sms(C('YUNPIAN.APIKEY'),  $tmp_id, $tmp_value, $phone);
 
             $result['id'] = $id;
         }else{
@@ -1559,6 +1583,33 @@ class WechatController extends Controller {
         if(!empty($id)){
             $result['code'] = 200;
             //通知用户
+
+            //通知用户，微信模板消息通知，短信消息通知
+            $openid = $this->user->get_user_openid($user_id);
+            $templateId = 'bhoTxXO6u9zNBeWpI8zyTziYcUf1KyLO0arm-7cuOQ4';
+
+            $address =  $other_address;
+            $now = date('Y-m-d H:i:s', time());
+            $url =  'http://' . $_SERVER['HTTP_HOST']. '/Service/wechat/' . 'appointment_detail?appointment_id=' . $id;
+            $data = array(
+                'first' => '您好，您已成功预约。',
+                'examuser' => $name,
+                'regdate' => $now,
+                'address' => $address,
+                'hosptel' => $phone,
+                'remark' => '请您留意电话，到时会有工作人员联系您！',
+
+            );
+            templateSend($openid, $templateId, $url, $data);
+
+            //获取服务类型
+            $serviceTypeM = C('SERVICE_TYPE');
+            $service_type_str = $serviceTypeM[$service_type];
+            $tmp_value = '#name#=' . $name . '&#type#=' . $service_type_str . '&#detail#=预约成功。请您留意电话，到时会有工作人员联系您！';
+            $tmp_id = '936939';
+            $yunpian = new YunPian();
+            $yunpian->tpl_send_sms(C('YUNPIAN.APIKEY'),  $tmp_id, $tmp_value, $phone);
+
             $result['id'] = $id;
         }else{
             $result['code'] = 500;
@@ -1570,7 +1621,7 @@ class WechatController extends Controller {
 
     public  function appointment_detail(){
         $appointment_id = $_GET['appointment_id'];
-
+        $this->need_login();
         //需要验证用户id
         $user_id = $this->user_id();
 

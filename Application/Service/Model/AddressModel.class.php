@@ -118,4 +118,21 @@ class AddressModel  extends Model{
         $this->where($condition)->save($data);
 
     }
+
+    /*
+     * 获取地址信息，包含字符名称
+     * */
+    public function get_address_info($address_id){
+        $condition = array(
+            'address_id' => $address_id
+        );
+
+        $result = $this->alias('a')->join('oa_areas as a1 on a.province = a1.area_id', 'LEFT')
+            ->join('oa_areas as a2 on a.city = a2.area_id', 'LEFT')
+            ->join('oa_areas as a3 on a.city = a3.area_id', 'LEFT')
+            ->where($condition)->getField('a.address_id, a.*, a1.area_name as provinceName, a2.area_name as cityName, a3.area_name as areaName');
+
+        return $result[$address_id];
+
+    }
 }
