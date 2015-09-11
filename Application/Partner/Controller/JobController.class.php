@@ -62,6 +62,7 @@ class jobController extends Controller {
 
 
     function resumeCreate(){//创建简历页面加载
+        check_user_msg();
         $position_id            = I('param.pid','');
         if($position_id==''){
             $this->error('信息错误', '/partner/job/index');
@@ -72,6 +73,7 @@ class jobController extends Controller {
     }
 
     function pushsomeone(){//推荐人页面加载
+        check_user_msg();
         $position_id            = I('param.pid','');
         if($position_id==''){
             $this->error('信息错误', '/partner/job/index');
@@ -84,7 +86,7 @@ class jobController extends Controller {
     
     function new_resume(){//创建个人简历后台处理
 
-        user_session('job/index');//检测是否已经登录
+//        user_session('job/index');//检测是否已经登录
         $data['user_id']        = user_id();
         $data['phone']          = I('param.phone');
         $data['name']           = I('param.name');

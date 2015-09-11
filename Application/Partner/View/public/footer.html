@@ -7,21 +7,27 @@
     <ul class="am-navbar-nav am-cf am-avg-sm-4">
 
         <li>
-            <a href="/partner/index/index/partnerId/<?php echo session('authed');?>">
+            <a href="/partner/index/index/partnerId/<?php echo session('authed');?>" class=[class1]>
                 <span class="am-icon-home"></span>
                 <span class="am-navbar-label">首页</span>
             </a>
         </li>
 
         <li>
-            <a href="/partner/job/index/id/<?php echo session('id');?>">
+            <a href="/partner/job/pushsomeone/pid/26" class=[class2]>
+                <span class="am-icon-plus"></span>
+                <span class="am-navbar-label">推荐</span>
+            </a>
+        </li>
+        <li>
+            <a href="/partner/job/index/id/<?php echo session('id');?>" class=[class3]>
                 <span class="am-icon-briefcase"></span>
                 <span class="am-navbar-label">职位</span>
             </a>
         </li>
 
         <li>
-            <a href="/partner/usercenter/user_center" class="">
+            <a href="/partner/usercenter/user_center" class=[class4]>
                 <span class="am-icon-user"></span>
                 <span class="am-navbar-label">我</span>
             </a>

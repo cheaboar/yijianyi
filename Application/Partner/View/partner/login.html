@@ -1,0 +1,182 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <script type="text/javascript" src="__STATIC__/js/jquery.min.js"></script>
+</head>
+<style>
+    *{padding: 0;margin: 0;}
+
+    /* 清除浮动 */
+    .clearfix:after {content: "";display: table;clear: both;}
+    html, body { height: 100%; }
+    body {
+        font-family:"Microsoft YaHei"; background:#EBEBEB;
+        font-weight: 300;  font-size: 15px;  color: #333;overflow: hidden;}
+    a {text-decoration: none; color:#000;}
+    a:hover{color:#F87982;}
+
+    /*home*/
+    #home{padding-top:100px;}
+
+    /*logint界面*/
+    #login{
+        padding:20px 30px 30px; width:300px; background:#FFF; margin:auto;
+        border-radius: 3px;
+        box-shadow: 0 3px 3px rgba(0, 0, 0, 0.3);
+    }
+
+    .current1{
+        -moz-transform: scale(0);     /* for Firefox 缩放比例 */
+        -webkit-transform: scale(0);  /* for Chrome || Safari 缩放比例 */
+        -o-transform: scale(0);       /* for Opera            缩放比例 */
+        -ms-transform: scale(0);      /* for IE 缩放比例 */
+        transform: scale(0);
+        -moz-transition: all 0.4s ease-in-out;
+        -webkit-transition: all 0.4s ease-in-out;
+        -o-transition: all 0.4s ease-in-out;
+        transition: all 0.4s ease-in-out;
+        /*
+        * CSS的transition允许CSS的属性值在一定的时间区间内平滑地过渡。
+        * 这种效果可以在鼠标单击、获得焦点、被点击或对元素任何改变中触发，并圆滑地以动画效果改变CSS的属性值
+        */
+    }
+
+    .current{
+        -moz-transform: scale(1);
+        -webkit-transform: scale(1);
+        -o-transform: scale(1);
+        -ms-transform: scale(1);
+        transform: scale(1);
+    }
+
+    #login h3{ font-size:18px; line-height:25px; font-weight:300; letter-spacing:3px; margin-bottom:20px; color:#C8C8C8; text-align:center;}
+    #login label{ color:#C8C8C8; display:block; height:35px; padding:0 10px; font-size:12px; line-height:35px;  background:#EBEBEB; margin-bottom:10px;position:relative;}
+    #login label input{  font:13px/20px "Microsoft YaHei"; background:none;  height:20px; border:none; margin:7px 0 0 10px;width:245px;outline:none ; letter-spacing:normal;  z-index:1; position:relative;  }
+    #login label  span{ display:block;  height:35px; color:#F30; width:100px; position:absolute; top:0; left:190px; text-align:right;padding:0 10px 0 0; z-index:0; display:none; }
+    #login button{
+        font-family:"Microsoft YaHei";
+        cursor:pointer;
+        width:300px;
+        height:35px;
+        background:#FE4E5B; border:none; font-size:14px; line-height:30px;  letter-spacing:3px; color:#FFF; position:relative; margin-top:10px;
+        -moz-transition: all 0.2s ease-in;
+        -webkit-transition: all 0.2s ease-in;
+        -o-transition: all 0.2s ease-in;
+        transition: all 0.2s ease-in;}
+    #login button:hover{ background:#F87982; color:#000;}
+
+    /*头像*/
+    .avator{
+        display:block;
+        margin:0 auto 20px;
+        border-radius:50%;
+    }
+</style>
+<body>
+<div id="home">
+    <form id="login" class="current1" method="post">
+        <h3>用户登入</h3>
+        <label>手机<input type="text" id="phone" name="phone" style="width:215px;" /><span>邮箱为空</span></label>
+        <label>密码<input type="password" id="passwd" name="pass"  /><span>密码为空</span></label>
+        <button type="button">登入</button>
+    </form>
+</div>
+</body>
+<script>
+    $(function(){
+        /**
+         * jquery方法：addClass()
+         * addClass() 方法向被选元素添加一个或多个类。该方法不会移除已存在的 class 属性，仅仅添加一个或多个 class 属性。
+         * 如需添加多个类，请使用空格分隔类名。
+         */
+        $("#login").addClass("current");
+
+        /**
+         * 正则检验邮箱
+         * email 传入邮箱
+         * return true 表示验证通过
+         */
+        function check_email(email) {
+            if (/^[\w\-\.]+@[\w\-]+(\.[a-zA-Z]{2,4}){1,2}$/.test(email)){
+                return true;
+            }
+        }
+
+        /**
+         * input 按键事件keyup
+         */
+        $("input[name]").keyup(function(e){
+            //禁止输入空格  把空格替换掉(空格的ASCII为32)
+            if($(this).attr('name')=="pass" && e.keyCode==32){
+                $(this).val(function(i,v){
+                    return $.trim(v);
+                });
+            }
+            if($.trim($(this).val())!=""){
+                $(this).nextAll('span').eq(0).css({display:'none'});
+            }
+        });
+
+        //错误信息
+        var succ_arr=[];
+
+        /**
+         * input失去焦点事件focusout
+         * 这跟blur事件区别在于，他可以在父元素上检测子元素失去焦点的情况。
+         */
+        $("input[name]").focusout(function(e){
+            var msg="";
+            if($.trim($(this).val())==""){
+                if($(this).attr('name')=='userName'){
+                    succ_arr[0]=false;
+                    msg="登入名为空";
+                }else if($(this).attr('name')=='pass'){
+                    succ_arr[1]=false;
+                    msg="密码为空";
+                }
+            }else{
+                if($(this).attr('name')=='userName'){
+                    succ_arr[0]=true;
+                }else if($(this).attr('name')=='pass'){
+                    succ_arr[1]=true;
+                }
+            }
+            $(this).nextAll('span').eq(0).css({display:'block'}).text(msg);
+        });
+
+        /**
+         * Ajax用户注册
+         */
+        $("button[type='button']").click(function(){
+            $("input[name]").focusout();  //让所有的input标记失去一次焦点来设置msg信息
+            for (x in succ_arr){
+                if(succ_arr[x]==false) return;
+            }
+            //$("#login").removeClass("current");
+            var data=$('#login').serialize(); //序列化表单元素
+            /**
+             * 有兴趣的可以到这里 自行发送Ajax请求 实现注册功能
+             */
+
+            //发送ajax请求
+            $.ajax({
+                url         :'login_validate',
+                data        : {
+                    phone       : $('#phone').val(),
+                    password    : $('#passwd').val()
+                },
+                async       : false,
+                dataType    : 'json',
+                success     : function(data, status){
+                    console.log(data);
+                    if(data.msg == 'ok'){
+                        window.location.href = '/partner/usercenter/user_center';
+                    }
+                }
+            });
+        });
+
+    });
+</script>
+</html>

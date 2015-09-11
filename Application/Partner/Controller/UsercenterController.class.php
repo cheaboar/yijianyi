@@ -105,65 +105,11 @@ class UsercenterController extends Controller{
     }
 
     function user_center(){
-        session_start();
-
-        //判断有没有身份验证，没有的话跳转到登陆界面
-        if(is_null(session('authed'))){
-            $this->redirect('partner/index/login');
-        }
-
-        $user_id = session('authed');
-
+        $user_id = check_user_msg();
 
         $User = new UserModel();
-        $Application = new ApplicationModel();
 
-        //获取我的下线的情况。
-//        $underlines = $User->where('parent_id='.$user_id)->select();
-//        $underline_data = array();
-////        $index = 0;
-//        foreach($underlines as $line){
-//            $applications = $Application->where('owner_id='.$line['id'])->select();
-//            $user_name = $line['user_name'];
-//            if($user_name != null){
-//                $underline_data[] =  array(
-//                    'user_name' => $user_name,
-//                    'date_of_process' => null,
-//                    'date_of_work' => $line['last_date_start_work'],
-//                    'status' => null
-//                );
-//            }
-//
-//        }
-//        $this->assign('underlines', $underline_data);
-
-
-        //获取佣金清单,分为未支付的清单和已支付的清单
-//        $result = $this->get_commission($user_id);
-//        $this->assign('unpayed_list', $result['unpayed']);
-//        $this->assign('payed_list', $result['payed']);
-//
-//        //获取佣金总额
-//        $unpayed_sum = 0;
-//        $payed_sum = 0;
-//        foreach($result['unpayed'] as $line){
-//            $unpayed_sum += $line['fee'];
-//        }
-//        foreach($result['payed'] as $line){
-//            $payed_sum += $line['fee'];
-//        }
-//        $this->assign('unpayed_sum', $unpayed_sum);
-//        $this->assign('payed_sum', $payed_sum);
-//
-//        $all_commission_unpayed = $this->get_all_commission_unpayed($user_id);
-//
-//        $unpayed_member_count = count($all_commission_unpayed);
-//        $this->assign('unpayed_member_count', $unpayed_member_count);
-//
-////        dump($unpayed_member_count);
-//        $this->assign('all_commission_unpayed', $all_commission_unpayed);
-
-        $user = $User->where('id='.$user_id)->field('user_name')->find();
+        $user = $User->get_user_info($user_id);
         $this->assign('user', $user);
 
         if($this->is_manager($user_id)){
@@ -194,7 +140,7 @@ class UsercenterController extends Controller{
         $selected_commission_ids = array_values($_GET);
         $result = array();
         $result[] = array("收款人, 手机, 银行名称,银行账号,应聘者,费用, 应付日期, 佣金编号, 是否已付（已付为1， 未付为0）");
-        if($this->is_manager($_SESSION['authed'])){
+        if($this->is_manager(check_user_msg())){
             foreach($selected_commission_ids as $id){
                 $result[] = $this->Commission->alias('c')->join('user u1 on c.owner_id=u1.id')->where('c.owner_id=user.id')->join('application a on a.id=c.application_id')
                     ->join('user u2 on u2.id=a.owner_id')
@@ -218,7 +164,7 @@ class UsercenterController extends Controller{
     //设置为已费用已支付
     function set_commission_payed(){
         session_start();
-        $user_id = $_SESSION['authed'];
+        $user_id = check_user_msg();
         $selected_commission_ids = $_POST['selected_commission_id'];
 
 
@@ -291,7 +237,7 @@ class UsercenterController extends Controller{
 
 //    生成佣金信息
      public function produce_commission($application_id){
-         if($this->is_manager($_SESSION['authed'])){
+         if($this->is_manager(check_user_msg())){
              //判断是否有上线
              $result = $this->Application->alias('a')->join('user u on a.owner_id = u.id')->field('parent_id, owner_id')->where('a.id='.$application_id)
                  ->find();
@@ -389,7 +335,7 @@ class UsercenterController extends Controller{
 
     function sign_application_status(){
         $result = array();
-        if($this->is_manager($_SESSION['authed'])){
+        if($this->is_manager(check_user_msg())){
             $application_id = $_GET['application_id'];
             $status = $_GET['status'];
             $data = array();
@@ -446,7 +392,7 @@ class UsercenterController extends Controller{
     }
 
     function user_info(){
-        $user_id = $_SESSION['authed'];
+        $user_id = check_user_msg();
         $user_info = $this->User->where('id='.$user_id)->find();
         $this->assign('user_info', $user_info);
         $this->display('partner:user_info');
@@ -468,7 +414,7 @@ class UsercenterController extends Controller{
         $data['bank'] = $bank;
         $data['bank_card_id'] = $bank_card_id;
 
-        $user_id = $_SESSION['authed'];
+        $user_id = check_user_msg();
         $this->User->where('id='.$user_id)->save($data);
 
         $result = [];
@@ -483,7 +429,7 @@ class UsercenterController extends Controller{
     }
 
     function my_application(){
-        $user_id = $_SESSION['authed'];
+        $user_id = check_user_msg();
         $applications = $this->Application->alias('a')->join('position p on a.position_id=p.id')->field('a.id as application_id, status, job, salary, date_of_create')
             ->where('owner_id='.$user_id)->order('a.id desc')->select();
 
@@ -494,7 +440,7 @@ class UsercenterController extends Controller{
 
     function application_detail(){
         $application_id = $_GET['id'];
-        $user_id = $_SESSION['authed'];
+        $user_id = check_user_msg();
 
         $result = $this->Application->alias('a')->join('user  u on u.id = a.owner_id')->join('position p on a.position_id = p.id')
             ->join('resume r on a.resume_id = r.id')->field('job, describe, experience, need, salary, date_of_create, a.status as status,
@@ -507,7 +453,7 @@ class UsercenterController extends Controller{
     }
 
     function my_under_line(){
-        $user_id = $_SESSION['authed'];
+        $user_id = check_user_msg();
 
         $my_recommend = $this->User->page(1, 10)->where('parent_id='.$user_id . ' and type=1')->field('user_name, telephone, recommend_date')->select();
 
@@ -530,7 +476,7 @@ class UsercenterController extends Controller{
     }
 
     function read_more_fans(){
-        $user_id = $_SESSION['authed'];
+        $user_id = check_user_msg();
         $page = $_GET['page'];
         $my_fans = $this->User->page($page, 10)->where('parent_id='.$user_id . ' and type=0')->field('user_name, telephone')->select();
 
@@ -544,7 +490,7 @@ class UsercenterController extends Controller{
     }
 
     function read_more_recommend(){
-        $user_id = $_SESSION['authed'];
+        $user_id = check_user_msg();
         $page = $_GET['page'];
         $my_recommend = $this->User->page($page, 10)->where('parent_id='.$user_id . ' and type=1')->field(' user_name, telephone, recommend_date')->select();
 
@@ -558,7 +504,7 @@ class UsercenterController extends Controller{
     }
 
     function my_commission(){
-        $user_id = $_SESSION['authed'];
+        $user_id = check_user_msg();
 //        $user_id = 85;
         $firs_pay_fees = $this->Commission->where('owner_id='. $user_id . ' and type=0 and status=0')->select();
         $second_pay_fees = $this->Commission->where('owner_id='. $user_id . ' and type=1 and status=0')->select();
@@ -655,8 +601,7 @@ class UsercenterController extends Controller{
 
 
     function commission_management(){
-        $user_id = $_SESSION['authed'];
-//        $user_id = 85;
+        $user_id = 139;
         $unpayed_fees = [];
 
         if($this->is_manager($user_id)){
@@ -672,9 +617,7 @@ class UsercenterController extends Controller{
                 if($date_out_of_work_time != null){
                     $date_during_work = ($date_out_of_work_time - $start_work_time)/3600/24;
                 }
-//                if($fee_info['type'] == 0 or ( $fee_info['type'] == 1 and $fee_info['authority_level'] != -1 and $date_count >= 30) or ( ($fee_info['type'] == 2 or  $fee_info['type'] == 3 )and $fee_info['authority_level'] == -1 and $date_during_work >= 30)){
-//                    $unpayed_fees[] = $fee_info;
-//                 }
+
                 if((($fee_info['type'] == 1 or $fee_info['type'] == 2 or  $fee_info['type'] == 3) and
                     (( $fee_info['authority_level'] != -1 and $date_count < 30) or ($fee_info['authority_level'] == -1 and $date_during_work < 30)))){
 
@@ -683,12 +626,121 @@ class UsercenterController extends Controller{
                 }
             }
 
-//            dump($unpayed_fees);
-//            dump($result);
-//            dump($this->Application->getDbError());
         }
         $this->assign('unpayed_fees', $unpayed_fees);
         $this->display('partner:commission_management');
+    }
+
+    public function user_management(){
+        //判断是否为超级管理员
+        check_manager();
+        //获取所有用户，最新的30名
+        $users = $this->User->get_users(1);
+        $this->assign('users', $users);
+        $display_more = 'none';
+        if($this->User->count() > 30){
+            $display_more = 'inline-block';
+        }
+        $this->assign('display_more', $display_more);
+
+        $this->display('partner:user_management');
+    }
+
+    public function manager_user_management(){
+        //判断是否为超级管理员
+        check_manager();
+        //获取所有管理员用户
+        $users = $this->User->get_managers();
+        $this->assign('users', $users);
+        $this->display('partner:manager_user_management');
+    }
+
+    //设置为普通用户
+    public function set_as_normal_user(){
+        check_manager();
+        $user_id = $_GET['user_id'];
+        $this->User->set_as_normal_user($user_id);
+        $error_msg = $this->User->getDbError();
+        $return = array();
+        if(empty($error_msg)){
+            $return['code'] = 200;
+        }else{
+            $return['code'] = 500;
+            $return['msg'] = $error_msg;
+        }
+
+        $this->ajaxReturn($return);
+    }
+
+    public function get_more_users(){
+        //判断是否为超级管理员
+        check_manager();
+        $page = $_GET['page'];
+        $users = $this->User->get_users($page);
+        $result_users = array();
+
+        //删减一下敏感信息
+        foreach($users as $user){
+            $result_users[] = array(
+                'id'            => $user['id'],
+                'header_url'    => $user['header_url'],
+                'user_name'     => $user['user_name'],
+                'telephone'     => $user['telephone'],
+            );
+        }
+
+        $user_count = $this->User->count();
+        $display_more = 'none';
+        if($user_count > 30 * $page){
+            $display_more = 'inline-block';
+        }
+
+        $result = array(
+            'display_more' => $display_more,
+            'users' => $result_users
+        );
+
+        $this->ajaxReturn($result);
+    }
+
+    public function set_as_manager(){
+        $user_id = $_GET['user_id'];
+        $passwd = $_GET['passwd'];
+
+        //检查是否为超级管理员
+        check_manager();
+        $this->User->set_as_manager($user_id, $passwd);
+        $error_msg = $this->User->getDbError();
+        $return = array();
+        if(empty($error_msg)){
+            $return['code'] = 200;
+        }else{
+            $return['code'] = 500;
+            $return['msg'] = $error_msg;
+        }
+
+        $this->ajaxReturn($return);
+    }
+
+    public function search_user(){
+        //判断是否为管理员
+        check_manager();
+
+        $search_text = $_GET['search_text'];
+        $users = $this->User->search_user($search_text);
+        $result_users = array();
+
+        //删减一下敏感信息
+        foreach($users as $user){
+            $result_users[] = array(
+                'id'            => $user['id'],
+                'header_url'    => $user['header_url'],
+                'user_name'     => $user['user_name'],
+                'telephone'     => $user['telephone'],
+            );
+        }
+
+        $this->ajaxReturn($result_users);
     }
 
 }//class end

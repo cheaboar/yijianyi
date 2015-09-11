@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>一家依-佣金管理</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Cache-Control" content="no-siteapp"/>
+    <script src="__STATIC__/js/jquery.min.js"></script>
+    <script src="__STATIC__/js/amazeui.min.js"></script>
+
+
+    <link rel="alternate icon" type="image/png" href="__STATIC__/img/logo.png">
+    <link rel="stylesheet" href="__STATIC__/css/amazeui.min.css"/>
+    <link rel="stylesheet" href="__STATIC__/css/style.css"/>
+</head>
+<body class="user-management-body">
+
+<header class="am-topbar">
+    <h1 class="am-topbar-brand">
+        <a href="#">用户管理</a>
+    </h1>
+
+    <button class="am-topbar-am-btn am-btn-success am-topbar-toggle am-am-btn am-btn-success am-am-btn am-btn-success-sm am-am-btn am-btn-success-success am-show-sm-only" data-am-collapse="{target: '#doc-topbar-collapse'}"><span class="am-sr-only">导航切换</span> <span class="am-icon-bars"></span></button>
+
+    <div class="am-collapse am-topbar-collapse" id="doc-topbar-collapse">
+        <ul class="am-nav am-nav-pills am-topbar-nav">
+            <li class="am-active"><a href="#">所有用户</a></li>
+            <li><a href="manager_user_management.html">管理者用户</a></li>
+
+        </ul>
+
+        <form class="am-topbar-form am-topbar-left am-form-inline" role="search">
+            <div class="am-form-group">
+                <input type="text" id="search-input" class="am-form-field am-input-sm" placeholder="搜索用户名或者手机">
+            </div>
+        </form>
+
+
+
+        <div class="am-topbar-right">
+            <button id="search-btn" class="am-am-btn am-btn-success am-am-btn am-btn-success-primary am-topbar-am-btn am-btn-success am-am-btn am-btn-success-sm">搜索</button>
+        </div>
+    </div>
+</header>
+
+
+<table class="am-table user-table">
+    <thead>
+    <tr>
+        <th>头像</th>
+        <th>名称</th>
+        <th>手机号码</th>
+        <th>操作</th>
+    </tr>
+    </thead>
+    <tbody id="tbody">
+        <volist name="users" id="vo">
+            <tr>
+                <td><img src="{$vo.header_url}" alt=""/></td>
+                <td>{$vo.user_name}</td>
+                <td>{$vo.telephone}</td>
+                <td><div class="am-btn am-btn-success set-btn"  user-id="{$vo.id}">设置为管理者</div></td>
+            </tr>
+        </volist>
+
+    </tbody>
+</table>
+    <div class="add-more-container">
+        <div class="am-btn am-btn-default" id="load-more" style="display: {$display_more}" data-page="2" >加载更多</div>
+    </div>
+
+    <div class="am-modal am-modal-confirm" tabindex="-1" id="my-confirm">
+        <div class="am-modal-dialog">
+            <div class="am-modal-hd">设置为管理员</div>
+            <div class="am-modal-bd">
+                输入新管理员密码: <input id="passwd" type="text"/>
+            </div>
+            <div class="am-modal-footer">
+                <span class="am-modal-btn" data-am-modal-cancel>取消</span>
+                <span class="am-modal-btn" data-am-modal-confirm>确定</span>
+            </div>
+        </div>
+    </div>
+
+<include file="public/footer"/>
+</body>
+
+<script>
+    var check_passwd = function(passwd){
+        if(passwd.length < 6){
+            return false;
+        }else{
+            return true;
+        }
+    }
+
+    $('.set-btn').on('click', function(){
+        $('#my-confirm').modal({
+            relatedTarget: this,
+            onConfirm: function(options) {
+                var target  = $(this.relatedTarget);
+                var user_id = target.attr('user-id');
+                var passwd  =  $('#passwd').val();
+                //判断passwd
+                if(check_passwd(passwd)){
+                    //发送请求
+                    $.ajax({
+                        url         :   'set_as_manager',
+                        data        :   {
+                            user_id     :   user_id,
+                            passwd      :   passwd
+                        },
+                        dataType    :   'json',
+                        success     :   function(data, status){
+                            if(data.code == 200){
+                                //设置成功，刷新
+                                alert('设置成功');
+                                window.location.href = '';
+                            }
+                        }
+                    });
+                }else{
+                    alert('密码最少6位');
+                }
+            },
+            onCancel: function() {
+
+            }
+        });
+    })
+
+    $('#load-more').on('click', function(){
+        $(this).html('正在加载');
+        var page = $(this).attr('data-page');
+
+        $.ajax({
+            url         :   'get_more_users',
+            data        :   {page:page},
+            dataType    :   'json',
+            success     :   function(data, status){
+
+                $('#load-more').html('加载更多');
+                $('#load-more').attr('data-page', page + 1);
+                if(data.display_more == 'none'){
+                    $('#load-more').hide();
+                }
+
+                console.log(data.users);
+                for(var index in data.users){
+                    var hmtl = '<tr>' +
+                                    '<td><img src=' +data.users[index].header_url + '" alt=""/></td>' +
+                                    '<td>' + data.users[index].user_name + '</td>' +
+                                    '<td>' + data.users[index].telephone + '</td>' +
+                                    '<td><div class="am-btn am-btn-success set-btn" user-id="' + data.users[index].id + '">设置为管理者</div></td>' +
+                                '</tr>'
+
+                    $('#tbody').append(hmtl);
+                }
+                $('.set-btn').on('click', function(){
+                    $('#my-confirm').modal({
+                        relatedTarget: this,
+                        onConfirm: function(options) {
+                            var target  = $(this.relatedTarget);
+                            var user_id = target.attr('user-id');
+                            var passwd  =  $('#passwd').val();
+                            //判断passwd
+                            if(check_passwd(passwd)){
+                                //发送请求
+                                $.ajax({
+                                    url         :   'set_as_manager',
+                                    data        :   {
+                                        user_id     :   user_id,
+                                        passwd      :   passwd
+                                    },
+                                    dataType    :   'json',
+                                    success     :   function(data, status){
+                                        if(data.code == 200){
+                                            //设置成功，刷新
+                                            alert('设置成功');
+                                            window.location.href = '';
+                                        }
+                                    }
+                                });
+                            }else{
+                                alert('密码最少6位');
+                            }
+                        },
+                        onCancel: function() {
+
+                        }
+                    });
+                })
+
+            }
+        });
+    })
+
+    //搜索
+    $('#search-btn').on('click', function(){
+        var search_text = $('#search-input').val();
+        $(this).html('正在搜索');
+        $.ajax({
+            url         :   'search_user',
+            data        :   {
+                search_text : search_text
+            },
+            dataType    :   'json',
+            success     :   function(data, status){
+                $('#search-btn').html('搜索');
+                var html = '';
+                for(var index in data){
+                    html += '<tr>' +
+                            '<td><img src=' + data[index].header_url + '" alt=""/></td>' +
+                            '<td>' + data[index].user_name + '</td>' +
+                            '<td>' + data[index].telephone + '</td>' +
+                            '<td><div class="am-btn am-btn-success set-btn" user-id="' + data[index].id + '">设置为管理者</div></td>' +
+                            '</tr>'
+                }
+                $('#tbody').html(html);
+                $('.set-btn').on('click', function(){
+                    $('#my-confirm').modal({
+                        relatedTarget: this,
+                        onConfirm: function(options) {
+                            var target  = $(this.relatedTarget);
+                            var user_id = target.attr('user-id');
+                            var passwd  =  $('#passwd').val();
+                            //判断passwd
+                            if(check_passwd(passwd)){
+                                //发送请求
+                                $.ajax({
+                                    url         :   'set_as_manager',
+                                    data        :   {
+                                        user_id     :   user_id,
+                                        passwd      :   passwd
+                                    },
+                                    dataType    :   'json',
+                                    success     :   function(data, status){
+                                        if(data.code == 200){
+                                            //设置成功，刷新
+                                            alert('设置成功');
+                                            window.location.href = '';
+                                        }
+                                    }
+                                });
+                            }else{
+                                alert('密码最少6位');
+                            }
+                        },
+                        onCancel: function() {
+
+                        }
+                    });
+                })
+            }
+        });
+    })
+</script>
+
+</html>

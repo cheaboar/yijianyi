@@ -14,6 +14,7 @@ class LoginModel extends Model {
     public function add_user_msg($data){
         $condition['openid']        = $data['openid'] ;
         $condition['nickname']      = $data['nickname'];
+        $condition['user_name']      = $data['nickname'];
         $condition['header_url']    = $data['headimgurl'];
         $res = $this->data($condition)->add();
         return $res;

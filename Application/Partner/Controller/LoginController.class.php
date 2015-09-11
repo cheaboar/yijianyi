@@ -128,4 +128,25 @@ class LoginController extends Controller {
         } 
         $this->ajaxReturn($data);
     }
+
+
+    public function login(){
+        $this->display('partner:login');
+    }
+
+    public function login_validate(){
+        $condition['user_name|telephone'] = I('param.phone');
+        $condition['passwd']	          = I('param.password');
+        session('getsession');
+        $res = M('user','yijiayi.')->where($condition)->find();
+
+        session_start();
+        if(!empty($res)){
+            $_SESSION['authed'] = $res['id'];//session设置
+            $data['msg']  = "ok";
+        }else{
+            $data['msg']  = "false";
+        }
+        $this->ajaxReturn($data);
+    }
 }

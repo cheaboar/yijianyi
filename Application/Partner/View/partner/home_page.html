@@ -21,16 +21,16 @@
     <div class="container-header">
         <div class="container-header-user">
             <a href="/admin/usercenter/user_info">
-                <img class="am-circle" src="__STATIC_IMG__/head_image.jpg">
+                <img class="am-circle" src="{$user.header_url}">
             </a>
 
 
         </div>
-        <div class="container-header-text">{$user.user_name}</div>
+        <div class="container-header-text">{$user.nickname}</div>
     </div>
     <div class="container-context">
         <div class="context-line">
-            <a href="/admin/usercenter/my_under_line">
+            <a href="/partner/usercenter/my_under_line">
             <div class="am-u-sm-1 coral-color"><span class="am-icon-users"></span></div>
             <div class="am-u-sm-10">
                 <div>我的推荐</div>
@@ -42,7 +42,7 @@
         </div>
 
         <div class="context-line" >
-            <a href="/admin/usercenter/my_application">
+            <a href="/partner/usercenter/my_application">
                 <div class="am-u-sm-1"><span class="am-icon-file-text"></span></div>
                 <div class="am-u-sm-10">
                     <div>我的职位申请</div>
@@ -54,7 +54,7 @@
 
 
         <div class="context-line">
-            <a href="/admin/usercenter/my_commission">
+            <a href="/partner/usercenter/my_commission">
                 <div class="am-u-sm-1 success-color"><span class="am-icon-yen"></span></div>
                 <div class="am-u-sm-10">
                     <div>我的钱包</div>
@@ -64,7 +64,7 @@
         </div>
         <div class="context-line"  style="display: {$see_all_commission}">
             <div class="am-u-sm-1" ><span class="am-icon-yen"></span></div>
-            <a href="/admin/usercenter/commission_management">
+            <a href="/partner/usercenter/commission_management">
                 <div class="am-u-sm-10">
                     <div>应付佣金</div>
                 </div>
@@ -73,7 +73,7 @@
 
         </div>
         <div class="context-line" style="display: {$see_all_application}">
-            <a href="/admin/usercenter/application_management">
+            <a href="/partner/usercenter/application_management">
                 <div class="am-u-sm-1"><span class="am-icon-list"></span></div>
                 <div class="am-u-sm-10">
                     <div>应聘信息</div>
@@ -83,7 +83,7 @@
 
         </div>
         <div class="context-line" style="display:{$see_public_job}">
-            <a href="/admin/job/publish">
+            <a href="/partner/job/publish">
                 <div class="am-u-sm-1"><span class="am-icon-plus"></span></div>
                 <div class="am-u-sm-10">
                     <div>发布招聘信息</div>
@@ -95,15 +95,26 @@
 
 
         <div class="context-line">
-            <a href="/admin/usercenter/user_info">
+            <a href="/partner/usercenter/user_info">
                 <div class="am-u-sm-1"><span class="am-icon-info"></span></div>
                 <div class="am-u-sm-10">
                     <div>我的资料</div>
                 </div>
                 <div class="am-u-sm-1"><span class="am-icon-angle-right"></span></div>
             </a>
-
         </div>
+
+        <div class="context-line"  style="display: {$see_all_commission}">
+            <div class="am-u-sm-1" ><span class="am-icon-user"></span></div>
+            <a href="/partner/usercenter/user_management">
+                <div class="am-u-sm-10">
+                    <div>用户管理</div>
+                </div>
+                <div class="am-u-sm-1" ><span class="am-icon-angle-right"></span></div>
+            </a>
+        </div>
+
+
 
         <div class="context-line-bottom">
             <div class="log-out">
@@ -129,13 +140,13 @@
         <!--</li>-->
 
         <!--<li>-->
-            <!--<a href="/admin/job/index" class="">-->
+            <!--<a href="/partner/job/index" class="">-->
                 <!--<span class="am-icon-briefcase"></span>-->
                 <!--<span class="am-navbar-label">职位</span>-->
             <!--</a>-->
         <!--</li>-->
         <!--<li>-->
-            <!--<a href="/admin/usercenter/user_center/user_name" class="">-->
+            <!--<a href="/partner/usercenter/user_center/user_name" class="">-->
                 <!--<span class="am-icon-user"></span>-->
                 <!--<span class="am-navbar-label">我</span>-->
             <!--</a>-->
@@ -484,7 +495,7 @@
         $('#log-out').modal({
             relatedTarget: this,
             onConfirm: function(options) {
-                window.location.href = '/admin/job/outlogin'
+                window.location.href = '/partner/job/outlogin'
                 console.log('log-out');
             },
             onCancel: function() {

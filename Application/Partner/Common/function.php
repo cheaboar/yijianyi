@@ -192,4 +192,20 @@ function check_user_msg(){
             $_SESSION['authed'] = $checkUser['id'];
         }
     }
+
+    return $_SESSION['authed'];
 }
+
+function check_manager(){
+    $user_id = $_SESSION['authed'];
+    $userM = new \Partner\Model\UserModel();
+
+    $is_manager = $userM->is_manager($user_id);
+
+    if($is_manager){
+        return true;
+    }else{
+        redirect('/partner/login/login');
+    }
+}
+

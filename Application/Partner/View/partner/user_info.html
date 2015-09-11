@@ -24,9 +24,9 @@
                         <div class="user-info-line">
                             姓名：<span id="name-label">{$user_info.user_name}</span>
                         </div>
-                        <div class="user-info-line">
-                            身份证号码：<span id="ID-label">{$user_info.certification_id}</span>
-                        </div>
+                        <!--<div class="user-info-line">-->
+                            <!--身份证号码：<span id="ID-label">{$user_info.certification_id}</span>-->
+                        <!--</div>-->
                         <div class="user-info-line">
                             手机号码：<span id="tel-label">{$user_info.telephone}</span>
                         </div>
@@ -56,9 +56,9 @@
                         <div class="user-info-line">
                             姓名：<input type="text" name="name" value="{$user_info.user_name}" >
                         </div>
-                        <div class="user-info-line">
-                            身份证号码：<input type="text" name="ID"  value="{$user_info.certification_id}">
-                        </div>
+                        <!--<div class="user-info-line">-->
+                            <!--身份证号码：<input type="text" name="ID"  value="{$user_info.certification_id}">-->
+                        <!--</div>-->
                         <div class="user-info-line">
                             手机号码：<input type="text" name="tel"  value="{$user_info.telephone}">
                         </div>
@@ -116,7 +116,7 @@
                             $('.u-scroll-edit').removeClass('u-scroll-edit').addClass('u-scroll');
                             $('#name-label').html(name);
                             $('#tel-label').html(tel);
-                            $('#ID-label').html(ID);
+//                            $('#ID-label').html(ID);
                             $('#bank-label').html(bank);
                             $('#bank-card-id-label').html(bank_card_id);
                             $('#email-label').html(email);
