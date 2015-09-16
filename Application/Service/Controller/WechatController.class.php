@@ -627,13 +627,16 @@ class WechatController extends Controller {
     }
 
     public function test(){
-        $data = array(
-            'first' => '您好，您的服务订单已完成。请您对我们的服务作出评价。',
-            'keyword1' => 'dds',
-            'keyword2' => date('Y-m-d H:i:s', time()),
-            'remark' => '感谢您的支持，我们将会做得更好，提供更优质地服务!'
-        );
-        templateSend('o2DIYuBqdKzF316FXZxZZc2tjsM0', 'In11qPyTxu9yapDLbIwx_hSQL2bIMHlPJOEQidmN2FU', '', $data);
+        $name = '12';
+        $phone = '13650908758';
+//        $notify_workers = C('APPOINTMENT_NOTIFY_WORKERS');
+//        $tmp_value_worker = '#n_1#='.$name . '&#n_2#=' .$phone . '&#n_3#='. '232';
+//        $tmp_id_worker = '859021';
+//        $yunpian = new YunPian();
+//        foreach($notify_workers as $worker){
+//            $restul = $yunpian->tpl_send_sms(C('YUNPIAN.APIKEY'),  $tmp_id_worker, $tmp_value_worker, $worker);
+//            dump($restul);
+//        }
 //        dump($this->service_appointment->get_my_appointments(103));
 
         layout('Layout/layout');
@@ -1554,6 +1557,14 @@ class WechatController extends Controller {
             $yunpian = new YunPian();
             $yunpian->tpl_send_sms(C('YUNPIAN.APIKEY'),  $tmp_id, $tmp_value, $phone);
 
+//            短信通知工作人员
+            $notify_workers = C('APPOINTMENT_NOTIFY_WORKERS');
+            $tmp_value_worker = '#n_1#='.$name . '&#n_2#=' .$phone . '&#n_3#='. $now;
+            $tmp_id_worker = '859021';
+            foreach($notify_workers as $worker){
+                $yunpian->tpl_send_sms(C('YUNPIAN.APIKEY'),  $tmp_id_worker, $tmp_value_worker, $worker);
+            }
+
             $result['id'] = $id;
         }else{
             $result['code'] = 500;
@@ -1609,6 +1620,13 @@ class WechatController extends Controller {
             $tmp_id = '936939';
             $yunpian = new YunPian();
             $yunpian->tpl_send_sms(C('YUNPIAN.APIKEY'),  $tmp_id, $tmp_value, $phone);
+//            短信通知工作人员
+            $notify_workers = C('APPOINTMENT_NOTIFY_WORKERS');
+            $tmp_value_worker = '#n_1#='.$name . '&#n_2#=' .$phone . '&#n_3#='. $now;
+            $tmp_id_worker = '859021';
+            foreach($notify_workers as $worker){
+                $yunpian->tpl_send_sms(C('YUNPIAN.APIKEY'),  $tmp_id_worker, $tmp_value_worker, $worker);
+            }
 
             $result['id'] = $id;
         }else{

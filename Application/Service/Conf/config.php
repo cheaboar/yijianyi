@@ -205,6 +205,10 @@ return array(
         '2' => '员工投诉'
     ),
 
+    'APPOINTMENT_NOTIFY_WORKERS'  => array(
+        '13433993750',
+    ),
+
     'URL_ROUTE_RULES' =>array(
 //        'service_info' => 'Service/Index/service_info'
 
