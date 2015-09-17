@@ -629,13 +629,13 @@ class WechatController extends Controller {
     public function test(){
         $name = '12';
         $phone = '13650908758';
-//        $notify_workers = C('APPOINTMENT_NOTIFY_WORKERS');
-//        $tmp_value_worker = '#n_1#='.$name . '&#n_2#=' .$phone . '&#n_3#='. '232';
-//        $tmp_id_worker = '859021';
 //        $yunpian = new YunPian();
+//        $notify_workers = C('APPOINTMENT_NOTIFY_WORKERS');
+//        $tmp_value_worker = '#n_1#='.$name . '&#n_2#=' .$phone . '&#n_3#='. '2015-1-23';
+//        $tmp_id_worker = '859021';
 //        foreach($notify_workers as $worker){
-//            $restul = $yunpian->tpl_send_sms(C('YUNPIAN.APIKEY'),  $tmp_id_worker, $tmp_value_worker, $worker);
-//            dump($restul);
+//            $result = $yunpian->tpl_send_sms(C('YUNPIAN.APIKEY'),  $tmp_id_worker, $tmp_value_worker, $worker);
+//            dump($result);
 //        }
 //        dump($this->service_appointment->get_my_appointments(103));
 
