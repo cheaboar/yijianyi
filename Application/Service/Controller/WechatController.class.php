@@ -627,16 +627,13 @@ class WechatController extends Controller {
     }
 
     public function test(){
-        $name = '12';
-        $phone = '13650908758';
-//        $yunpian = new YunPian();
-//        $notify_workers = C('APPOINTMENT_NOTIFY_WORKERS');
-//        $tmp_value_worker = '#n_1#='.$name . '&#n_2#=' .$phone . '&#n_3#='. '2015-1-23';
-//        $tmp_id_worker = '859021';
-//        foreach($notify_workers as $worker){
-//            $result = $yunpian->tpl_send_sms(C('YUNPIAN.APIKEY'),  $tmp_id_worker, $tmp_value_worker, $worker);
-//            dump($result);
-//        }
+        $data = array(
+            'first' => '您好，您的服务订单已完成。请您对我们的服务作出评价。',
+            'keyword1' => 'dds',
+            'keyword2' => date('Y-m-d H:i:s', time()),
+            'remark' => '感谢您的支持，我们将会做得更好，提供更优质地服务!'
+        );
+        templateSend('o2DIYuBqdKzF316FXZxZZc2tjsM0', 'In11qPyTxu9yapDLbIwx_hSQL2bIMHlPJOEQidmN2FU', '', $data);
 //        dump($this->service_appointment->get_my_appointments(103));
 
         layout('Layout/layout');
@@ -1314,6 +1311,12 @@ class WechatController extends Controller {
         $this->display('home_page');
     }
 
+    public function recovery_page(){
+        layout('Layout/new_layout');
+
+        $this->display('recovery_page');
+    }
+
     //健康管理、需要验证查看者身份
     public function customer_detail(){
         layout('Layout/new_layout');
@@ -1354,6 +1357,12 @@ class WechatController extends Controller {
         layout('Layout/new_layout');
 
         $this->display('Service:home_care');
+    }
+
+    public function recovery_care(){
+        layout('Layout/new_layout');
+
+        $this->display('Service:recovery_care');
     }
 
     public function service_evaluation(){
@@ -1557,14 +1566,6 @@ class WechatController extends Controller {
             $yunpian = new YunPian();
             $yunpian->tpl_send_sms(C('YUNPIAN.APIKEY'),  $tmp_id, $tmp_value, $phone);
 
-//            短信通知工作人员
-            $notify_workers = C('APPOINTMENT_NOTIFY_WORKERS');
-            $tmp_value_worker = '#n_1#='.$name . '&#n_2#=' .$phone . '&#n_3#='. $now;
-            $tmp_id_worker = '859021';
-            foreach($notify_workers as $worker){
-                $yunpian->tpl_send_sms(C('YUNPIAN.APIKEY'),  $tmp_id_worker, $tmp_value_worker, $worker);
-            }
-
             $result['id'] = $id;
         }else{
             $result['code'] = 500;
@@ -1620,13 +1621,6 @@ class WechatController extends Controller {
             $tmp_id = '936939';
             $yunpian = new YunPian();
             $yunpian->tpl_send_sms(C('YUNPIAN.APIKEY'),  $tmp_id, $tmp_value, $phone);
-//            短信通知工作人员
-            $notify_workers = C('APPOINTMENT_NOTIFY_WORKERS');
-            $tmp_value_worker = '#n_1#='.$name . '&#n_2#=' .$phone . '&#n_3#='. $now;
-            $tmp_id_worker = '859021';
-            foreach($notify_workers as $worker){
-                $yunpian->tpl_send_sms(C('YUNPIAN.APIKEY'),  $tmp_id_worker, $tmp_value_worker, $worker);
-            }
 
             $result['id'] = $id;
         }else{
